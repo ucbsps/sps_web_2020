@@ -16,6 +16,7 @@ class AnalyticsMiddleware:
         except mariadb.Error as e:
             print('Error connecting to database: {}'.format(e))
 
+            self.db_conn = None
             self.db_connected = False
 
         return

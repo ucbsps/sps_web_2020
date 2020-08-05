@@ -15,13 +15,12 @@ SECRET_KEY = secrets.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sps.berkeley.edu', 'www.sps.berkeley.edu',
+ALLOWED_HOSTS = ['sps.berkeley.edu', 'www.sps.berkeley.edu', 'localhost', '127.0.0.1',
                  '192.168.122.222', 'carterturn.com']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -110,3 +109,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = ['sps_web_2020/static']
