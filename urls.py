@@ -12,7 +12,7 @@ register_converter(url_date_converter, 'isodate')
 urlpatterns = [
     path('', load_index, name='index'),
     re_path(r'^(about_us)$', load_static_page, name='static_about_us'),
-    path('(faq)', load_static_page, name='static_faq'),
+    re_path(r'^(faq)$', load_static_page, name='static_faq'),
     re_path(r'^(partners)$', load_static_page, name='static_partners'),
     path('officers', load_officers, name='officers'),
     re_path(r'^(snack_shack)$', load_static_page, name='static_snack_shack'),
