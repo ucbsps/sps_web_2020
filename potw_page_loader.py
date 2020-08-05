@@ -6,6 +6,7 @@ from datetime import date
 import mariadb
 
 from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
+from error_handler import error_500
 from file_util import IMAGE_EXTS
 
 def get_potw_dates():
@@ -126,6 +127,9 @@ def load_potw(request, date):
 def load_potw_current(request):
 
     potw_data = get_latest_potw_data()
+
+    if potw_data == None:
+        return error_500(request)
 
     past_problems = [[problem['start_date'].isoformat(), problem['end_date'].isoformat()]
                      for problem in get_potw_dates()]
