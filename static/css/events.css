@@ -1,0 +1,45 @@
+@import "color.css";
+
+div.event {
+	width: 100%;
+	display: flex;
+}
+
+div.event-image {
+	width: 20%;
+	float: left;
+	padding: 1%;
+	margin: 1%;
+	background-color: var(--lawrence);
+}
+
+div.event-image img {
+	width: 98%;
+	padding: 1%;
+}
+
+div.event-content {
+	width: 50%;
+	float: left;
+	padding: 1%;
+	margin: 1%;
+	background-color: var(--sather-gate);
+}
+
+div.event-location {
+	width: 20%;
+	float: left;
+	padding: 1%;
+	margin: 1%;
+	background-color: var(--california-gold);
+}
+
+@media(max-width: 1000px){
+	div.event-content {
+		width: 50%;
+	}
+
+	div.event-location {
+		width: 50%;
+	}
+}

@@ -1,0 +1,127 @@
+<html>
+    <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{{ title }}</title>
+        {% load static %}
+		<link rel="stylesheet" href="{% static "/css/root.css" %}" />
+		<link rel="stylesheet" href="{% static "/css/nav.css" %}" />
+
+		<script src="{% static "/jquery-3.5.1.slim.min.js" %}"></script>
+    </head>
+    <body>
+		<div id="header" class="header">
+			<div id="nav">
+				<ul class="nav">
+					<a href="/" class="nav-link"><li class="nav-item">Home</li></a>
+					<li class="nav-item nav-dropdown">
+						About Us
+
+						<ul>
+							<a href="/about_us" class="nav-link">
+								<li class="nav-dropdown-item">About Us</li>
+							</a>
+							<a href="/faq" class="nav-link">
+								<li class="nav-dropdown-item">FAQ</li>
+							</a>
+							<a href="/partners" class="nav-link">
+								<li class="nav-dropdown-item">Partner Organizations</li>
+							</a>
+							<a href="/officers" class="nav-link">
+								<li class="nav-dropdown-item">Officers</li>
+							</a>
+							<a href="/snack_shack" class="nav-link">
+								<li class="nav-dropdown-item">Snack Shack</li>
+							</a>
+						</ul>
+					</li>
+					<li class="nav-item nav-dropdown">
+						Events
+
+						<ul>
+							<a href="/events" class="nav-link">
+								<li class="nav-dropdown-item">Upcoming</li>
+							</a>
+							<a href="/events/archive" class="nav-link">
+								<li class="nav-dropdown-item">Archive</li>
+							</a>
+							<a href="/events/outreach" class="nav-link">
+								<li class="nav-dropdown-item">Outreach</li>
+							</a>
+							<a href="/events/fsl" class="nav-link">
+								<li class="nav-dropdown-item">Faculty-Student Lunches</li>
+							</a>
+							<a href="/events/ugs" class="nav-link">
+								<li class="nav-dropdown-item">Undergraduate Seminars</li>
+							</a>
+							<a href="/events/bbq" class="nav-link">
+								<li class="nav-dropdown-item">Barbecues</li>
+							</a>
+						</ul>
+					</li>
+					<li class="nav-item nav-dropdown">
+						Competitions
+
+						<ul>
+							<a href="/potw" class="nav-link">
+								<li class="nav-dropdown-item">Problem of the Week</li>
+							</a>
+							<a href="/ipt" class="nav-link">
+								<li class="nav-dropdown-item">International Physics Tournament</li>
+							</a>
+							<a href="/bpt" class="nav-link">
+								<li class="nav-dropdown-item">Berkeley Physics Tournament</li>
+							</a>
+						</ul>
+					</li>
+					<li class="nav-item nav-dropdown">
+						Committees
+
+						<ul>
+							<a href="/committee/projects" class="nav-link">
+								<li class="nav-dropdown-item">Projects</li>
+							</a>
+							<a href="/committee/outreach" class="nav-link">
+								<li class="nav-dropdown-item">Outreach</li>
+							</a>
+							<a href="/committee/website" class="nav-link">
+								<li class="nav-dropdown-item">Web Development</li>
+							</a>
+						</ul>
+					</li>
+					<a href="/wiki/index.php" class="nav-link"><li class="nav-item">Wiki</li></a>
+				</ul>
+			</div>
+		</div>
+		
+        <div id="content" class="content">
+			{% autoescape off %}
+			{{ content }}
+			{% endautoescape %}
+        </div>
+
+		<div id="footer" class="footer">
+			<div class="copyright">
+				<p class="copyright">
+					© Society of Physics Students at the University of California, Berkeley.
+					All rights reserved.
+					<br>
+					For website feedback, please contact our <a href="officers#webmaster">web master</a>.
+				</p>
+			</div>
+			<div class="ocf_banner">
+				<a href="https://www.ocf.berkeley.edu">
+					<img src="https://www.ocf.berkeley.edu/hosting-logos/ocf-hosted-penguin.svg"
+						 alt="Hosted by the OCF" />
+				</a>
+			</div>
+		</div>
+    </body>
+	<script>
+	 if(window.innerWidth > 1000){
+		 img_str = '<img id="header-img" class="header" src="{% static "/images/spslogo.svg" %}" />';
+		 $("#header").prepend($(img_str))
+		 $("#nav").css("width", "50%");
+	 }
+	</script>
+</html>

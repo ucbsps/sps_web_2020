@@ -1,0 +1,58 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "/css/events.css" %}" />
+
+<h1 class="content-header">Upcoming {{ category }} Events</h1>
+
+<div class="event-list">
+	{% for event in upcoming_events %}
+	<div class="event">
+		<div class="event-image">
+			{% if event.img_path %}
+			<img src="{{ event.img_path }}"/>
+			{% endif %}
+		</div>
+		<div class="event-content">
+			<h3>{% autoescape on %} {{ event.title }} {% endautoescape %}</h3>
+			<p>{% autoescape off %} {{ event.description }} {% endautoescape %}</p>
+		</div>
+		<div class="event-location">
+			<p>{% autoescape on %} {{ event.start_time }} {% endautoescape %}</p>
+			<p>{% autoescape on %} {{ event.end_time }} {% endautoescape %}</p>
+			{% if event.location %}
+			<p>{% autoescape on %} {{ event.location }} {% endautoescape %}</p>
+			{% endif %}
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+<h1 class="content-header">Past {{ category }} Events</h1>
+
+<div class="event-list">
+	{% for event in past_events %}
+	<div class="event">
+		<div class="event-image">
+			{% if event.img_path %}
+			<img src="{{ event.img_path }}"/>
+			{% endif %}
+		</div>
+		<div class="event-content">
+			<h3>{% autoescape on %} {{ event.title }} {% endautoescape %}</h3>
+			<p>{% autoescape off %} {{ event.description }} {% endautoescape %}</p>
+		</div>
+		<div class="event-location">
+			<p>{% autoescape on %} {{ event.start_time }} {% endautoescape %}</p>
+			<p>{% autoescape on %} {{ event.end_time }} {% endautoescape %}</p>
+			{% if event.location %}
+			<p>{% autoescape on %} {{ event.location }} {% endautoescape %}</p>
+			{% endif %}
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+<script>
+ if(window.innerWidth < 1000){
+	 $(".event-image").hide()
+ }
+</script>

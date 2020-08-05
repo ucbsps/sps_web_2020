@@ -1,0 +1,36 @@
+<meta name="sps:title" content="Current POTW" />
+
+<h1 class="content-header">Current Problem of the Week</h1>
+
+<p class="content-large">
+	{{ problem_description }}
+</p>
+{% if linked_problem %}
+<p class="content-large">
+	See <a href="{{ linked_problem }}">here</a>.
+</p>
+{% endif %}
+
+<h1 class="content-header">What is Problem of the Week?</h1>
+
+<p class="content-large">
+	<b>Problem of the weeks</b> are problems that will be shown on the SPS website from Saturday morning to Friday night. It is meant to be done at your leisure time and done out of curiosity and not out of obligation. The winner will have a chance for their image and bio to be shown on this website.
+</p>
+<p class="content-large">
+	If you think you solved the problem, please email ucbsps “at” gmail “dot” com with the subject line “Problem of The Week. Show some work!
+</p>
+<p class="content-large">
+	You can also contact us if you have problem suggestions. Fill out <a href="https://docs.google.com/forms/d/e/1FAIpQLSfcLklKmNySO3-I7ikC2qA0DKNU_QYSz3PSkyf7jkOZV8nfEw/viewform">this form</a> with the problem, steps, and the solution. It must be original, unique, and not easily searchable on the internet.
+</p>
+
+<h1 class="content-header">Past Problem of the Weeks</h1>
+
+{% if past_problems %}
+<ul class="content">
+	{% for start_date, end_date in past_problems %}
+	<li><a href="/potw/{{ start_date }}">{{ start_date }} to {{ end_date }}</a></li>
+	{% endfor %}
+</ul>
+{% endif %}
+
+<p class="content"><a href="/potw">Current Problem of the Week</a></p>

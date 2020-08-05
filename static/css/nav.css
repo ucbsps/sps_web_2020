@@ -1,0 +1,66 @@
+@import "color.css";
+
+div#nav {
+	width: 100%;
+	float: right;
+}
+
+ul.nav {
+	list-style: none;
+	position: relative;
+}
+
+li.nav-item {
+	float: left;
+	margin: 0%;
+	padding: 1%;
+	text-decoration: none;
+	color: var(--text-primary);
+	background-color: var(--background);
+}
+
+li.nav-item:hover{
+	color: var(--california-gold);
+	background-color: var(--berkeley-blue);
+}
+
+a.nav-link {
+	text-decoration: none;
+	color: var(--text-primary);
+	background-color: var(--background);
+}
+
+a.nav-link:hover {
+	color: var(--california-gold);
+	background-color: var(--berkeley-blue);
+}
+
+li.nav-dropdown ul {
+	list-style: none;
+	display: none;
+	position: absolute;
+	padding: 1%;
+	margin: 0%;
+	margin-left: -2%;
+	margin-right: 2%;
+}
+
+li.nav-dropdown:hover > ul {
+	display: block;
+}
+
+li.nav-dropdown:on_click > ul {
+	display: block;
+}
+
+li.nav-dropdown-item {
+	padding: 1em;
+	text-decoration: none;
+	color: var(--text-primary);
+	background-color: var(--background);
+}
+
+li.nav-dropdown-item:hover {
+	color: var(--california-gold);
+	background-color: var(--berkeley-blue);
+}

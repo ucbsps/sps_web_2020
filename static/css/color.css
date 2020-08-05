@@ -1,0 +1,12 @@
+:root {
+	--berkeley-blue: #003262;
+	--founders-rock: #3B7EA1;
+	--california-gold: #FDB515;
+	--medalist: #C4820E;
+	--lawrence: #00B0DA;
+	--sather-gate: #B9D3B6;
+	--grey: #EEEEEE;
+
+	--background: var(--grey);
+	--text-primary: var(--berkeley-blue);
+}
