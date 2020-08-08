@@ -1,13 +1,10 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string, TemplateDoesNotExist
 
 import mariadb
-import xml.etree.ElementTree as ET
 
 from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
 
-from settings import CONTENT_DIR
 from error_handler import error_500
 
 def get_tag_title(tag):

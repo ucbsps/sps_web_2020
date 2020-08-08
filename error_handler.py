@@ -1,10 +1,5 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
-
-import xml.etree.ElementTree as ET
-
-from settings import CONTENT_DIR
 
 def error_404(request, *args, **argv):
     content = render_to_string('error_404.html', {'page_name': request.path})
