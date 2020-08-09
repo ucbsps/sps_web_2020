@@ -1,3 +1,7 @@
+"""
+Script to load all images in the static folder into the images table of the database.
+"""
+
 import mariadb
 import os
 
