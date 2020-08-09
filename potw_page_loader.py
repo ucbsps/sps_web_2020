@@ -1,3 +1,14 @@
+"""
+Django views for problem of the week and functions supporting those views
+
+get_potw_dates -- return a list of start date and end date pairs for POTW
+get_latest_potw_data -- return information on the latest POTW
+get_potw_data -- return information on a specific POTW
+link_html -- return HTML for embedding an image, embedding a PDF, or linking to something else
+load_potw -- render the POTW page for a specific date (used for past POTW)
+load_potw_current -- return the POTW page for the latest POTW
+"""
+
 from django.shortcuts import render
 from django.template.loader import render_to_string, TemplateDoesNotExist
 
@@ -10,6 +21,7 @@ from error_handler import error_500
 from file_util import IMAGE_EXTS
 
 def get_potw_dates():
+    """Return a list of start date and end date pairs for POTWs in the database."""
 
     try:
         db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
@@ -31,6 +43,11 @@ def get_potw_dates():
     return None
 
 def get_latest_potw_data():
+    """Return information on the latest POTW.
+
+    Return value is a dictionary with parameters 'start_date', 'end_date', 'problem',
+    'linked_problem', 'solution', and 'linked_solution', with datatypes from the MariaDB connector.
+    """
 
     try:
         db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
@@ -55,6 +72,11 @@ def get_latest_potw_data():
     return None
 
 def get_potw_data(date):
+    """Return information on the POTW for given date.
+
+    Return value is a dictionary with parameters 'start_date', 'end_date', 'problem',
+    'linked_problem', 'solution', and 'linked_solution', with datatypes from the MariaDB connector.
+    """
 
     try:
         db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
@@ -80,6 +102,8 @@ def get_potw_data(date):
     return None
 
 def link_html(file):
+    """Return HTML for embedding an image or PDF or linking other filetypes."""
+
     if file == None:
         return None
 
@@ -97,6 +121,7 @@ def link_html(file):
         return '<a href="{}">See here.</a>'.format(file)
 
 def load_potw(request, date):
+    """Return the rendered POTW for a specific past date (includes solution)."""
 
     if date > date.today():
         return load_potw_current(request)
@@ -125,6 +150,7 @@ def load_potw(request, date):
     return render(request, 'root.html', {'title': 'POTW for {}'.format(date), 'content': content})
 
 def load_potw_current(request):
+    """Return the latest rendered POTW (does not include solution)."""
 
     potw_data = get_latest_potw_data()
 
