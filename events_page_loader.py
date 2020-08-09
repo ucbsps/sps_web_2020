@@ -1,5 +1,5 @@
 """
-Django views for events
+Django views for events and functions supporting those views
 
 get_tag_title -- maps tags (all lowercase) to nicely formatted strings
 get_events -- retrieves events from the database
