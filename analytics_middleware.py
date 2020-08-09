@@ -29,22 +29,22 @@ class AnalyticsMiddleware:
         cur = self.db_conn.cursor()
 
         path_id = db_util.load_set_id(cur, 'web2020_pages', 'page_path', path)
-        if path_id == None:
+        if path_id is None:
             self.reload_db()
             return
 
         referer_id = db_util.load_set_id(cur, 'web2020_referers', 'referer', referer)
-        if referer_id == None:
+        if referer_id is None:
             self.reload_db()
             return
 
         remote_addr_id = db_util.load_set_id(cur, 'web2020_remote_addrs', 'remote_addr', remote_addr)
-        if remote_addr_id == None:
+        if remote_addr_id is None:
             self.reload_db()
             return
 
         user_agent_id = db_util.load_set_id(cur, 'web2020_user_agents', 'user_agent', user_agent)
-        if user_agent_id == None:
+        if user_agent_id is None:
             self.reload_db()
             return
 
@@ -62,7 +62,8 @@ class AnalyticsMiddleware:
 
     def reload_db(self):
 
-        self.db_conn.close()
+        if self.db_conn is not None:
+            self.db_conn.close()
         self.db_connected = False
 
         try:
