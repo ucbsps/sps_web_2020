@@ -1,11 +1,19 @@
+"""
+Django Middleware for providing MariaDB backed analytics.
+
+For the sps_web_2020 project, assumes that database and tables are created.
+"""
+
 import mariadb
 
 import db_util
 from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
 
 class AnalyticsMiddleware:
+    """Django Middleware for providing MariaDB backed analytics."""
 
     def __init__(self, get_response):
+        """Sets response function, connects to database (failing silently)."""
         self.get_response = get_response
 
         try:
@@ -22,6 +30,16 @@ class AnalyticsMiddleware:
         return
 
     def insert_analytics(self, path, referer, remote_addr, user_agent):
+        """Inserts analytics data into database.
+
+        Automatically updates all relevant tables.
+
+        Arguments:
+        path -- the url requested without the domain name/server IP
+        referer -- HTTP referer (usually the previous url including domain name/server IP)
+        remote_addr -- IP address making the request
+        user_agent -- HTTP user agent (provided by browser)
+        """
 
         if not self.db_connected:
             return
@@ -61,6 +79,7 @@ class AnalyticsMiddleware:
         return
 
     def reload_db(self):
+        """Attempt to reconnect to the database (failing silently)."""
 
         if self.db_conn is not None:
             self.db_conn.close()
@@ -79,6 +98,11 @@ class AnalyticsMiddleware:
         return        
 
     def __call__(self, request):
+        """Processes request.
+
+        If the database is connected, logs request information.
+        In either case, forwards the request to the next middleware in the stack.
+        """
 
         if self.db_conn:
 
