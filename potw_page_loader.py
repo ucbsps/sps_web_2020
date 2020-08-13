@@ -80,7 +80,9 @@ def get_potw_data(date):
     return None
 
 def link_html(file):
-    if file == None:
+    """Return HTML for embedding an image or PDF or linking other filetypes."""
+
+    if file is None:
         return None
 
     file_ext = file.split('.')[-1]
@@ -103,7 +105,7 @@ def load_potw(request, date):
 
     potw_data = get_potw_data(date)
 
-    if potw_data == None:
+    if potw_data is None:
         return load_potw_current(request)
 
     past_problems = [[problem['start_date'].isoformat(), problem['end_date'].isoformat()]
@@ -113,12 +115,13 @@ def load_potw(request, date):
     linked_solution = link_html(potw_data['linked_solution'])
 
     try:
-        content = render_to_string('potw_past.html', {'date': date.isoformat(),
-                                                      'problem_description': potw_data['problem'],
-                                                      'linked_problem': linked_problem,
-                                                      'solution_description': potw_data['solution'],
-                                                      'linked_solution': linked_solution,
-                                                      'past_problems': past_problems})
+        content = render_to_string('potw_past.html',
+                                   {'date': date.isoformat(),
+                                    'problem_description': potw_data['problem'],
+                                    'linked_problem': linked_problem,
+                                    'solution_description': potw_data['solution'],
+                                    'linked_solution': linked_solution,
+                                    'past_problems': past_problems})
     except TemplateDoesNotExist:
         return error_500(request)
 
@@ -128,16 +131,17 @@ def load_potw_current(request):
 
     potw_data = get_latest_potw_data()
 
-    if potw_data == None:
+    if potw_data is None:
         return error_500(request)
 
     past_problems = [[problem['start_date'].isoformat(), problem['end_date'].isoformat()]
                      for problem in get_potw_dates()]
 
     try:
-        content = render_to_string('potw_current.html', {'problem_description': potw_data['problem'],
-                                                         'linked_problem': potw_data['linked_problem'],
-                                                         'past_problems': past_problems})
+        content = render_to_string('potw_current.html',
+                                   {'problem_description': potw_data['problem'],
+                                    'linked_problem': potw_data['linked_problem'],
+                                    'past_problems': past_problems})
     except TemplateDoesNotExist:
         return error_500(request)
 
