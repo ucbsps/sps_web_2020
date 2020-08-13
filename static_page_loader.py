@@ -33,6 +33,7 @@ def load_static_page(request, page_name):
     page_tree_root = page_tree.getroot()
 
     title = ''
+    header_tags = []
     content = ''
 
     for child in page_tree_root:
@@ -40,15 +41,20 @@ def load_static_page(request, page_name):
             for head_child in child:
                 if head_child.tag == 'title':
                     title = head_child.text
+                else:
+                    header_tags.append(ET.tostring(head_child).decode())
         if child.tag == 'body':
-            content = ET.tostring(child)
+            content = ET.tostring(child).decode()
+
+    header = ''.join(header_tags)
 
     # remove body tag from content
-    content = content.replace(b'<body>', b'').replace(b'</body>', b'')
+    content = content.replace('<body>', '').replace('</body>', '')
     # remove whitespace in order to compress content
-    content = content.replace(b'\n', b'').replace(b'\t', b'')
+    content = content.replace('\n', '').replace('\t', '')
+    header = header.replace('\n', '').replace('\t', '')
                     
-    return render(request, 'root.html', {'title': title, 'content': content.decode()})
+    return render(request, 'root.html', {'title': title, 'header': header, 'content': content})
 
 def load_officers(request):
     """Returns officers page."""
