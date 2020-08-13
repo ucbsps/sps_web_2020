@@ -18,6 +18,8 @@ from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
 
 from error_handler import error_500
 
+EVENTS_STYLESHEET = '<link rel="stylesheet" href="/static/css/events.css" />'
+
 def get_tag_title(tag):
     """Return a nice title for a tag."""
 
@@ -118,8 +120,9 @@ def load_events_page(request, upcoming=False):
         content = render_to_string('events.html', {'events': get_events(upcoming), 'title': title})
     except TemplateDoesNotExist:
         return error_500(request, page_name)
-                    
-    return render(request, 'root.html', {'title': title, 'content': content})
+
+    return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
+                                         'content': content})
 
 def load_events_upcoming_page(request):
     """Return a render of upcoming events page."""
@@ -144,4 +147,5 @@ def load_events_subpage(request, event_category):
     except TemplateDoesNotExist:
         return error_500(request, page_name)
                     
-    return render(request, 'root.html', {'title': title, 'content': content})
+    return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
+                                         'content': content})
