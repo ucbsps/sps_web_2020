@@ -50,11 +50,6 @@ def load_static_page(request, page_name):
                     
     return render(request, 'root.html', {'title': title, 'content': content.decode()})
 
-def load_officers(request):
-    """Returns officers page."""
-
-    return render(request, 'root.html', {'title': 'Officers', 'content': 'Officers'})
-
 def load_index(request):
     """Returns index (homepage)."""
 
