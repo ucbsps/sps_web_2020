@@ -42,7 +42,7 @@ def get_events(upcoming=False, tag=None):
 
     events = []
 
-    if not tag == None:
+    if tag is not None:
         if len(tag) > 0:
             if tag[0] != '#':
                 tag = '#' + tag
@@ -59,7 +59,7 @@ def get_events(upcoming=False, tag=None):
             time_clause = 'end_time > current_timestamp()'
             order_clause = 'ORDER BY start_time ASC LIMIT 10'
 
-        if not tag == None:
+        if tag is not None:
             cur.execute('SELECT web2020_events.id, title, description, start_time, end_time,' +
                         ' location, img_path FROM web2020_events LEFT OUTER JOIN web2020_images ON' +
                         ' web2020_events.image_id = web2020_images.id' +
@@ -81,7 +81,7 @@ def get_events(upcoming=False, tag=None):
             id = event_result[0]
 
             img_path = event_result[6]
-            if img_path == None:
+            if img_path is None:
                 cur.execute('SELECT img_path FROM web2020_events' +
                             ' JOIN web2020_events_tags ON' +
                             ' web2020_events.id = web2020_events_tags.event_id' +
