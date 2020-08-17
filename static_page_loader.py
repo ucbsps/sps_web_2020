@@ -3,7 +3,6 @@ Django views for static (or mostly static) pages
 
 load_static_page -- render page with content from static_html subdirectory
 load_officers -- render officers page
-load_index -- load index page (will probably be moved to new file later)
 """
 
 from django.shortcuts import render
@@ -60,8 +59,3 @@ def load_officers(request):
     """Returns officers page."""
 
     return render(request, 'root.html', {'title': 'Officers', 'content': 'Officers'})
-
-def load_index(request):
-    """Returns index (homepage)."""
-
-    return load_static_page(request, 'index')
