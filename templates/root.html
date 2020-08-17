@@ -8,6 +8,10 @@
 		<link rel="stylesheet" href="{% static "/css/nav.css" %}" />
 
 		<script src="{% static "/jquery-3.5.1.slim.min.js" %}"></script>
+
+		{% autoescape off %}
+		{{ header }}
+		{% endautoescape %}
     </head>
     <body>
 		<div id="header" class="header">

@@ -56,8 +56,6 @@ TEMPLATES = [
     },
 ]
 
-CONTENT_DIR = os.path.join(BASE_DIR, 'sps_web_2020/content')
-
 WSGI_APPLICATION = 'wsgi.application'
 
 

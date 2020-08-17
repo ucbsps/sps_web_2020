@@ -1,10 +1,13 @@
+"""
+Script to load all images in the static folder into the images table of the database.
+"""
+
 import mariadb
 import os
 
 from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
 from db_util import load_set_id
-
-ALLOWED_TYPES = ['png', 'jpg', 'svg']
+from file_util import IMAGE_EXTS
 
 try:
     db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
@@ -22,5 +25,5 @@ for (dirpath, dirnames, filenames) in os.walk('static/images'):
 
         extension = filename.split('.').pop().lower()
 
-        if extension in ALLOWED_TYPES:
+        if extension in IMAGE_EXTS:
             load_set_id(cur, 'web2020_images', 'img_path', full_filename)

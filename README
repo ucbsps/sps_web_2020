@@ -1,6 +1,27 @@
 SPS Website
 ===========
 
-The 2020 is just to distinguish it from other versions of the SPS website.
+The 2020 is just to distinguish it from other earlier versions of the SPS website.
 
-Note: you will require a copy of secrets.py in order to start the website. This file contains some sensative information, so please contact the web master to get a copy.
+Developer Overview
+==================
+
+As with most Django projects, the main entry point is urls.py. You should look at that first.
+Each url is tied to a single function, which are grouped by category throughout the other files.
+
+static contains image, CSS, JavaScript, and all non-html files that are served by the website.
+
+static_html contains (mostly) static webpages. These are automatically wrapper in the header/footer by static_page_loader.py before they are served.
+
+templates contains the HTML templates that Django can access. The first argument to the Django template functions render_to_string or render should be a filename for an HTML file in templates.
+
+Installation
+============
+
+For basic testing, you will want to use the test repository, which is configured to automatically generate fake secrets files and start a Django test webserver.
+
+For actual installation, this repository should be installed to the home directory (for compatibility with https://github.com/ucbsps/sps_web_sync). Setting up a virtual environment is recommended.
+
+Python packages django, flup6, and mariadb should be installed.
+
+In addition, a MariaDB server is required. sps_web_2020 assumes that the default port (3306) is used.

@@ -1,3 +1,9 @@
+"""
+Mapping of URLs to functions.
+
+urlpatterns contains rules for normal paths, handler404 and handler500 handle errors.
+"""
+
 from django.contrib import admin
 from django.urls import path, re_path, register_converter
 

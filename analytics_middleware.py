@@ -1,11 +1,19 @@
+"""
+Django Middleware for providing MariaDB backed analytics.
+
+For the sps_web_2020 project, assumes that database and tables are created.
+"""
+
 import mariadb
 
 import db_util
 from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
 
 class AnalyticsMiddleware:
+    """Django Middleware for providing MariaDB backed analytics."""
 
     def __init__(self, get_response):
+        """Sets response function, connects to database (failing silently)."""
         self.get_response = get_response
 
         try:
@@ -22,6 +30,16 @@ class AnalyticsMiddleware:
         return
 
     def insert_analytics(self, path, referer, remote_addr, user_agent):
+        """Inserts analytics data into database.
+
+        Automatically updates all relevant tables.
+
+        Arguments:
+        path -- the url requested without the domain name/server IP
+        referer -- HTTP referer (usually the previous url including domain name/server IP)
+        remote_addr -- IP address making the request
+        user_agent -- HTTP user agent (provided by browser)
+        """
 
         if not self.db_connected:
             return
@@ -29,22 +47,22 @@ class AnalyticsMiddleware:
         cur = self.db_conn.cursor()
 
         path_id = db_util.load_set_id(cur, 'web2020_pages', 'page_path', path)
-        if path_id == None:
+        if path_id is None:
             self.reload_db()
             return
 
         referer_id = db_util.load_set_id(cur, 'web2020_referers', 'referer', referer)
-        if referer_id == None:
+        if referer_id is None:
             self.reload_db()
             return
 
         remote_addr_id = db_util.load_set_id(cur, 'web2020_remote_addrs', 'remote_addr', remote_addr)
-        if remote_addr_id == None:
+        if remote_addr_id is None:
             self.reload_db()
             return
 
         user_agent_id = db_util.load_set_id(cur, 'web2020_user_agents', 'user_agent', user_agent)
-        if user_agent_id == None:
+        if user_agent_id is None:
             self.reload_db()
             return
 
@@ -61,8 +79,10 @@ class AnalyticsMiddleware:
         return
 
     def reload_db(self):
+        """Attempt to reconnect to the database (failing silently)."""
 
-        self.db_conn.close()
+        if self.db_conn is not None:
+            self.db_conn.close()
         self.db_connected = False
 
         try:
@@ -78,6 +98,11 @@ class AnalyticsMiddleware:
         return        
 
     def __call__(self, request):
+        """Processes request.
+
+        If the database is connected, logs request information.
+        In either case, forwards the request to the next middleware in the stack.
+        """
 
         if self.db_conn:
 
