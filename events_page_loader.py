@@ -34,7 +34,7 @@ def get_tag_title(tag):
     else:
         return tag
 
-def get_events(upcoming=False, tag=None):
+def get_events(upcoming=False, tag=None, count=10):
     """Retrieve events from the database, filtering by time and tag.
 
     Arguments
@@ -56,10 +56,10 @@ def get_events(upcoming=False, tag=None):
         cur = db_conn.cursor()
 
         time_clause = 'end_time < current_timestamp()'
-        order_clause = 'ORDER BY start_time DESC LIMIT 10'
+        order_clause = 'ORDER BY start_time DESC LIMIT {}'.format(count)
         if upcoming:
             time_clause = 'end_time > current_timestamp()'
-            order_clause = 'ORDER BY start_time ASC LIMIT 10'
+            order_clause = 'ORDER BY start_time ASC LIMIT {}'.format(count)
 
         if tag is not None:
             cur.execute('SELECT web2020_events.id, title, description, start_time, end_time,' +
