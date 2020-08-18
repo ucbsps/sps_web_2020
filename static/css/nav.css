@@ -35,26 +35,28 @@ a.nav-link:hover {
 	background-color: var(--berkeley-blue);
 }
 
-li.nav-dropdown ul {
+li.nav-dropdown >ul {
 	list-style: none;
 	display: none;
 	position: absolute;
 	padding: 1%;
+	padding-top: 0%;
 	margin: 0%;
 	margin-left: -2%;
 	margin-right: 2%;
 }
 
-li.nav-dropdown:hover > ul {
+li.nav-dropdown:hover >ul {
 	display: block;
 }
 
-li.nav-dropdown:on_click > ul {
+li.nav-dropdown:on_click >ul {
 	display: block;
 }
 
 li.nav-dropdown-item {
 	padding: 1em;
+	text-align: justify;
 	text-decoration: none;
 	color: var(--text-primary);
 	background-color: var(--background);
@@ -63,4 +65,29 @@ li.nav-dropdown-item {
 li.nav-dropdown-item:hover {
 	color: var(--california-gold);
 	background-color: var(--berkeley-blue);
+}
+
+li.nav-dropdown-item >ul{
+	list-style: none;
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 100%;
+	padding: 1%;
+	padding-left: 0%;
+	margin: 0%;
+	margin-left: -4%;
+	margin-right: 2%;
+}
+
+li.nav-dropdown-item:hover >ul {
+	display: block;
+}
+
+li.nav-dropdown-item:on_click >ul {
+	display: block;
+}
+
+i.right-arrow {
+	float: right;
 }
