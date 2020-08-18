@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<style>
+		 div.home-left {
+			 width: 45%;
+			 padding: 2%;
+			 float: left;
+		 }
+
+		 div.home-right {
+			 width: 45%;
+			 padding: 2%;
+			 float: left;
+		 }
+		</style>
+	</head>
+	<body>
+		<h1 class="content-header">
+			Society of Physics Students at the University of California, Berkeley
+		</h1>
+
+		<div class="home-left">
+			<h2 class="content-header">Announcements</h2>			
+		</div>
+		<div class="home-right">
+			<h2 class="content-header">Upcoming Events</h2>
+			<div class="event-list">
+				{% for event in events %}
+				<div class="event">
+					<div class="event-location">
+						<p>{% autoescape on %} {{ event.start_time }} {% endautoescape %}</p>
+						<p>{% autoescape on %} {{ event.end_time }} {% endautoescape %}</p>
+						{% if event.location %}
+						<p>{% autoescape on %} {{ event.location }} {% endautoescape %}</p>
+						{% endif %}
+					</div>
+					<div class="event-content">
+						<h3>{% autoescape on %} {{ event.title }} {% endautoescape %}</h3>
+						<p>{% autoescape off %} {{ event.description }} {% endautoescape %}</p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<p class="content">
+				For more information, see <a href="/events">Events</a>.
+			</p>
+		</div>
+
+		<div class="home-map">
+			<h2 class="content-header">Site Map</h2>
+		</div>
+	</body>
+</html>
