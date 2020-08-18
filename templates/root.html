@@ -17,7 +17,9 @@
 		<div id="header" class="header">
 			<div id="nav">
 				<ul class="nav">
-					<a href="/" class="nav-link"><li class="nav-item">Home</li></a>
+					<a id="home-link" href="/" class="nav-link">
+						<li class="nav-item">Home</li>
+					</a>
 					<li class="nav-item nav-dropdown">
 						About Us
 
@@ -28,14 +30,11 @@
 							<a href="/faq" class="nav-link">
 								<li class="nav-dropdown-item">FAQ</li>
 							</a>
-							<a href="/partners" class="nav-link">
-								<li class="nav-dropdown-item">Partner Organizations</li>
-							</a>
 							<a href="/officers" class="nav-link">
 								<li class="nav-dropdown-item">Officers</li>
 							</a>
-							<a href="/snack_shack" class="nav-link">
-								<li class="nav-dropdown-item">Snack Shack</li>
+							<a href="/partners" class="nav-link">
+								<li class="nav-dropdown-item">Partner Organizations</li>
 							</a>
 						</ul>
 					</li>
@@ -52,6 +51,24 @@
 							<a href="/events/outreach" class="nav-link">
 								<li class="nav-dropdown-item">Outreach</li>
 							</a>
+							<li class="nav-dropdown-item">
+								Competitions
+								<i class="right-arrow">></i>
+
+								<ul>
+									<a href="/events/bpt" class="nav-link">
+										<li class="nav-dropdown-item">Berkeley Physics Tournament</li>
+									</a>
+									<a href="/events/ipt" class="nav-link">
+										<li class="nav-dropdown-item">
+											International Physics Tournament
+										</li>
+									</a>
+									<a href="/events/int_bee" class="nav-link">
+										<li class="nav-dropdown-item">Integration Bee</li>
+									</a>
+								</ul>
+							</li>
 							<a href="/events/fsl" class="nav-link">
 								<li class="nav-dropdown-item">Faculty-Student Lunches</li>
 							</a>
@@ -60,24 +77,6 @@
 							</a>
 							<a href="/events/bbq" class="nav-link">
 								<li class="nav-dropdown-item">Barbecues</li>
-							</a>
-						</ul>
-					</li>
-					<li class="nav-item nav-dropdown">
-						Competitions
-
-						<ul>
-							<a href="/potw" class="nav-link">
-								<li class="nav-dropdown-item">Problem of the Week</li>
-							</a>
-							<a href="/ipt" class="nav-link">
-								<li class="nav-dropdown-item">International Physics Tournament</li>
-							</a>
-							<a href="/bpt" class="nav-link">
-								<li class="nav-dropdown-item">Berkeley Physics Tournament</li>
-							</a>
-              <a href="/int_bee" class="nav-link">
-                <li class="nav-dropdown-item">Integration Bee</li>
 							</a>
 						</ul>
 					</li>
@@ -91,8 +90,51 @@
 							<a href="/committee/outreach" class="nav-link">
 								<li class="nav-dropdown-item">Outreach</li>
 							</a>
+							<li class="nav-dropdown-item">
+								Equity
+								<i class="right-arrow">></i>
+
+								<ul>
+									<a href="/committee/equity" class="nav-link">
+										<li class="nav-dropdown-item">Committee</li>
+									</a>
+									<a href="/mentorship" class="nav-link">
+										<li class="nav-dropdown-item">Mentorship</li>
+									</a>
+									<a href="/equity/study_spaces" class="nav-link">
+										<li class="nav-dropdown-item">Study Spaces</li>
+									</a>
+									<a href="/equity/town_halls" class="nav-link">
+										<li class="nav-dropdown-item">Town Halls</li>
+									</a>
+									<a href="/equity/conn" class="nav-link">
+										<li class="nav-dropdown-item">Department Connections</li>
+									</a>
+								</ul>
+							</li>
 							<a href="/committee/website" class="nav-link">
 								<li class="nav-dropdown-item">Web Development</li>
+							</a>
+						</ul>
+					</li>
+					<li class="nav-item nav-dropdown">
+						Resources
+
+						<ul>
+							<a href="/mentorship" class="nav-link">
+								<li class="nav-dropdown-item">Mentorship</li>
+							</a>
+							<a href="/study_halls" class="nav-link">
+								<li class="nav-dropdown-item">Study Halls</li>
+							</a>
+							<a href="/tutoring" class="nav-link">
+								<li class="nav-dropdown-item">Tutoring</li>
+							</a>
+							<a href="/potw" class="nav-link">
+								<li class="nav-dropdown-item">Problem of the Week</li>
+							</a>
+							<a href="/snack_shack" class="nav-link">
+								<li class="nav-dropdown-item">Snack Shack</li>
 							</a>
 						</ul>
 					</li>
@@ -123,12 +165,13 @@
 				</a>
 			</div>
 		</div>
+		<script>
+		 if(window.innerWidth > 1000){
+			 img_str = '<img id="header-img" class="header" src="{% static "/images/spslogo.svg" %}" />';
+			 $("#header").prepend($('<a href="/">' + img_str + '</a>'))
+			 $("#nav").css("width", "50%");
+			 $("#home-link")[0].hidden = true;
+		 }
+		</script>
     </body>
-	<script>
-	 if(window.innerWidth > 1000){
-		 img_str = '<img id="header-img" class="header" src="{% static "/images/spslogo.svg" %}" />';
-		 $("#header").prepend($(img_str))
-		 $("#nav").css("width", "50%");
-	 }
-	</script>
 </html>
