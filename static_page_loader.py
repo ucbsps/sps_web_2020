@@ -41,9 +41,9 @@ def load_static_page(request, page_name):
                 if head_child.tag == 'title':
                     title = head_child.text
                 else:
-                    header_tags.append(ET.tostring(head_child).decode())
+                    header_tags.append(ET.tostring(head_child, method='html', encoding='unicode'))
         if child.tag == 'body':
-            content = ET.tostring(child).decode()
+            content = ET.tostring(child, method='html', encoding='unicode')
 
     header = ''.join(header_tags)
 
