@@ -32,6 +32,7 @@ urlpatterns = [
     path('potw/<isodate:date>', load_potw, name='potw_past'),
     re_path(r'^(ipt)$', load_static_page, name='static_ipt'),
     re_path(r'^(bpt)$', load_static_page, name='static_bpt'),
+    re_path(r'^(int_bee)$', load_static_page, name='static_int_bee'),
     re_path(r'^committee/(projects)$', load_static_page, name='static_committee_projects'),
     re_path(r'^committee/(outreach)$', load_static_page, name='static_committee_outreach'),
     re_path(r'^committee/(website)$', load_static_page, name='static_committee_website'),
