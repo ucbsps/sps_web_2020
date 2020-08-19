@@ -43,3 +43,28 @@ def load_set_id(cur, table, column, value):
         return None
 
     return ids[0][0]
+
+def get_value_by_id(cur, table, column, id):
+    """Returns find a value from a table by id.
+
+    Assumes that the table has a column named id
+
+    Arguments:
+    cur -- a database cursor
+    table -- a table name (not SQL injection safe!)
+    column -- a column name (not SQL injection safe!)
+    id -- the id to look for (SQL injection safe!)
+    """
+
+    try:
+        cur.execute('SELECT {} FROM {} WHERE id=?'.format(column, table), (id,))
+    except mariadb.Error as e:
+        print('DB Error: {}'.format(e))
+
+        return None
+
+    values = cur.fetchall()
+    if len(values) == 0:
+        return None
+
+    return values[0][0]
