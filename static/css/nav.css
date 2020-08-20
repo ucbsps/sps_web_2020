@@ -2,7 +2,18 @@
 
 div#nav {
 	width: 100%;
-	float: right;
+	float: left;
+	margin: 1%;
+}
+
+div#nav-first {
+	width: 100%;
+	float: left;
+}
+
+div#nav-second {
+	width: 100%;
+	float: left;
 }
 
 ul.nav {
@@ -15,79 +26,99 @@ li.nav-item {
 	margin: 0%;
 	padding: 1%;
 	text-decoration: none;
-	color: var(--text-primary);
-	background-color: var(--background);
+	color: white;
 }
 
-li.nav-item:hover{
+li.nav-item:hover {
 	color: var(--california-gold);
-	background-color: var(--berkeley-blue);
+}
+
+li.nav-selected {
+	color: var(--california-gold);
 }
 
 a.nav-link {
 	text-decoration: none;
-	color: var(--text-primary);
-	background-color: var(--background);
 }
 
 a.nav-link:hover {
-	color: var(--california-gold);
-	background-color: var(--berkeley-blue);
+	text-decoration: underline;
+}
+
+.nav-dropdown-second {
+	text-decoration: none;
+}
+
+.nav-dropdown-second:hover {
+	text-decoration: underline;
+}
+
+li.nav-dropdown >p {
+	display: none;
 }
 
 li.nav-dropdown >ul {
 	list-style: none;
 	display: none;
-	position: absolute;
-	padding: 1%;
-	padding-top: 0%;
-	margin: 0%;
-	margin-left: -2%;
-	margin-right: 2%;
 }
 
-li.nav-dropdown:hover >ul {
-	display: block;
-}
-
-li.nav-dropdown:on_click >ul {
-	display: block;
-}
-
-li.nav-dropdown-item {
-	padding: 1em;
-	text-align: justify;
-	text-decoration: none;
-	color: var(--text-primary);
-	background-color: var(--background);
-}
-
-li.nav-dropdown-item:hover {
-	color: var(--california-gold);
-	background-color: var(--berkeley-blue);
-}
-
-li.nav-dropdown-item >ul{
+li.nav-dropdown-item >ul {
 	list-style: none;
 	display: none;
-	position: absolute;
-	top: 0px;
-	left: 100%;
+}
+
+#nav-second {
+	background-color: white;
+	width: 100%;
 	padding: 1%;
-	padding-left: 0%;
-	margin: 0%;
-	margin-left: -4%;
-	margin-right: 2%;
+	display: none;
 }
 
-li.nav-dropdown-item:hover >ul {
+div.nav-second-p {
 	display: block;
+	float: left;
+	width: 30%;
 }
 
-li.nav-dropdown-item:on_click >ul {
+div.nav-second-p p {
+	text-align: center;
+}
+
+div.nav-second-ul {
 	display: block;
+	float: left;
+	width: 35%;
+}
+
+@media (max-width: 100px) {
+	div.nav-second-ul {
+		width: 50%;
+	}
+}
+
+div.nav-second-ul >ul {
+	list-style: none;
+	list-style-position: outside;
+}
+
+div#nav-third {
+	display: block;
+	float: left;
+	width: 35%;
+}
+
+@media (max-width: 100px) {
+	div#nav-third {
+		width: 50%;
+	}
+}
+
+div#nav-third >ul {
+	list-style: none;
+	list-style-position: outside;
 }
 
 i.right-arrow {
 	float: right;
+	width: 25%;
 }

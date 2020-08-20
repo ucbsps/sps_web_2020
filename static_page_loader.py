@@ -53,7 +53,7 @@ def load_static_page(request, page_name):
     # remove whitespace in order to compress content
     content = content.replace('\n', '').replace('\t', '')
     header = header.replace('\n', '').replace('\t', '')
-                    
+
     return render(request, 'root.html', {'title': title, 'header': header, 'content': content})
 
 def load_officers(request):

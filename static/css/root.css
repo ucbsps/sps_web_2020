@@ -8,13 +8,13 @@ body {
 .header {
 	padding: 1%;
 	float: left;
-	background-color: var(--background);
 }
 
 #header {
 	width: 80%;
 	padding-left: 10%;
 	padding-right: 10%;
+	background-image: linear-gradient(to top left, var(--berkeley-blue), var(--lawrence));
 }
 
 h1.header {
