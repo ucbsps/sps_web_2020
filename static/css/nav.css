@@ -121,6 +121,7 @@ div#nav-third {
 div#nav-third >ul {
 	list-style: none;
 	list-style-position: outside;
+	font-size: larger;
 }
 
 i.right-arrow {
