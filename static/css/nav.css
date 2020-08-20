@@ -26,6 +26,7 @@ li.nav-item {
 	margin: 0%;
 	padding: 1%;
 	text-decoration: none;
+	font-size: larger;
 	color: white;
 }
 
@@ -78,16 +79,19 @@ div.nav-second-p {
 	display: block;
 	float: left;
 	width: 30%;
+	padding-right: 2%;
 }
 
 div.nav-second-p p {
-	text-align: center;
+	text-align: left;
+	font-size: larger;
 }
 
 div.nav-second-ul {
 	display: block;
 	float: left;
 	width: 35%;
+	border-left: 3px solid gray;
 }
 
 @media (max-width: 100px) {
@@ -99,6 +103,7 @@ div.nav-second-ul {
 div.nav-second-ul >ul {
 	list-style: none;
 	list-style-position: outside;
+	font-size: larger;
 }
 
 div#nav-third {

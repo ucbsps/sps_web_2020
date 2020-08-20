@@ -11,7 +11,7 @@
 
 		<script>
 		 $(function(){
-			 $("li.nav-dropdown").click(function(){
+			 $("li.nav-dropdown").hover(function(){
 				 $("#nav-second").empty();
 
 				 if($(this).hasClass("nav-selected")){
@@ -19,7 +19,7 @@
 					 $(this).removeClass("nav-selected");
 				 }
 				 else{
-					 $("#nav-second").css("display", "block");
+					 $("#nav-second").css("display", "flex");
 
 					 $("li.nav-dropdown").removeClass("nav-selected");
 					 $(this).addClass("nav-selected");
@@ -35,13 +35,23 @@
 					 $("#nav-second").append(ul_div);
 					 $("#nav-second").append($("<div id=\"nav-third\"></div>"));
 
-					 $("li.nav-dropdown-item").click(function(){
+					 $("li.nav-dropdown-item").hover(function(){
 						 $("#nav-third").empty();
 						 $("#nav-third").append($(this).children("ul").clone());
-					 });
-				 }
-			 });
 
+						 $("#nav-third").hover(function(){}, function(){
+							 $("#nav-third").empty();
+						 });
+					 }, function(){});
+				 }
+			 }, function(){});
+
+			 $("#nav-second").hover(function(){
+			 }, function(){
+				 $("#nav-second").empty();
+				 $("#nav-second").css("display", "none");
+				 $("li.nav-dropdown").removeClass("nav-selected");
+			 });
 		 });
 		</script>
 
@@ -199,7 +209,7 @@
 		 if(window.innerWidth > 1000){
 			 img_str = '<img id="header-img" class="header" src="{% static "/images/spslogo.svg" %}" />';
 			 $("#header").prepend($('<a href="/">' + img_str + '</a>'))
-			 $("#nav").css("width", "50%");
+			 $("#nav").css("width", "60%");
 			 $("#home-link")[0].hidden = true;
 		 }
 		</script>
