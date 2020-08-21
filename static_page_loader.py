@@ -54,8 +54,3 @@ def load_static_page(request, page_name):
     header = header.replace('\n', '').replace('\t', '')
                     
     return render(request, 'root.html', {'title': title, 'header': header, 'content': content})
-
-def load_officers(request):
-    """Returns officers page."""
-
-    return render(request, 'root.html', {'title': 'Officers', 'content': 'Officers'})
