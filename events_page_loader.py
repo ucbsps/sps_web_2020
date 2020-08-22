@@ -13,7 +13,10 @@ from django.shortcuts import render
 from django.template.loader import render_to_string, TemplateDoesNotExist
 
 import mariadb
+from os import path
+import xml.etree.ElementTree as ET
 
+from settings import BASE_DIR
 from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
 
 from error_handler import error_500
@@ -140,10 +143,26 @@ def load_events_subpage(request, event_category):
     title = 'SPS {} Events'.format(get_tag_title(event_category))
 
     try:
+        desc_file = path.join(BASE_DIR,
+                              'sps_web_2020/static_html/event_descs/{}.html'.format(event_category))
+        desc_tree = ET.parse(desc_file)
+
+        description_tags = []
+        for child in desc_tree.getroot():
+            description_tags.append(ET.tostring(child, method='html', encoding='unicode'))
+
+        description = ''.join(description_tags)
+    except FileNotFoundError:
+        description = ''
+    except ET.ParseError:
+        description = ''
+
+    try:
         content = render_to_string('events_tagged.html',
                                    {'upcoming_events': get_events(True, event_category),
                                     'past_events': get_events(False, event_category),
-                                    'category': get_tag_title(event_category)})
+                                    'category': get_tag_title(event_category),
+                                    'description': description})
     except TemplateDoesNotExist:
         return error_500(request, page_name)
                     

@@ -23,6 +23,14 @@
 	{% endfor %}
 </div>
 
+<h1 class="content-header">About {{ category }} Events</h1>
+
+<div>
+	{% autoescape off %}
+	{{ description }}
+	{% endautoescape %}
+</div>
+
 <h1 class="content-header">Past {{ category }} Events</h1>
 
 <div class="event-list">
