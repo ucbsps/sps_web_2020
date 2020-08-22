@@ -50,17 +50,19 @@ div.footer {
 	float: left;
 }
 
-.copyright {
-	padding: 0%;
-	margin: 0%;	
-	color: var(--text-primary);
+div.footer-text {
+	padding: 0.5em;
+	margin: 0.5em;
+	width: 60%;
 	float: left;
 }
 
-div.copyright {
-	padding: 0.5em;
-	margin: 0.5em;
-	width: 50%;
+p.footer-text {
+	padding: 0%;
+	margin: 0%;
+	color: var(--text-primary);
+	float: left;
+	width: 100%;
 }
 
 a {
