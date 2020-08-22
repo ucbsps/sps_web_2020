@@ -8,5 +8,6 @@
 	--grey: #EEEEEE;
 
 	--background: var(--grey);
-	--text-primary: var(--berkeley-blue);
+	--text-primary: #000000;
+	--text-secondary: #888888;
 }

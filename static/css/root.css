@@ -81,6 +81,11 @@ a {
 	color: var(--text-primary);
 }
 
+a:hover {
+	text-decoration: none;
+	color: var(--text-secondary);
+}
+
 .ocf_banner {
 	padding: 0.5em;
 	margin: 0.5em;
