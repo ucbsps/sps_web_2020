@@ -15,21 +15,39 @@
 			 float: left;
 		 }
 
-		 div.home-left-lower {
+		 div.home-lower {
 			 width: 100%;
 			 float: left;
 			 display: flex;
 		 }
 
-		 div.committee {
+		 div.sps-focus {
 			 width: 31%;
 			 margin: 1%;
 			 padding: 1%;
 			 background-color: var(--lawrence);
 		 }
 
+		 div.sps-focus >p {
+			 display: block;
+			 width: 100%;
+			 opacity: 0;
+			 transition: opacity 1s;
+		 }
+
+		 div.sps-focus >h3 {
+			 display: block;
+			 width: 100%;
+			 text-align: center;
+		 }
+
+		 div.sps-focus:hover >p {
+			 opacity: 1;
+		 }
+
 		 div.contact-us >ul {
 			 list-style-position: inside;
+			 list-style: none;
 			 margin: 0px;
 			 padding: 0px;
 		 }
@@ -118,23 +136,6 @@
 				<img class="slideshow-image" src="{{ home_image }}" />
 				{% endfor %}
 			</div>
-
-			<div class="home-left-lower">
-				<div class="committee">
-					<h3>Outreach</h3>
-					<p>The <a href="/committee/outreach">Outreach Committee</a> does outreach!</p>
-				</div>
-
-				<div class="committee">
-					<h3>Projects</h3>
-					<p>The <a href="/committee/projects">Projects Committee</a> works on projects!</p>
-				</div>
-
-				<div class="committee">
-					<h3>Web Development</h3>
-					<p>The <a href="/committee/website">Web Development Committee</a> develops the website!</p>
-				</div>
-			</div>
 		</div>
 		<div class="home-right">
 			{% if events %}
@@ -182,6 +183,46 @@
 					<li>Instagram: ...</li>
 					<li>Gather: ...</li>
 				</ul>
+			</div>
+		</div>
+
+		<div class="home-lower">
+			<div class="sps-focus">
+				<h3>Advocacy</h3>
+				<p>
+					Through <a href="/events/fsl">Faculty-Student Lunches</a>,
+					<a href="/events/town_halls">Town Halls</a>,
+					and <a href="/committee/outreach">Outreach</a>,
+					SPS acts provides a voice for present and future physics undergraduates.
+				</p>
+			</div>
+
+			<div class="sps-focus">
+				<h3>Friendship</h3>
+				<p>
+					SPS helps build lifelong friendships through social meetings,
+					our department wide <a href="/events/bbq">BBQs</a>,
+					and committees for working with others.
+				</p>
+			</div>
+
+			<div class="sps-focus">
+				<h3>Nurturance</h3>
+				<p>
+					Offering <a href="/mentorship">Mentorship</a>,
+					<a href="/study_halls">Study Halls</a>, and <a href="/tutoring">Tutoring</a>,
+					SPS provides support for all of our journeys through physics.
+				</p>
+			</div>
+
+			<div class="sps-focus">
+				<h3>Inspiration</h3>
+				<p>
+					With <a href="/events/ugs">Undergraduate Seminars</a>,
+					involvement in the <a href="/events/ipt">International Physics Tournament</a>,
+					and the new <a href="/events/bpt">Berkeley Physics Tournament</a>,
+					SPS introduces students to more physics.
+				</p>
 			</div>
 		</div>
 	</body>
