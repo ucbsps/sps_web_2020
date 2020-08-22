@@ -38,6 +38,18 @@ img.header {
 	float: left;
 }
 
+.content-main-header {
+	width: 100%;
+	float: left;
+	margin-bottom: 0px;
+}
+
+.content-sub-header {
+	width: 100%;
+	float: left;
+	margin-top: 0px;
+}
+
 .footer {
 	padding: 1%;
 	background-color: var(--background);

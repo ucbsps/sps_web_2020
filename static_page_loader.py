@@ -3,7 +3,6 @@ Django views for static (or mostly static) pages
 
 load_static_page -- render page with content from static_html subdirectory
 load_officers -- render officers page
-load_index -- load index page (will probably be moved to new file later)
 """
 
 from django.shortcuts import render
@@ -42,9 +41,9 @@ def load_static_page(request, page_name):
                 if head_child.tag == 'title':
                     title = head_child.text
                 else:
-                    header_tags.append(ET.tostring(head_child).decode())
+                    header_tags.append(ET.tostring(head_child, method='html', encoding='unicode'))
         if child.tag == 'body':
-            content = ET.tostring(child).decode()
+            content = ET.tostring(child, method='html', encoding='unicode')
 
     header = ''.join(header_tags)
 
@@ -55,8 +54,3 @@ def load_static_page(request, page_name):
     header = header.replace('\n', '').replace('\t', '')
 
     return render(request, 'root.html', {'title': title, 'header': header, 'content': content})
-
-def load_index(request):
-    """Returns index (homepage)."""
-
-    return load_static_page(request, 'index')

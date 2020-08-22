@@ -9,14 +9,15 @@ from django.urls import path, re_path, register_converter
 
 from url_date_converter import url_date_converter
 
-from static_page_loader import load_index, load_static_page
+from static_page_loader import load_static_page
 from events_page_loader import load_events_upcoming_page, load_events_archive_page, load_events_subpage
 from potw_page_loader import load_potw, load_potw_current
+from home_page_loader import load_home
 
 register_converter(url_date_converter, 'isodate')
 
 urlpatterns = [
-    path('', load_index, name='index'),
+    path('', load_home, name='home'),
     re_path(r'^(about_us)$', load_static_page, name='static_about_us'),
     re_path(r'^(faq)$', load_static_page, name='static_faq'),
     re_path(r'^(partners)$', load_static_page, name='static_partners'),
