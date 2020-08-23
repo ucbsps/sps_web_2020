@@ -1,9 +1,37 @@
 @import "color.css";
 
+@font-face {
+	font-family: "Open Sans";
+	src: URL('/static/fonts/OpenSans-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: URL('/static/fonts/OpenSans-Italic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: URL('/static/fonts/OpenSans-Bold.ttf') format('truetype');
+	font-weight: normal;
+	font-style: bold;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: URL('/static/fonts/OpenSans-Light.ttf') format('truetype');
+	font-weight: light;
+	font-style: normal;
+}
+
 body {
 	padding: 0;
 	margin: 0;
-	font-family: raleway, sans-serif;
+	font-family: "Open Sans",sans-serif;
 }
 
 #header {
@@ -51,7 +79,19 @@ img.header {
 	width: 100%;
 	float: left;
 	text-align: center;
-	font-weight: 300;
+	font-weight: light;
+}
+
+h1.content-header {
+	font-size: 2.2vw;
+}
+
+h2.content-header {
+	font-size: 1.8vw;
+}
+
+h3.content-header {
+	font-size: 1.5vw;
 }
 
 .content-main-header {
@@ -60,7 +100,7 @@ img.header {
 	margin-top: 1%;
 	margin-bottom: 0px;
 	padding-bottom: 0px;
-	font-weight: 300;
+	font-weight: light;
 }
 
 .content-sub-header {
@@ -69,7 +109,7 @@ img.header {
 	margin-top: 0px;
 	padding-top: 0px;
 	text-align: center;
-	font-weight: 300;
+	font-weight: light;
 }
 
 .footer {
