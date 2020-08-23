@@ -76,6 +76,7 @@
 			 width: 31%;
 			 margin: 1%;
 			 padding: 1%;
+			 position: relative;
 			 background-image: linear-gradient(to bottom, var(--blue-half), var(--blue-2));
 			 border-radius: 0.5em;
 		 }
@@ -101,11 +102,33 @@
 			 width: 100%;
 			 text-align: center;
 			 font-weight: 300;
+			 opacity: 0;
+			 transition: opacity 1s;
 			 color: var(--text-light);
 		 }
 
 		 div.sps-focus:hover >p {
 			 opacity: 1;
+		 }
+
+		 div.sps-focus:hover >h3 {
+			 opacity: 1;
+		 }
+
+		 div.sps-focus >h3.alt {
+			 margin: 0;
+			 width: auto;
+			 height: auto;
+			 position: absolute;
+			 top: 50%;
+			 left: 50%;
+			 transform: translate(-50%, -50%);
+			 opacity: 1;
+			 transition: opacity 1s;
+		 }
+
+		 div.sps-focus:hover >h3.alt {
+			 opacity: 0;
 		 }
 
 		 div.contact-us >ul {
@@ -190,7 +213,7 @@
 		</script>
 	</head>
 	<body>
-		<h1 class="content-header">Society of Physics Students at Berkeley</h1>
+		<h1 class="content-header">Society of Physics Students @ Berkeley</h1>
 
 		<div class="home-left">
 			<div class="slideshow">
@@ -245,6 +268,7 @@
 
 		<div class="home-lower">
 			<div class="sps-focus">
+				<h3 class="alt">Advocacy</h3>
 				<h3>Advocacy</h3>
 				<p>
 					Through <a href="/events/fsl">Faculty-Student Lunches</a>,
@@ -255,6 +279,7 @@
 			</div>
 
 			<div class="sps-focus">
+				<h3 class="alt">Friendship</h3>
 				<h3>Friendship</h3>
 				<p>
 					SPS helps build lifelong friendships through social meetings,
@@ -264,6 +289,7 @@
 			</div>
 
 			<div class="sps-focus">
+				<h3 class="alt">Nurturance</h3>
 				<h3>Nurturance</h3>
 				<p>
 					Offering <a href="/mentorship">Mentorship</a>
@@ -273,6 +299,7 @@
 			</div>
 
 			<div class="sps-focus">
+				<h3 class="alt">Inspiration</h3>
 				<h3>Inspiration</h3>
 				<p>
 					With <a href="/events/ugs">Undergraduate Seminars</a>,
