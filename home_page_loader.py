@@ -5,7 +5,7 @@ load_home -- load home page
 """
 
 from django.shortcuts import render
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, TemplateDoesNotExist
 
 from os import path
 from random import sample
@@ -32,6 +32,9 @@ def load_home(request):
 
     image_paths = []
 
+    if len(upcoming_events) == 0:
+        upcoming_events = [{}, {'title': 'No upcoming events'}, {}]
+
     try:
         db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
                                   database=MARIADB_DB, host='localhost', port=3306)
@@ -52,6 +55,10 @@ def load_home(request):
         potw_end = potw_data['end_date']
     else:
         potw_content = 'See the <a href="/potw">Problem of the Week page</a>.'
+        potw_start = None
+        potw_end = None
+
+    print(upcoming_events)
 
     try:
         content = render_to_string('home.html',
@@ -63,10 +70,11 @@ def load_home(request):
 
     try:
         page_tree = ET.ElementTree(ET.fromstring(content))
-    except FileNotFoundError:
+    except FileNotFoundError as e:
+        print(e)
         return error_500(request)
-    except ET.ParseError:
-        print('Parse error')
+    except ET.ParseError as e:
+        print(e)
         return error_500(request)
 
     page_tree_root = page_tree.getroot()

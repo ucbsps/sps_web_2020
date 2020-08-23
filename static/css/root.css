@@ -3,33 +3,31 @@
 body {
 	padding: 0;
 	margin: 0;
-	font-family: sans-serif;
-}
-
-.header {
-	padding: 1%;
-	float: left;
+	font-family: raleway, sans-serif;
 }
 
 #header {
 	width: 80%;
 	padding-left: 10%;
 	padding-right: 10%;
-	background-image: linear-gradient(to top left, var(--berkeley-blue), var(--lawrence));
+	background-image: linear-gradient(to bottom right, var(--blue-1), var(--blue-2));
+	display: flex;
+	align-items: center;
 }
 
-h1.header {
-	color: var(--text-primary);
-	width: 30%;
+a.header {
+	width: 22%;
 }
 
 img.header {
-	width: 25%;
+	width: 100%;
+	padding: 0.2%;
 }
 
 .content {
 	width: 95%;
 	max-width: 1000px;
+	align-text: center;
 	padding: 1%;
 	margin: auto;
 }
@@ -37,23 +35,28 @@ img.header {
 .content-header {
 	width: 100%;
 	float: left;
+	align-text: center;
+	font-weight: 300;
 }
 
 .content-main-header {
 	width: 100%;
 	float: left;
+	margin-top: 1%;
 	margin-bottom: 0px;
+	font-weight: 300;
 }
 
 .content-sub-header {
 	width: 100%;
 	float: left;
 	margin-top: 0px;
+	font-weight: 300;
 }
 
 .footer {
 	padding: 1%;
-	background-color: var(--berkeley-blue);
+	background-image: linear-gradient(to top right, #4889C1, #85CEED);
 }
 
 div.footer {
@@ -73,27 +76,27 @@ div.footer-text {
 p.footer-text {
 	padding: 0%;
 	margin: 0%;
-	color: #FFFFFF;
+	color: var(--text-light);
 	float: left;
 	width: 100%;
 }
 
 div.footer-text a {
-	color: #FFFFFF;
+	color: var(--text-light);
 }
 
 div.footer-text a:hover {
 	text-decoration: none;
-	color: #CCCCCC;
+	color: var(--text-light-alt);
 }
 
 a {
-	color: var(--text-primary);
+	color: var(--text-dark);
 }
 
 a:hover {
 	text-decoration: none;
-	color: var(--text-secondary);
+	color: var(--text-dark-alt);
 }
 
 .ocf_banner {

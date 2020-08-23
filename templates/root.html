@@ -25,15 +25,19 @@
 					 $(this).addClass("nav-selected");
 
 					 if(window.innerWidth > 1000){
-						 var p_div = $("<div class=\"nav-second-p\"></div>");
+						 var p_div = $('<div class="nav-second-p"></div>');
 						 p_div.append($(this).children("p").clone());
 						 $("#nav-second").append(p_div);
 					 }
 
-					 var ul_div = $("<div class=\"nav-second-ul\"></div>");
+					 $("#nav-second").css("top",
+										  $("#nav-first").position().top + $("#nav-first").height());
+					 $("#nav-second").css("width", $("#nav-first").width());
+
+					 var ul_div = $('<div class="nav-second-ul"></div>');
 					 ul_div.append($(this).children("ul").clone());
 					 $("#nav-second").append(ul_div);
-					 $("#nav-second").append($("<div id=\"nav-third\"></div>"));
+					 $("#nav-second").append($('<div id="nav-third"></div>'));
 
 					 $("li.nav-dropdown-item").hover(function(){
 						 $("#nav-third").empty();
@@ -43,6 +47,12 @@
 							 $("#nav-third").empty();
 						 });
 					 }, function(){});
+
+					 var nav_arrow = $('<p class="nav-arrow"></p>');
+					 var arrow_left = ($(this).position().left - $("#nav-second").position().left
+									 + $(this).width() / 2);
+					 nav_arrow.css({top: -20, left: arrow_left, position: 'absolute'});
+					 $("#nav-second").append(nav_arrow);
 				 }
 			 }, function(){});
 
@@ -106,7 +116,7 @@
 								</a>
 								<li class="nav-dropdown-item nav-dropdown-second">
 									Competitions
-									<i class="right-arrow">></i>
+									<p class="right-arrow"></p>
 
 									<ul>
 										<a href="/events/bpt" class="nav-link">
@@ -237,9 +247,9 @@
 			</div>
 		</div>
 		<script>
-		 if(window.innerWidth > 1000){
-			 img_str = '<img id="header-img" class="header" src="{% static "/images/spslogo.svg" %}" />';
-			 $("#header").prepend($('<a href="/">' + img_str + '</a>'))
+		 if(window.innerWidth > 1200){
+			 img_str = '<img class="header" src="{% static "/images/spslogo_light.svg" %}" />';
+			 $("#header").prepend($('<a class="header" href="/">' + img_str + '</a>'))
 			 $("#nav").css("width", "60%");
 			 $("#home-link")[0].hidden = true;
 		 }

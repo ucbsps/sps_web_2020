@@ -10,7 +10,7 @@ div.event-image {
 	float: left;
 	padding: 1%;
 	margin: 1%;
-	background-color: var(--lawrence);
+	background-color: var(--blue-1);
 }
 
 div.event-image img {
@@ -23,7 +23,7 @@ div.event-content {
 	float: left;
 	padding: 1%;
 	margin: 1%;
-	background-color: var(--sather-gate);
+	background-color: var(--blue-3);
 }
 
 div.event-location {
@@ -31,7 +31,7 @@ div.event-location {
 	float: left;
 	padding: 1%;
 	margin: 1%;
-	background-color: var(--california-gold);
+	background-color: var(--blue-2);
 }
 
 @media(max-width: 1000px){

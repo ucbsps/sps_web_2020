@@ -11,7 +11,58 @@
 
 		 div.home-right {
 			 width: 35%;
-			 padding: 1%;
+			 float: left;
+			 display: block;
+			 color: var(--text-light);
+		 }
+
+		 div.home-right a {
+			 color: var(--text-light);
+		 }
+
+		 div.home-right a:hover {
+			 color: var(--text-light-alt);
+		 }
+
+		 div.home-events {
+			 width: 100%;
+			 padding: 2%;
+			 margin: 2%;
+			 background-color: var(--blue-3);
+			 border-radius: 0.5em;
+			 float: left;
+		 }
+
+		 div.home-events hr {
+			 border-style: solid;
+			 color: var(--text-light);
+		 }
+
+		 div.event-list {
+			 width: 100%;
+			 float: left;
+		 }
+
+		 div.event {
+			 width: 100%;
+			 float: left;
+		 }
+
+		 div.home-potw {
+			 width: 100%;
+			 padding: 2%;
+			 margin: 2%;
+			 background-color: var(--blue-3);
+			 border-radius: 0.5em;
+			 float: left;
+		 }
+
+		 div.contact-us {
+			 width: 100%;
+			 padding: 2%;
+			 margin: 2%;
+			 background-color: var(--blue-3);
+			 border-radius: 0.5em;
 			 float: left;
 		 }
 
@@ -25,7 +76,8 @@
 			 width: 31%;
 			 margin: 1%;
 			 padding: 1%;
-			 background-color: var(--lawrence);
+			 background-image: linear-gradient(to bottom, var(--blue-half), var(--blue-2));
+			 border-radius: 0.5em;
 		 }
 
 		 div.sps-focus >p {
@@ -33,22 +85,23 @@
 			 width: 100%;
 			 opacity: 0;
 			 transition: opacity 1s;
-			 color: #FFFFFF;
+			 color: var(--text-light);
 		 }
 
 		 div.sps-focus >p >a {
-			 color: #FFFFFF;
+			 color: var(--text-light);
 		 }
 
 		 div.sps-focus >p >a:hover {
-			 color: #CCCCCC;
+			 color: var(--text-light-alt);
 		 }
 
 		 div.sps-focus >h3 {
 			 display: block;
 			 width: 100%;
 			 text-align: center;
-			 color: #FFFFFF;
+			 font-weight: 300;
+			 color: var(--text-light);
 		 }
 
 		 div.sps-focus:hover >p {
@@ -137,7 +190,7 @@
 		</script>
 	</head>
 	<body>
-		<h1 class="content-main-header">Society of Physics Students at Berkeley</h1>
+		<h1 class="content-header">Society of Physics Students at Berkeley</h1>
 
 		<div class="home-left">
 			<div class="slideshow">
@@ -147,45 +200,39 @@
 			</div>
 		</div>
 		<div class="home-right">
-			{% if events %}
-			<h2 class="content-header">Upcoming Events</h2>
-			<div class="event-list">
-				{% for event in events %}
-				<div class="event">
-					<div class="event-location">
-						<p>{% autoescape on %} {{ event.start_time }} {% endautoescape %}</p>
-						<p>{% autoescape on %} {{ event.end_time }} {% endautoescape %}</p>
-						{% if event.location %}
-						<p>{% autoescape on %} {{ event.location }} {% endautoescape %}</p>
+			<div class="home-events">
+				<h2 class="content-main-header">Upcoming Events</h2>
+				<div class="event-list">
+					{% for event in events %}
+					<div class="event">
+						{% if event.title %}
+						<a href="/events">
+							<p>{% autoescape on %} {{ event.title }} {% endautoescape %}</p>
+						</a>
+						{% else %}
+						<hr />
 						{% endif %}
 					</div>
-					<div class="event-content">
-						<h3>{% autoescape on %} {{ event.title }} {% endautoescape %}</h3>
-						<p>{% autoescape off %} {{ event.description }} {% endautoescape %}</p>
-					</div>
+					{% endfor %}
 				</div>
-				{% endfor %}
 			</div>
-			<p class="content">
-				For more information, see <a href="/events">Events</a>.
-			</p>
-			{% else %}
-			<h2 class="content-header">No Upcoming Events</h2>
-			{% endif %}
-			{% if potw %}
-			<h2 class="content-main-header"><a href="/potw">Problem of the Week</a></h2>
-			{% if potw_start %}
-			<h3 class="content-sub-header">For {{ potw_start }} - {{ potw_end }}</h3>
-			{% endif %}
-			<p class="content">
-				{% autoescape off %}
-				{{ potw }}
-				{% endautoescape %}
-			</p>
-			{% endif %}
 
+			{% if potw %}
+			<div class="home-potw">
+				<h2 class="content-main-header"><a href="/potw">Problem of the Week</a></h2>
+				{% if potw_start %}
+				<h3 class="content-sub-header">For {{ potw_start }} - {{ potw_end }}</h3>
+				{% endif %}
+				<p class="content">
+					{% autoescape off %}
+					{{ potw }}
+					{% endautoescape %}
+				</p>
+			</div>
+			{% endif %}
+			
 			<div class="contact-us">
-				<h2>Contact Us</h2>
+				<h2 class="content-main-header">Contact Us</h2>
 				<ul>
 					<li>ucbsps "at" gmail.com</li>
 					<li><a href="https://www.facebook.com/groups/474568829304662/">Facebook</a></li>
