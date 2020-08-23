@@ -27,7 +27,22 @@ img.header {
 .content {
 	width: 95%;
 	max-width: 1000px;
-	align-text: center;
+	text-align: center;
+	padding: 1%;
+	margin: auto;
+}
+
+.content ul {
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
+.content-large {
+	width: 95%;
+	max-width: 1000px;
+	text-align: center;
 	padding: 1%;
 	margin: auto;
 }
@@ -35,7 +50,7 @@ img.header {
 .content-header {
 	width: 100%;
 	float: left;
-	align-text: center;
+	text-align: center;
 	font-weight: 300;
 }
 
@@ -44,6 +59,7 @@ img.header {
 	float: left;
 	margin-top: 1%;
 	margin-bottom: 0px;
+	padding-bottom: 0px;
 	font-weight: 300;
 }
 
@@ -51,6 +67,8 @@ img.header {
 	width: 100%;
 	float: left;
 	margin-top: 0px;
+	padding-top: 0px;
+	text-align: center;
 	font-weight: 300;
 }
 
