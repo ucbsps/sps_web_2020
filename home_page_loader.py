@@ -58,8 +58,6 @@ def load_home(request):
         potw_start = None
         potw_end = None
 
-    print(upcoming_events)
-
     try:
         content = render_to_string('home.html',
                                    {'home_images': image_paths, 'events': upcoming_events,
