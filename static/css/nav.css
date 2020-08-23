@@ -31,9 +31,15 @@ li.nav-item {
 	margin: 0%;
 	padding: 2%;
 	text-decoration: none;
-	font-size: 30px;
+	font-size: 1.7vw;
 	font-weight: 300;
 	color: var(--text-light);
+}
+
+@media (max-width: 1000px){
+	li.nav-item {
+		font-size: 2.4vw;
+	}
 }
 
 li.nav-item:hover {
@@ -103,9 +109,10 @@ div.nav-second-ul {
 	border-left: 3px solid var(--blue-3);
 }
 
-@media (max-width: 100px) {
+@media (max-width: 1000px) {
 	div.nav-second-ul {
 		width: 50%;
+		border-left: none;
 	}
 }
 
@@ -120,7 +127,7 @@ div#nav-third {
 	width: 35%;
 }
 
-@media (max-width: 100px) {
+@media (max-width: 1000px) {
 	div#nav-third {
 		width: 50%;
 	}
@@ -149,7 +156,7 @@ p.nav-arrow {
 	width: 0;
 	height: 0;
 	z-index: 11;
-	border-right: 1.3em solid transparent;
-	border-bottom: 1.3em solid white;
-	border-left: 1.3em solid transparent;
+	border-right: 1.3vw solid transparent;
+	border-bottom: 1.3vw solid white;
+	border-left: 1.3vw solid transparent;
 }

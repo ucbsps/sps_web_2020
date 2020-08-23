@@ -51,7 +51,7 @@
 					 var nav_arrow = $('<p class="nav-arrow"></p>');
 					 var arrow_left = ($(this).position().left - $("#nav-second").position().left
 									 + $(this).width() / 2);
-					 nav_arrow.css({top: -20, left: arrow_left, position: 'absolute'});
+					 nav_arrow.css({top: '-1.25vw', left: arrow_left, position: 'absolute'});
 					 $("#nav-second").append(nav_arrow);
 				 }
 			 }, function(){});
@@ -244,7 +244,7 @@
 			</div>
 		</div>
 		<script>
-		 if(window.innerWidth > 1200){
+		 if(window.innerWidth > 1000){
 			 img_str = '<img class="header" src="{% static "/images/spslogo_light.svg" %}" />';
 			 $("#header").prepend($('<a class="header" href="/">' + img_str + '</a>'))
 			 $("#nav").css("width", "60%");
