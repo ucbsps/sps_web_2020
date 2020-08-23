@@ -53,7 +53,7 @@ img.header {
 
 .footer {
 	padding: 1%;
-	background-color: var(--background);
+	background-color: var(--berkeley-blue);
 }
 
 div.footer {
@@ -73,9 +73,18 @@ div.footer-text {
 p.footer-text {
 	padding: 0%;
 	margin: 0%;
-	color: var(--text-primary);
+	color: #FFFFFF;
 	float: left;
 	width: 100%;
+}
+
+div.footer-text a {
+	color: #FFFFFF;
+}
+
+div.footer-text a:hover {
+	text-decoration: none;
+	color: #CCCCCC;
 }
 
 a {
