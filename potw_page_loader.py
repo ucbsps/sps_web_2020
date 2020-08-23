@@ -139,7 +139,8 @@ def load_potw(request, date):
 
     try:
         content = render_to_string('potw_past.html',
-                                   {'date': date.isoformat(),
+                                   {'start_date': potw_data['start_date'],
+                                    'end_date': potw_data['end_date'],
                                     'problem_description': potw_data['problem'],
                                     'linked_problem': linked_problem,
                                     'solution_description': potw_data['solution'],
@@ -164,6 +165,8 @@ def load_potw_current(request):
     try:
         content = render_to_string('potw_current.html',
                                    {'problem_description': potw_data['problem'],
+                                    'start_date': potw_data['start_date'],
+                                    'end_date': potw_data['end_date'],
                                     'linked_problem': potw_data['linked_problem'],
                                     'past_problems': past_problems})
     except TemplateDoesNotExist:
