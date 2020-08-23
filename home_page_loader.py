@@ -90,5 +90,5 @@ def load_home(request):
 #    content = content.replace('\n', '').replace('\t', '')
 #    header = header.replace('\n', '').replace('\t', '')
 
-    return render(request, 'root.html', {'title': 'UC Berkeley SPS',
+    return render(request, 'root.html', {'title': 'Berkeley SPS',
                                          'header': header, 'content': content})
