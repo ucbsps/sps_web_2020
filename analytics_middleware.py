@@ -4,24 +4,25 @@ Django Middleware for providing MariaDB backed analytics.
 For the sps_web_2020 project, assumes that database and tables are created.
 """
 
-import mariadb
+import pymysql
 
 import db_util
 from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
 
 class AnalyticsMiddleware:
-    """Django Middleware for providing MariaDB backed analytics."""
+    """Django Middleware for providing Pymysql backed analytics."""
 
     def __init__(self, get_response):
         """Sets response function, connects to database (failing silently)."""
         self.get_response = get_response
 
         try:
-            self.db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                           database=MARIADB_DB, host='localhost', port=3306)
+            self.db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
+                                           database=MARIADB_DB, host='localhost', port=3306,
+                                           autocommit=True)
 
             self.db_connected = True
-        except mariadb.Error as e:
+        except pymysql.Error as e:
             print('Error connecting to database: {}'.format(e))
 
             self.db_conn = None
@@ -69,9 +70,9 @@ class AnalyticsMiddleware:
         try:
             cur.execute('INSERT INTO web2020_analytics' +
                         ' (id, remote_addr_id, user_agent_id, referer_id, page_path_id)' +
-                        ' VALUES (0, ?, ?, ?, ?)',
+                        ' VALUES (0, %s, %s, %s, %s)',
                         (remote_addr_id, user_agent_id, referer_id, path_id,))
-        except mariadb.Error as e:
+        except pymysql.Error as e:
             print('DB Error: {}'.format(e))
             self.reload_db()
             return
@@ -86,11 +87,12 @@ class AnalyticsMiddleware:
         self.db_connected = False
 
         try:
-            self.db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                           database=MARIADB_DB, host='localhost', port=3306)
+            self.db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
+                                           database=MARIADB_DB, host='localhost', port=3306,
+                                           autocommit=True)
 
             self.db_connected = True
-        except mariadb.Error as e:
+        except pymysql.Error as e:
             print('Error connecting to database: {}'.format(e))
 
             self.db_connected = False

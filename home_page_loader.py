@@ -11,10 +11,6 @@ from os import path
 from random import sample
 import xml.etree.ElementTree as ET
 
-import mariadb
-
-from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
-
 from db_util import get_value_by_id
 from settings import BASE_DIR
 from events_page_loader import get_events

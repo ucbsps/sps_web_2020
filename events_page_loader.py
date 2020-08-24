@@ -12,7 +12,7 @@ load_events_subpage -- renders page for events with a specific tag
 from django.shortcuts import render
 from django.template.loader import render_to_string, TemplateDoesNotExist
 
-import mariadb
+import pymysql
 from os import path
 import xml.etree.ElementTree as ET
 
@@ -53,7 +53,7 @@ def get_events(upcoming=False, tag=None, count=10):
                 tag = '#' + tag
 
     try:
-        db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
+        db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
                                   database=MARIADB_DB, host='localhost', port=3306)
 
         cur = db_conn.cursor()
@@ -72,7 +72,7 @@ def get_events(upcoming=False, tag=None, count=10):
                         ' web2020_events.id = web2020_events_tags.event_id' +
                         ' LEFT OUTER JOIN web2020_tags ON' +
                         ' web2020_events_tags.tag_id = web2020_tags.id' +
-                        ' WHERE ' + time_clause + ' AND tag=? ' + order_clause,
+                        ' WHERE ' + time_clause + ' AND tag=%s ' + order_clause,
                         (tag,))
         else:
             cur.execute('SELECT web2020_events.id, title, description, start_time, end_time,' +
@@ -94,7 +94,7 @@ def get_events(upcoming=False, tag=None, count=10):
                             ' web2020_events_tags.tag_id = web2020_tags.id' +
                             ' JOIN web2020_images ON' +
                             ' web2020_tags.img_id = web2020_images.id' +
-                            ' WHERE web2020_events.id = ?', (id,))
+                            ' WHERE web2020_events.id = %s', (id,))
 
                 tag_img_results = cur.fetchall()
 
@@ -104,7 +104,7 @@ def get_events(upcoming=False, tag=None, count=10):
             events.append({'title': event_result[1], 'description': event_result[2],
                            'start_time': event_result[3], 'end_time': event_result[4],
                            'location': event_result[5], 'img_path': img_path})
-    except mariadb.Error as e:
+    except pymysql.Error as e:
         print('DB Error: {}'.format(e))
 
         events = []

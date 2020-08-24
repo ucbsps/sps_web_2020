@@ -14,7 +14,7 @@ from django.template.loader import render_to_string, TemplateDoesNotExist
 
 from datetime import date
 
-import mariadb
+import pymysql
 
 from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
 from error_handler import error_500
@@ -24,7 +24,7 @@ def get_potw_dates():
     """Return a list of start date and end date pairs for POTWs in the database."""
 
     try:
-        db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
+        db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
                                   database=MARIADB_DB, host='localhost', port=3306)
 
         cur = db_conn.cursor()
@@ -37,7 +37,7 @@ def get_potw_dates():
 
         return [{'start_date': result[0], 'end_date': result[1]} for result in results]
 
-    except mariadb.Error as e:
+    except pymysql.Error as e:
         print('DB Error: {}'.format(e))
 
     return None
@@ -46,11 +46,11 @@ def get_latest_potw_data():
     """Return information on the latest POTW.
 
     Return value is a dictionary with parameters 'start_date', 'end_date', 'problem',
-    'linked_problem', 'solution', and 'linked_solution', with datatypes from the MariaDB connector.
+    'linked_problem', 'solution', and 'linked_solution', with datatypes from the Pymysql connector.
     """
 
     try:
-        db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
+        db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
                                   database=MARIADB_DB, host='localhost', port=3306)
 
         cur = db_conn.cursor()
@@ -66,7 +66,7 @@ def get_latest_potw_data():
                     'problem': result[2], 'linked_problem': result[3],
                     'solution': result[4], 'linked_solution': result[5]}
 
-    except mariadb.Error as e:
+    except pymysql.Error as e:
         print('DB Error: {}'.format(e))
 
     return None
@@ -75,17 +75,17 @@ def get_potw_data(date):
     """Return information on the POTW for given date.
 
     Return value is a dictionary with parameters 'start_date', 'end_date', 'problem',
-    'linked_problem', 'solution', and 'linked_solution', with datatypes from the MariaDB connector.
+    'linked_problem', 'solution', and 'linked_solution', with datatypes from the Pymysql connector.
     """
 
     try:
-        db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
+        db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
                                   database=MARIADB_DB, host='localhost', port=3306)
 
         cur = db_conn.cursor()
 
         cur.execute('SELECT start_date, end_date, problem, linked_problem, solution, linked_solution' +
-                    ' FROM web2020_potw WHERE ? BETWEEN start_date AND end_date' +
+                    ' FROM web2020_potw WHERE %s BETWEEN start_date AND end_date' +
                     ' AND end_date < (SELECT MAX(end_date) FROM web2020_potw)' +
                     ' ORDER BY start_date DESC', (date,))
 
@@ -96,7 +96,7 @@ def get_potw_data(date):
                     'problem': result[2], 'linked_problem': result[3],
                     'solution': result[4], 'linked_solution': result[5]}
 
-    except mariadb.Error as e:
+    except pymysql.Error as e:
         print('DB Error: {}'.format(e))
 
     return None
