@@ -16,7 +16,7 @@ from datetime import date
 
 import pymysql
 
-from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
+from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB, MARIADB_HOST
 from error_handler import error_500
 from file_util import IMAGE_EXTS
 
@@ -25,7 +25,7 @@ def get_potw_dates():
 
     try:
         db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                  database=MARIADB_DB, host='localhost', port=3306)
+                                  database=MARIADB_DB, host=MARIADB_HOST, port=3306)
 
         cur = db_conn.cursor()
 
@@ -51,7 +51,7 @@ def get_latest_potw_data():
 
     try:
         db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                  database=MARIADB_DB, host='localhost', port=3306)
+                                  database=MARIADB_DB, host=MARIADB_HOST, port=3306)
 
         cur = db_conn.cursor()
 
@@ -80,7 +80,7 @@ def get_potw_data(date):
 
     try:
         db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                  database=MARIADB_DB, host='localhost', port=3306)
+                                  database=MARIADB_DB, host=MARIADB_HOST, port=3306)
 
         cur = db_conn.cursor()
 

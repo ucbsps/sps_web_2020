@@ -7,7 +7,7 @@ For the sps_web_2020 project, assumes that database and tables are created.
 import pymysql
 
 import db_util
-from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
+from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB, MARIADB_HOST
 
 class AnalyticsMiddleware:
     """Django Middleware for providing Pymysql backed analytics."""
@@ -18,7 +18,7 @@ class AnalyticsMiddleware:
 
         try:
             self.db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                           database=MARIADB_DB, host='localhost', port=3306,
+                                           database=MARIADB_DB, host=MARIADB_HOST, port=3306,
                                            autocommit=True)
 
             self.db_connected = True
@@ -88,7 +88,7 @@ class AnalyticsMiddleware:
 
         try:
             self.db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                           database=MARIADB_DB, host='localhost', port=3306,
+                                           database=MARIADB_DB, host=MARIADB_HOST, port=3306,
                                            autocommit=True)
 
             self.db_connected = True

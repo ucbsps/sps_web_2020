@@ -5,13 +5,13 @@ Script to load all images in the static folder into the images table of the data
 import pymysql
 import os
 
-from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
+from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB, MARIADB_HOST
 from db_util import load_set_id
 from file_util import IMAGE_EXTS
 
 try:
     db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                              database=MARIADB_DB, host='localhost', port=3306, autocommit=True)
+                              database=MARIADB_DB, host=MARIADB_HOST, port=3306, autocommit=True)
 except pymysql.Error as e:
     print('Error connecting to database: {}'.format(e))
 

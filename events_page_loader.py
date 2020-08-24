@@ -17,7 +17,7 @@ from os import path
 import xml.etree.ElementTree as ET
 
 from settings import BASE_DIR
-from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB
+from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB, MARIADB_HOST
 
 from error_handler import error_500
 
@@ -54,7 +54,7 @@ def get_events(upcoming=False, tag=None, count=10):
 
     try:
         db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                  database=MARIADB_DB, host='localhost', port=3306)
+                                  database=MARIADB_DB, host=MARIADB_HOST, port=3306)
 
         cur = db_conn.cursor()
 
