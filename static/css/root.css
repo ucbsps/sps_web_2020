@@ -1,46 +1,124 @@
 @import "color.css";
 
+@font-face {
+	font-family: "Open Sans";
+	src: URL('/static/fonts/OpenSans-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: URL('/static/fonts/OpenSans-Italic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: URL('/static/fonts/OpenSans-Bold.ttf') format('truetype');
+	font-weight: normal;
+	font-style: bold;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: URL('/static/fonts/OpenSans-Light.ttf') format('truetype');
+	font-weight: light;
+	font-style: normal;
+}
+
 body {
 	padding: 0;
 	margin: 0;
-}
-
-.header {
-	padding: 1%;
-	float: left;
-	background-color: var(--background);
+	font-family: "Open Sans",sans-serif;
 }
 
 #header {
 	width: 80%;
 	padding-left: 10%;
 	padding-right: 10%;
+	background-image: linear-gradient(to bottom right, var(--blue-1), var(--blue-2));
+	display: flex;
+	align-items: center;
 }
 
-h1.header {
-	color: var(--text-primary);
-	width: 30%;
+a.header {
+	width: 22%;
 }
 
 img.header {
-	width: 15%;
+	width: 100%;
+	padding: 0.2%;
 }
 
 .content {
 	width: 95%;
 	max-width: 1000px;
+	text-align: center;
+	padding: 0.5%;
+	margin: 0.5%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.content ul {
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
+.content-large {
+	width: 95%;
+	max-width: 1000px;
+	text-align: center;
 	padding: 1%;
 	margin: auto;
 }
 
 .content-header {
 	width: 100%;
+	margin: 0.5%;
+	padding: 0.5%;
 	float: left;
+	text-align: center;
+	font-weight: light;
+}
+
+h1.content-header {
+	font-size: 2.2vw;
+}
+
+h2.content-header {
+	font-size: 1.8vw;
+}
+
+h3.content-header {
+	font-size: 1.2vw;
+}
+
+.content-main-header {
+	width: 100%;
+	float: left;
+	margin-top: 1%;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	font-weight: light;
+}
+
+.content-sub-header {
+	width: 100%;
+	float: left;
+	margin-top: 0px;
+	padding-top: 0px;
+	text-align: center;
+	font-weight: light;
 }
 
 .footer {
 	padding: 1%;
-	background-color: var(--background);
+	background-image: linear-gradient(to top right, #4889C1, #85CEED);
 }
 
 div.footer {
@@ -50,21 +128,37 @@ div.footer {
 	float: left;
 }
 
-.copyright {
-	padding: 0%;
-	margin: 0%;	
-	color: var(--text-primary);
+div.footer-text {
+	padding: 0.5em;
+	margin: 0.5em;
+	width: 60%;
 	float: left;
 }
 
-div.copyright {
-	padding: 0.5em;
-	margin: 0.5em;
-	width: 50%;
+p.footer-text {
+	padding: 0%;
+	margin: 0%;
+	color: var(--text-light);
+	float: left;
+	width: 100%;
+}
+
+div.footer-text a {
+	color: var(--text-light);
+}
+
+div.footer-text a:hover {
+	text-decoration: none;
+	color: var(--text-light-alt);
 }
 
 a {
-	color: var(--text-primary);
+	color: var(--text-dark);
+}
+
+a:hover {
+	text-decoration: none;
+	color: var(--text-dark-alt);
 }
 
 .ocf_banner {

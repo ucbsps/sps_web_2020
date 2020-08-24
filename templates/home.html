@@ -1,0 +1,318 @@
+<html>
+	<head>
+		<style>
+		 @import "color.css";
+
+		 div.home-left {
+			 width: 60%;
+			 padding: 1%;
+			 float: left;
+		 }
+
+		 div.home-right {
+			 width: 35%;
+			 float: left;
+			 display: block;
+			 color: var(--text-light);
+		 }
+
+		 div.home-right a {
+			 color: var(--text-light);
+		 }
+
+		 div.home-right a:hover {
+			 color: var(--text-light-alt);
+		 }
+
+		 div.home-events {
+			 width: 100%;
+			 padding: 2%;
+			 margin: 2%;
+			 background-color: var(--blue-3);
+			 border-radius: 0.5em;
+			 float: left;
+		 }
+
+		 div.home-events hr {
+			 border-style: solid;
+			 color: var(--text-light);
+		 }
+
+		 div.event-list {
+			 width: 100%;
+			 float: left;
+		 }
+
+		 div.event {
+			 width: 100%;
+			 float: left;
+		 }
+
+		 div.home-potw {
+			 width: 100%;
+			 padding: 2%;
+			 margin: 2%;
+			 background-color: var(--blue-3);
+			 border-radius: 0.5em;
+			 float: left;
+		 }
+
+		 div.contact-us {
+			 width: 100%;
+			 padding: 2%;
+			 margin: 2%;
+			 background-color: var(--blue-3);
+			 border-radius: 0.5em;
+			 float: left;
+		 }
+
+		 div.home-lower {
+			 width: 100%;
+			 float: left;
+			 display: flex;
+		 }
+
+		 div.sps-focus {
+			 width: 31%;
+			 margin: 1%;
+			 padding: 1%;
+			 position: relative;
+			 background-image: linear-gradient(to bottom, var(--blue-half), var(--blue-2));
+			 border-radius: 0.5em;
+		 }
+
+		 div.sps-focus >p {
+			 display: block;
+			 width: 100%;
+			 opacity: 0;
+			 transition: opacity 1s;
+			 color: var(--text-light);
+		 }
+
+		 div.sps-focus >p >a {
+			 color: var(--text-light);
+		 }
+
+		 div.sps-focus >p >a:hover {
+			 color: var(--text-light-alt);
+		 }
+
+		 div.sps-focus >h2 {
+			 display: block;
+			 width: 100%;
+			 text-align: center;
+			 font-weight: 300;
+			 opacity: 0;
+			 transition: opacity 1s;
+			 color: var(--text-light);
+		 }
+
+		 div.sps-focus:hover >p {
+			 opacity: 1;
+		 }
+
+		 div.sps-focus:hover >h2 {
+			 opacity: 1;
+		 }
+
+		 div.sps-focus >h1.alt {
+			 display: block;
+			 width: 100%;
+			 text-align: center;
+			 font-weight: 300;
+			 margin: 0;
+			 width: auto;
+			 height: auto;
+			 position: absolute;
+			 top: 50%;
+			 left: 50%;
+			 transform: translate(-50%, -50%);
+			 opacity: 1;
+			 transition: opacity 1s;
+			 color: var(--text-light);
+		 }
+
+		 div.sps-focus:hover >h1.alt {
+			 opacity: 0;
+		 }
+
+		 div.contact-us >ul {
+			 list-style-position: inside;
+			 list-style: none;
+			 margin: 0px;
+			 padding: 0px;
+		 }
+
+		 div.slideshow {
+			 width: 100%;
+			 position: relative;
+		 }
+
+		 .slideshow-image {
+			 width: 100%;
+			 display: none;
+			 position: absolute;
+			 z-index: 0;
+		 }
+		</style>
+
+		<script>
+		 var index;
+		 var index_next;
+		 var opacity_step = 0.1;
+		 var opacity_step_time = 100;
+
+		 function start_slideshow_update(){
+			 index_next = (index + 1) % $('.slideshow-image').length;
+
+			 $('.slideshow-image')[index].style.opacity = 1.0;
+			 $('.slideshow-image')[index_next].style.display = "block";			 
+			 $('.slideshow-image')[index_next].style.opacity = 0.0;
+
+			 fade_slideshow();
+		 }
+
+		 function fade_slideshow(){
+			 if(1.0 - opacity_step > $('.slideshow-image')[index_next].style.opacity){
+
+				 var index_op = parseFloat($('.slideshow-image')[index].style.opacity);
+				 index_op = index_op - opacity_step;
+				 if(0.0 > index_op){
+					 index_op = 0.0;
+				 }
+				 $('.slideshow-image')[index].style.opacity = index_op;
+
+				 var index_next_op = parseFloat($('.slideshow-image')[index_next].style.opacity);
+				 index_next_op = index_next_op + opacity_step;
+				 if(index_next_op > 1.0){
+					 index_next_op = 1.0;
+				 }
+				 $('.slideshow-image')[index_next].style.opacity = index_next_op;
+
+				 setTimeout(fade_slideshow, opacity_step_time);
+			 }
+			 else {
+				 $('.slideshow-image')[index_next].style.opacity = 1.0;
+				 $('.slideshow-image')[index].style.display = "none";
+				 index = index_next;
+			 }
+		 }
+
+		 function start_slideshow(){
+			 index = 0;
+
+			 $('.slideshow-image').css("display", "block");
+			 var slideshow_height = Math.max.apply(null, $(".slideshow-image").map(
+				 function (){return $(this).height();}).get());
+			 $('.slideshow-image').css("display", "none");
+
+			 console.log(slideshow_height);
+
+			 $('div.slideshow').css("height", slideshow_height);
+
+			 $('.slideshow-image')[index].style.display = "block";
+			 setInterval(start_slideshow_update, 5000);
+		 }
+
+		 $(start_slideshow);
+		</script>
+	</head>
+	<body>
+		<h1 class="content-header">Society of Physics Students @ Berkeley</h1>
+
+		<div class="home-left">
+			<div class="slideshow">
+				{% for home_image in home_images %}
+				<img class="slideshow-image" src="{{ home_image }}" />
+				{% endfor %}
+			</div>
+		</div>
+		<div class="home-right">
+			<div class="home-events">
+				<h2 class="content-main-header">Upcoming Events</h2>
+				<div class="event-list">
+					{% for event in events %}
+					<div class="event">
+						{% if event.title %}
+						<a href="/events">
+							<p>{% autoescape on %} {{ event.title }} {% endautoescape %}</p>
+						</a>
+						{% else %}
+						<hr />
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+
+			{% if potw %}
+			<div class="home-potw">
+				<h2 class="content-main-header"><a href="/potw">Problem of the Week</a></h2>
+				{% if potw_start %}
+				<h3 class="content-sub-header">For {{ potw_start }} - {{ potw_end }}</h3>
+				{% endif %}
+				<p class="content">
+					{% autoescape off %}
+					{{ potw }}
+					{% endautoescape %}
+				</p>
+			</div>
+			{% endif %}
+			
+			<div class="contact-us">
+				<h2 class="content-main-header">Contact Us</h2>
+				<ul>
+					<li>ucbsps "at" gmail.com</li>
+					<li><a href="https://www.facebook.com/groups/474568829304662/">Facebook</a></li>
+					<li><a href="">Instagram</a></li>
+					<li>Join our
+						<a href="https://mailchi.mp/ca30b4050b69/mailing_list">mailing list</a>!</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="home-lower">
+			<div class="sps-focus">
+				<h1 class="alt">Advocacy</h1>
+				<h2>Advocacy</h2>
+				<p>
+					Through <a href="/events/fsl">Faculty-Student Lunches</a>,
+					<a href="/events/town_halls">Town Halls</a>,
+					and <a href="/committee/outreach">Outreach</a>,
+					SPS acts provides a voice for present and future physics undergraduates.
+				</p>
+			</div>
+
+			<div class="sps-focus">
+				<h1 class="alt">Friendship</h1>
+				<h2>Friendship</h2>
+				<p>
+					SPS helps build lifelong friendships through social meetings,
+					our department wide <a href="/events/bbq">BBQs</a>,
+					and working on committees with others.
+				</p>
+			</div>
+
+			<div class="sps-focus">
+				<h1 class="alt">Nurturance</h1>
+				<h2>Nurturance</h2>
+				<p>
+					Offering <a href="/mentorship">Mentorship</a>
+					and <a href="/study_halls">Study Halls</a>
+					SPS provides support for all of our journeys through physics.
+				</p>
+			</div>
+
+			<div class="sps-focus">
+				<h1 class="alt">Inspiration</h1>
+				<h2>Inspiration</h2>
+				<p>
+					With <a href="/events/ugs">Undergraduate Seminars</a>,
+					involvement in the <a href="/events/ipt">International Physics Tournament</a>,
+					and the new <a href="/events/bpt">Berkeley Physics Tournament</a>,
+					SPS introduces students to more physics.
+				</p>
+			</div>
+		</div>
+	</body>
+</html>
