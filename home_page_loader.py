@@ -66,6 +66,13 @@ def load_home(request):
         potw_content = potw_data['problem']
         potw_start = potw_data['start_date']
         potw_end = potw_data['end_date']
+
+        if len(potw_content) > 200:
+            potw_content_words = potw_content.split(' ')
+            potw_content = ''
+            while len(potw_content) < 200:
+                potw_content = ' '.join([potw_content, potw_content_words.pop(0)])
+            potw_content = potw_content + ' ...'
     else:
         potw_content = 'See the <a href="/potw">Problem of the Week page</a>.'
         potw_start = None
