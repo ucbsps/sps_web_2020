@@ -21,33 +21,50 @@ from events_page_loader import get_events
 from error_handler import error_500
 from potw_page_loader import get_latest_potw_data
 
-HOME_IMAGES = [150, 170, 183, 189, 193, 202, 209]
+# Home images must have a 1.33333 aspect ratio
+# Use command
+# file in $(find . -name "*.*");
+# do [[ "1.33333" == $(exiftool $file | grep "Image Size" | awk '{print $4}' | awk -F'x' '{print $1 / $2}') ]] && echo $file;
+# done
+
+HOME_IMAGES = [
+    '/static/images/outreach/TO1.JPG',
+    '/static/images/outreach/archive/IMG_6732.JPG',
+    '/static/images/outreach/archive/IMG_6733.JPG',
+    '/static/images/outreach/archive/IMG_6750.JPG',
+    '/static/images/outreach/archive/IMG_6753.JPG',
+    '/static/images/outreach/archive/IMG_6777.JPG',
+    '/static/images/outreach/archive/IMG_6734.JPG',
+    '/static/images/outreach/basf/basf1.jpg',
+    '/static/images/outreach/basf/basf2.jpg',
+    '/static/images/outreach/calapalooza/calapalooza1.jpg',
+    '/static/images/outreach/calday/Calday6.JPG',
+    '/static/images/outreach/calday/Calday7.JPG',
+    '/static/images/outreach/trio/trio1.jpg',
+    '/static/images/outreach/trio/trio2.jpg',
+    '/static/images/outreach/trio/trio3.jpg',
+    '/static/images/outreach/trio/trio4.jpg',
+    '/static/images/outreach/IPT_1.jpg',
+    '/static/images/outreach/IPT_2.jpg',
+    '/static/images/outreach/TO2_cropped.JPG',
+    '/static/images/ugs/CaolanJohn.JPG',
+    '/static/images/projects/destress/destress1.jpg',
+    '/static/images/projects/destress/destress3.jpg',
+    '/static/images/projects/destress/destress4.jpg',
+    '/static/images/mentorship/mentorship3.jpg',
+    '/static/images/mentorship/mentorship7.jpg',
+    '/static/images/mentorship/mentorship8.jpg',
+]
 
 def load_home(request):
     """Returns homepage."""
 
-    image_ids = sample(HOME_IMAGES, 3)
+    image_paths = sample(HOME_IMAGES, 3)
     upcoming_events = get_events(True, count=3)
     potw_data = get_latest_potw_data()
 
-    image_paths = []
-
     if len(upcoming_events) == 0:
         upcoming_events = [{}, {'title': 'No upcoming events'}, {}]
-
-    try:
-        db_conn = mariadb.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                  database=MARIADB_DB, host='localhost', port=3306)
-
-        cur = db_conn.cursor()
-
-        for image_id in image_ids:
-            image_path = get_value_by_id(cur, 'web2020_images', 'img_path', image_id)
-
-            if image_path is not None:
-                image_paths.append(image_path)
-    except mariadb.Error as e:
-        print('DB Error: {}'.format(e))
 
     if potw_data is not None:
         potw_content = potw_data['problem']
