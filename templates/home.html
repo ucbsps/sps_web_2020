@@ -66,6 +66,20 @@
 			 float: left;
 		 }
 
+		 div.contact-us >ul {
+			 width: 50%;
+			 float: left;
+		 }
+
+		 div.contact-us a.logo {
+			 text-decoration: none;
+		 }
+
+		 div.contact-us img {
+			 height: 2.5em;
+			 float: left;
+		 }
+
 		 div.home-lower {
 			 width: 100%;
 			 float: left;
@@ -149,10 +163,18 @@
 		 }
 
 		 .slideshow-image {
-			 width: 100%;
+			 width: 96%;
+			 padding: 2%;
+			 background-color: var(--blue-1);
 			 display: none;
 			 position: absolute;
 			 z-index: 0;
+			 border-radius: 0.5em;
+		 }
+
+		 img.logo {
+			 margin-left: 0.5em;
+			 margin-right: 0.5em;
 		 }
 		</style>
 
@@ -235,7 +257,9 @@
 					<div class="event">
 						{% if event.title %}
 						<a href="/events">
-							<p>{% autoescape on %} {{ event.title }} {% endautoescape %}</p>
+							<p class="content">
+								{% autoescape on %} {{ event.title }} {% endautoescape %}
+							</p>
 						</a>
 						{% else %}
 						<hr />
@@ -263,11 +287,15 @@
 				<h2 class="content-main-header">Contact Us</h2>
 				<ul>
 					<li>ucbsps "at" gmail.com</li>
-					<li><a href="https://www.facebook.com/groups/474568829304662/">Facebook</a></li>
-					<li><a href="">Instagram</a></li>
 					<li>Join our
 						<a href="https://mailchi.mp/ca30b4050b69/mailing_list">mailing list</a>!</li>
 				</ul>
+				<a class="logo" href="https://www.facebook.com/groups/474568829304662/">
+					<img class="logo" src="/static/images/facebook_logo.png" />
+				</a>
+				<a class="logo" href="">
+					<img class="logo" src="/static/images/instagram_logo.png" />
+				</a>
 			</div>
 		</div>
 
