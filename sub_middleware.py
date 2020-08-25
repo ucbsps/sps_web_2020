@@ -1,5 +1,5 @@
 """
-Django Middleware for rewriting /static/ urls.
+Django Middleware for rewriting / urls.
 """
 
 BASE_DIR = b'/~carterturn/sps'
