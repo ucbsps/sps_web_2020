@@ -1,4 +1,4 @@
-#!/home/p/ph/physics/sps_web_2020/venv/bin/python
+#!/home/c/ch/chocoli/sps_web_2020/venv/bin/python
 import os
 import sys
 
