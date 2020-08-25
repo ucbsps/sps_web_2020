@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 ]
  
 MIDDLEWARE = [
+    'sub_middleware.sub_middleware',
     'analytics_middleware.AnalyticsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
