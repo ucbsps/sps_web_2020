@@ -2,13 +2,19 @@
 Django Middleware for rewriting / urls.
 """
 
-BASE_DIR = b'/~carterturn/sps'
+import os
+import sys
 
 def sub_middleware(get_response):
     """Django Middleware for rewriting urls."""
 
+    print(os.getcwd(), file=sys.stderr)
+    BASE_DIR = ('/~' + '/'.join(os.getcwd().split('/')[-2:])).encode()
+
     def middleware(request):
         """Replaces href="/ with href="DIR/."""
+
+        print(BASE_DIR, file=sys.stderr)
 
         response = get_response(request)
 
