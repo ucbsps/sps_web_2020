@@ -69,6 +69,13 @@ img.header {
 	text-align: left;
 }
 
+.content ol {
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
 .content-large {
 	width: 95%;
 	max-width: 1000px;
