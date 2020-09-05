@@ -1,0 +1,204 @@
+<html>
+	<head>
+		<title>SPS Website Committee</title>
+		<style>
+		 .screenshot {
+			 width: 50%;
+			 margin-left: auto;
+			 margin-right: auto;
+		 }
+		</style>
+	</head>
+	<body>
+		<h1 class="content-header">Setting up a Debug Website</h1>
+		<p class="content">
+			Work on the web development committee will be substantially easier with access to a copy of the website to test code on. In order to have a consistent environment, it is encouraged to use the <a href="ocf.berkeley.edu">OCF</a> for testing. This guide will describe how to do that.
+		</p>
+
+		<h3 class="content-header">Create an OCF Account</h3>
+
+		<p class="content">
+			If you have not done so, you will need to create an Open Computer Facility (OCF) account. You can do so <a href="https://www.ocf.berkeley.edu/account/register/">here</a>.
+		</p>
+
+		<h3 class="content-header">Get SSH Access</h3>
+
+		<p class="content">
+			You will need to use SSH to access the OCF computers.
+		</p>
+
+		<p class="content">
+			On Mac OSX and Linux, SSH should be accessible from a Terminal through the command ssh. To access the OCF, run
+		</p>
+		<p>
+			<code>ssh [ocf username]@ssh.ocf.berkeley.edu</code>
+		</p>
+
+		<p class="content">
+			On Windows, you will need to download an SSH client. If you have <a href="https://git-scm.com/download/win">git bash</a>, you already have an SSH client available in the git bash terminal. Use the same command as Mac OSX/Linux. git bash is the recommended tool, but if you want something more portable, <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a> also provides an SSH client. If you are using PuTTY, set the hostname to <code>ssh.ocf.berkeley.edu</code>, port to <code>22</code>, and then enter your OCF username when prompted for a login (after pressing <code>Open</code>).
+		</p>
+
+		<p class="content">
+			After a successful login to the OCF, you should have a Terminal window with text looking similar to:
+		</p>
+
+		<img class="screenshot" src="/static/images/webdev/ocf_login.png" />
+
+		<p class="content">
+			After this point, you will have to make some use of Bash shell scripting. There are a variety of tutorials available on the internet, feel free to contact Carter for additional help.
+		</p>
+
+		<h3 class="content-header">Clone Repositories</h3>
+
+		<p class="content">
+			SPS website code is stored in git. We will install the repositories to our home directory on the OCF. First, change to this directory using <code>cd ~</code>. Next, we need to clone both the <code>sps_web_2020</code> and <code>sps_web_sync</code> repositories, currently stored on Github. To do this, run these commands:
+		</p>
+		<p class="content">
+			<code>git clone https://github.com/ucbsps/sps_web_2020</code>
+		</p>
+		<p class="content">
+			<code>git clone https://github.com/ucbsps/sps_web_sync</code>
+		</p>
+
+		<p class="content">
+			After doing this, you should run <code>ls</code> in your home directory. You should see folders named <code>sps_web_2020</code> and <code>sps_web_sync</code>, similar to the screenshot below (Carter has some additional files in his home directory).
+		</p>
+
+		<img class="screenshot" src="/static/images/webdev/home_directory.png" />
+
+		<h3 class="content-header">Run Setup Scripts</h3>
+
+		<p class="content">
+			To run the backend of our code, we use Python. To avoid making changes to Python for your entire user account, we take advantage of Python "virtual environments". These allow us to install packages only for a separate, isolated, Python interpreter. This has been automated by the <code>setup.sh</code> scripts in <code>sps_web_2020</code> and <code>sps_web_sync</code>. First, run
+		</p>
+
+		<p class="content">
+			<code>cd ~/sps_web_2020</code>
+		</p>
+		<p class="content">
+			<code>./setup.sh</code>
+		</p>
+
+		<p class="content">
+			Then, run
+		</p>
+
+		<p class="content">
+			<code>cd ~/sps_web_sync</code>
+		</p>
+		<p class="content">
+			<code>./setup.sh</code>
+		</p>
+
+		<p class="content">
+			Each of these will take a few minutes. Once they are complete, the directories <code>~/sps_web_2020/venv</code> and <code>~/sps_web_sync/venv</code> should be created. They will contain the environment. In particular, a Python 3.7 interpreter will be setup at <code>~/sps_web_2020/venv/bin/python</code> and <code>~/sps_web_sync/venv/bin/python</code>. You should use these Python interpreters for running Python scripts in <code>sps_web_2020</code> and <code>sps_web_sync</code>, the Python interpreter you get from running <code>python</code> will not have the necessary dependencies installed. See the screenshot below for how to start the correct Python interpreter for running code from <code>sps_web_2020</code>.
+		</p>
+
+		<img class="screenshot" src="/static/images/webdev/venv_python.png" />
+
+		<h3 class="content-header">Create Secrets</h3>
+
+		<p class="content">
+			The backend requries a secret key in order to operate securely. This key can be randomly generated. The <code>fake_secrets.py</code> script does this. Run <code>cd ~/sps_web_2020</code> to change to the backend directory, then run <code>venv/bin/python fake_secrets.py</code> to generate the <code>secrets.py</code> file.
+		</p>
+
+		<p class="content">
+			The automatically generated <code>secrets.py</code> file does not contain the correct credentials for accessing your mysql database running on the OCF (and it should not, as that would require knowing a password that only you should know). The password for your mysql database is not initially set. You can both set and read the password at the same time by running <code>makemysql</code>. Note that this command only works on the OCF computers. Remember this password, and do not share it with anyone. Once you have the password, you will have to manually edit the file. If you do not have a preferred command line text editor, <code>nano</code> should work well. Run the command <code>nano secrets.py</code> to open the editor. Then change the lines as shown in the table below. <code>[your ocf username]</code> represents your OCF username, for example, I would write <code>carterturn</code>.
+		</p>
+
+		<table class="content">
+			<tr><td>Original Entry</td><td>Your New Entry</td><td>Carter's New Entry</td></tr>
+			<tr>
+				<td><code>MARIADB_USER = 'physics'</code></td>
+				<td><code>MARIADB_USER = '[your ocf username]'</code></td>
+				<td><code>MARIADB_USER = 'carterturn'</code></td>
+			</tr>
+			<tr>
+				<td><code>MARIADB_PASSWORD = 'physics'</code></td>
+				<td><code>MARIADB_PASSWORD = '[password from makemysql]'</code></td>
+				<td><code>MARIADB_PASSWORD = 'AAwvaev423fwwfasvEFagrsdf'</code></td>
+			</tr>
+			<tr>
+				<td><code>MARIADB_DB = 'physics'</code></td>
+				<td><code>MARIADB_DB = '[your ocf username]'</code></td>
+				<td><code>MARIADB_DB = 'carterturn'</code></td>
+			</tr>
+			<tr>
+				<td><code>MARIADB_HOST = 'localhost'</code></td>
+				<td><code>MARIADB_HOST = 'mysql'</code></td>
+				<td><code>MARIADB_HOST = 'mysql'</code></td>
+			</tr>
+		</table>
+
+		<p class="content">
+			Note that the password for "Carter's New Entry" in the table above is not my actual password, just an example of what could be a password. Again, never share your OCF mysql password with anyone (not even me). Finally, we need to add a bit more information that tells <code>sps_web_sync</code> what permissions to request from Google. To do this, add the following lines to the end of <code>secrets.py</code>:
+		</p>
+
+		<pre><code>
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',<br />
+          'https://www.googleapis.com/auth/calendar.readonly']
+		</code></pre>
+
+		<p class="content">
+			Your final <code>secrets.py</code> file should resemble the one shown below (with <code>SECRET_KEY</code> and <code>MARIADB_PASSWORD</code> unredacted of course):
+		</p>
+
+		<img class="screenshot" src="/static/images/webdev/nano_secrets.png" />
+
+		<h3 class="content-header">Setup Database</h3>
+
+		<p class="content">
+			In order for the backend to run properly, certain tables need to be created in the database. The SQL file needed to create these tables can be downloaded <a href="https://drive.google.com/file/d/1EQ7SzLfFWTxX60396_7Wzo5O3b6exKGT/view?usp=sharing">here</a> (you will need permission from Carter to access this file). You will then need to transfer this file (<code>web2020_schema.sql</code>) to the OCF. If you are using Mac OSX, Linux, or git bash, open a terminal on your computer in the folder where you downloaded the file, then run <code>scp web2020_schema.sql [your ocf username]@ssh.ocf.berkeley.edu:~/</code>. If you are using Windows and do not have git bash, you can transfer the file using <a href="https://winscp.net/eng/download.php">WinSCP</a>.
+		</p>
+
+		<p class="content">
+			In a terminal on the OCF, change back to your home directory by running <code>cd ~</code>. Then, run <code>ls</code>. You should see the file <code>web2020_schema.sql</code> listed (if you do not, please tell Carter). Next, run <code>mysql -u [your ocf username] -p -D [your ocf username] &lt; web2020_schema.sql</code>. When prompted, enter the mysql password you found in the previous part. This will setup the database. There should be no additional output.
+		</p>
+
+		<h3 class="content-header">Copy Files</h3>
+
+		<p class="content">
+			Next, there are a few files we need to copy to tell the OCF webserver how to run your copy of the SPS website. Before we begin, change back to your home directory by running <code>cd ~</code>.
+		</p>
+
+		<p class="content">
+			First, you need to copy the <code>secrets.py</code> file from <code>sps_web_2020</code> to <code>sps_web_sync</code>. Do this by running the command
+		</p>
+		<code>cp ~/sps_web_2020/secrets.py ~/sps_web_sync/</code>
+
+		<p class="content">
+			Next, you need to copy a couple of scripts into the folder read by Apache so that the webserver knows to run the backend. First, we need to make a subfolder of your OCF website that the SPS website will be installed to. Do this with the command <code>mkdir ~/public_html/sps</code>. Next, copy the files <code>.htaccess</code> and <code>run.fcgi</code> from <code>sps_web_2020</code> to that folder by running the commands <code>cp ~/sps_web_2020/.htaccess ~/public_html/sps/</code> and <code>cp ~/sps_web_2020/run.fcgi ~/public_html/sps/</code>.
+		</p>
+		<p class="content">
+			These files also need to be edited. First, edit <code>.htaccess</code> (using <code>nano ~/public_html/sps/.htaccess</code>). Replace <code>/run.fcgi</code> with <code>/~[your ocf username]/sps/run.fcgi</code> in the fourth line (remember the <code>~</code>). Your final file should resemble the one shown below (with your username replacing <code>carterturn</code>):
+		</p>
+
+		<img class="screenshot" src="/static/images/webdev/nano_htaccess.png" />
+
+		<p class="content">
+			Next, edit <code>run.fcgi</code>, replacing <code>/p/ph/physics</code> with <code>/[first letter of your ocf username]/[first two letters of your ocf username]/[your ocf username]</code>. Your final file should resemble the one show below:
+		</p>
+
+		<img class="screenshot" src="/static/images/webdev/nano_runfcgi.png" />
+
+		<p class="content">
+			Finally, copy the script <code>update_website_debug.sh</code> from <code>sps_web_2020</code> to your home directory by running the command <code>cp ~/sps_web_2020/update_website_debug.sh ~/</code>. This script is used to copy static files from the git repository to where Apache can see them, as well as tell Apache to reload the backend code. Run this script by running <code>~/update_website_debug.sh</code>.
+		</p>
+
+		<h3 class="content-header">View the Website!</h3>
+
+		<p class="content">
+			Your copy of the website should now be properly installed! View it by visiting <code>https://ocf.berkeley.edu/~[your ocf username]/sps</code>.
+		</p>
+
+		<h3 class="content-header">Sync With Google Drive</h3>
+
+		<p class="content">
+			There will still be a couple of things missing. The events will all be blank, and the problem of the week page may have an error (or be blank). To resolve this, you need to sync data from Google to your copy of the website. First, you will need to copy the <code>credentials.json</code> file to the OCF. Download the file here. Then, run <code>scp credentials.json [your ocf username]@ssh.ocf.berkeley.edu:~/sps_web_sync/</code> on your computer (or use WinSCP) to copy it to your <code>sps_web_sync</code> folder on the OCF. Then, run <code>venv/bin/python download_calendar.py</code>. This should print out a URL. Copy this URL to a web browser. It will ask you to authenticate a program to access your Google calendar and Google drive files. You should probably read the source code of <code>download_calendar.py</code> and <code>download_potw.py</code> to verify that they will not misuse this access (if you decide you do not trust them, we can setup another Google account that you can use instead of your own). Once you are satisfied, click <code>Allow</code>, then copy the key that it gives you back to the script and press enter to continue. The script will then download the SPS calendar. Next, download the problem of the week data by running <code>venv/bin/python download_potw.py</code>.
+		</p>
+
+		<p class="content">
+			Your copy of the website should now be fully operational!
+		</p>
+	</body>
+</html>

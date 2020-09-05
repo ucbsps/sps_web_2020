@@ -26,7 +26,8 @@ def load_static_page(request, page_name):
         page_tree = ET.parse(path.join(BASE_DIR, 'sps_web_2020/static_html/{}.html'.format(page_name)))
     except FileNotFoundError:
         return error_500(request)
-    except ET.ParseError:
+    except ET.ParseError as e:
+        print(e)
         return error_500(request)
 
     page_tree_root = page_tree.getroot()

@@ -39,6 +39,8 @@ urlpatterns = [
     re_path(r'^committee/(projects)$', load_static_page, name='static_committee_projects'),
     re_path(r'^committee/(outreach)$', load_static_page, name='static_committee_outreach'),
     re_path(r'^committee/(website)$', load_static_page, name='static_committee_website'),
+    re_path(r'^committee/(website/debug_setup)$', load_static_page,
+            name='static_committee_website_debug_setup'),
     path('potw', load_potw_current, name='potw_current'),
     path('potw/<isodate:date>', load_potw, name='potw_past'),
 ]
