@@ -60,19 +60,20 @@ img.header {
 	margin: 0.5%;
 	margin-left: auto;
 	margin-right: auto;
+	clear: both;
 }
 
 .content ul {
-	width: auto;
-	margin-left: auto;
-	margin-right: auto;
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
 	text-align: left;
 }
 
 .content ol {
-	width: auto;
-	margin-left: auto;
-	margin-right: auto;
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
 	text-align: left;
 }
 
