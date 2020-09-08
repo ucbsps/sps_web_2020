@@ -21,3 +21,4 @@ Redirect /projects.html /committees/projects
 Redirect /snackshack.html /snack_shack
 Redirect /ugseminar.html /events/ugs
 Redirect /gather https://gather.town/UUQuJikAXfPRHn3M/berkeley-physics
+Redirect /committee/website/join https://forms.gle/SjrBuwqN8pqZVTwY7l
