@@ -29,6 +29,7 @@ urlpatterns = [
     path('events', load_events_upcoming_page, name='events'),
     path('events/archive', load_events_archive_page, name='events_archive'),
     re_path(r'^events/(outreach)$', load_events_subpage, name='events_outreach'),
+    re_path(r'^events/outreach/(basf)$', load_static_page, name='events_outreach_basf'),
     re_path(r'^events/(fsl)$', load_events_subpage, name='events_fsl'),
     re_path(r'^events/(ugs)$', load_events_subpage, name='events_ugs'),
     re_path(r'^events/(bbq)$', load_events_subpage, name='events_bbq'),
