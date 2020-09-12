@@ -1,0 +1,142 @@
+<html>
+	<head>
+		<title>SPS Website Committee</title>
+		<style>
+		 .screenshot {
+			 width: 50%;
+			 margin-left: auto;
+			 margin-right: auto;
+		 }
+		</style>
+	</head>
+	<body>
+		<h1 class="content-header">Introduction to Shell</h1>
+
+		<p class="content">
+			In order to effectively work on the SPS website, you will need to have access to a shell. This guide will help provide a minimal introduction to using shells. Since our access to the OCF computers (where we setup the development environment) is over SSH (Secure SHell), this will be necessary in order to effectively debug the website.
+		</p>
+		<p class="content">
+			The most common shell (at the time of writing) is <code>bash</code>, the Bourne Again Shell. <code>Bash</code> is the default shell provided on the OCF and the only shell available through git bash (for Windows). Most Linux distributions use <code>bash</code> as their default shell, but a few distributions have switched to <code>zsh</code>, the Z shell. The Terminal program in Mac OSX uses <code>zsh</code> by default. These instructions will be written with <code>bash</code> in mind, but they should work very similarly for <code>zsh</code>.
+		</p>
+		<p class="content">
+			A common convention for shell commands is to specify a replaceable string by square braces, e.g. <code>[username]</code> would represent your username (<code>carterturn</code> for me).
+		</p>
+		<p class="content">
+			Another common rule of shells is that pressing <code>Ctrl+c</code> will cancel the current operation. Sometimes you will have to press it multiple times.
+		</p>
+
+		<h2 class="content-header">SSH</h2>
+		<p class="content">
+			It will be useful to have access to a shell during this introduction. You should try to run these commands on the OCF computers while you read through this document. To open a shell on the OCF comptuers, connect via SSH. To do this, you will first need to open a shell on your computer. On Mac OSX or Linux, this can be done by running the Terminal program. On Windows, this can be done by opening git bash. Once you have done so, run the following command:
+		</p>
+		<p class="content"><code>ssh [your OCF username]@ssh.ocf.berkeley.edu</code></p>
+
+		<h2 class="content-header">The Shell as a File Browser</h2>
+
+		<p class="content">
+			The most common use of the shell is to browse files, copy and move files, or delete files: the same functions that a typical GUI file browser performs. This section will go over some of the commands used to do this.
+		</p>
+
+		<h3 class="content-header">Change Directories: <code>cd</code></h3>
+		<p class="content">
+			The first command is <code>cd</code>, which stands for "change directory." Most shell commands take one or more <b>arguments</b> that tell the command what to do. <code>cd</code> takes a single command, the path to the directory to change to. A path can be specified in a few different ways. The most common way is <i>relative</i>: if a path does not start with <code>/</code>, the path will be relative to the current directory. If a path starts with <code>/</code>, the path will be relative to the root directory of the system. Finally, if a path starts with <code>~</code>, the path will be relative to the home directory (on most systems, this is <code>/home/[username]</code>, on the OCF, home is <code>/home/[first letter of username]/[first two letters of username]/[username]</code>. Try running <code>cd public_html</code>. This will change your current directory to the <code>public_html</code> folder. You will notice your prompt (the part before your cursor) change to include <code>public_html</code>. By default, the prompt shows your current directory (<code>~</code> for home). If you run <code>cd</code> with no arguments, you will change back to your home directory. Run <code>cd</code> with no arguments now.
+		</p>
+
+		<h3 class="content-header">List Files: <code>ls</code></h3>
+		<p class="content">
+			You have probably noticed that <code>cd</code> can only be used to change directories if you already know what directories are there. To view files and folders in your current directory, use the command <code>ls</code> (short for "list"). If you run this command in your home directory, you should see the <code>public_html</code> folder. <code>ls</code> can also list the contents of other directories. If you specify a path, similar to <code>cd</code>, <code>ls</code> will show files in that folder (or just the file at that path if a path to a file is specified). In addition to the path argument, <code>ls</code> has a variety of <i>flags</i>: arguments that can be used to modify its behavior. To get a list of the flags, run the command <code>ls --help</code>. You should see a lengthy explanation of the available flags. Many flags have a <i>short</i> and <i>long</i> form. In general, the short form is a single dash followed by a single letter, while the long form is two dashes followed by a word (most commands use this convention, but there are some exceptions). An important flag for <code>ls</code> is the <code>-l</code> flag. This changes <code>ls</code> to a list mode, outputting additional information about the files and folders at the path. <code>-a</code> is also useful. This shows hidden files and folders (files and folders with names beginning with a <code>.</code>). Flags can be combined. Try running the command <code>ls -la</code> in your home directory (note that the short flags can be combined with only a single <code>-</code> preceding them. You should see a folder called <code>.</code>. This is the current directory. The folder called <code>..</code> is the next directory up (the folder with the first two letters of your username). Note that you can use <code>.</code> and <code>..</code> as part of paths (e.g. for <code>cd</code>).
+		</p>
+
+		<h3 class="content-header">Move, Copy, Remove: <code>mv</code>, <code>cp</code>, <code>rm</code></h3>
+		<p class="content">
+			With <code>cd</code> and <code>ls</code> you can move around and see files. Next, you will likely want to move, copy, and remove files. The commands for this are <code>mv</code>, <code>cp</code>, and <code>rm</code> respectively. The <code>mv</code> and <code>cp</code> commands are quite similar (except that <code>cp</code> copies instead of moving). To see how these work, we will first create an empty file. Run the command <code>touch test.file</code> to create an empty file named <code>test.file</code>. Run <code>ls</code> to check this. Let us then copy that file. <code>cp</code> copies all of its non-flag arguments to its last argument. If the last argument is a folder, <code>cp</code> copies the file or folder into the folder. Run <code>cp test.file test_2.file</code>. This creates another empty file (or to be precise, a copy of the empty file <code>test.file</code>) named <code>test_2.file</code>. Next, let us copy a file into a directory. Run the command <code>cp test.file public_html/</code> to create a copy of <code>test.file</code> in the <code>public_html</code> folder. Sometimes you want to copy a folder. <code>cp</code> requires the flag <code>-r</code> (for recurse into folders) to do this. You can see this by running <code>cp -r public_html/ new_folder</code>. This will create a new folder in your home directory named <code>new_folder</code>, which should contain a file named <code>test.file</code> already. <code>mv</code> is quite similar to <code>cp</code>, so we will not go into detail on its use here. Let us now use <code>rm</code> to cleanup all the files we just created. First, run <code>rm test.file test_2.file</code>. This will delete the files we made in the current directory (verify this with <code>ls</code>). Note that <code>rm</code> will allow you to remove multiple files at once. Next, run <code>rm public_html/test.file</code>. Finally, we remove <code>new_folder</code>. If you try to do this with <code>rm new_folder</code>, you will get an error message: <code>rm</code> does not allow you to just remove folders. To delete folders, run <code>rm -r new_folder</code> (again, <code>-r</code> means recurse into folders). On the OCF computers, you will be prompted for each file that <code>rm</code> attempts to remove. This is a safeguard against accidentally deleting large sets of files. Type <code>Y</code> and press enter to confirm deletion (or <code>N</code> to not delete if something seems wrong).
+		</p>
+
+		<h3 class="content-header">Creating: <code>touch</code>, <code>mkdir</code></h3>
+		<p class="content">
+			The command <code>touch</code> is used to create an empty file if none exists, and updates the timestamp on a file if it does exist (many system utilities use timestamps to determine if a file has changed, so this can be useful for telling a system utility to re-run. See <code>update_website_debug.sh</code> for an example of this behavior). The command <code>mkdir [folder name]</code> is used to "make" a "directory". If you are trying to delete an empty directory, the command <code>rmdir</code> can be used. <code>rm -r</code> can also be used to delete empty directories.
+		</p>
+
+		<h2 class="content-header">Git Commands</h2>
+
+		<p class="content">
+			In this section, we will review the commands used for <code>git</code>. All <code>git</code> commands start with <code>git</code>. Nearly all <code>git</code> commands have a <code>--help</code> flag that can be used to get more information about a command.
+		</p>
+
+		<h3 class="content-header">Cloning</h3>
+		<p class="content">
+			The first <code>git</code> command you will usually run is <code>clone</code>. The full syntax is <code>git clone [remote url]</code>. This will clone a remote url into a local folder, with the folder name based on the remote url. If you want to clone to a local folder with a different name, you can use the <code>-o [folder name] </code> flag to specify a different local folder name.
+		</p>
+
+		<h3 class="content-header">Status</h3>
+		<p class="content">
+			When you are in a git repository, the command <code>git status</code> provides useful information on the current state of your local copy of the repository. The first line of the output shows the current branch. After that, there are three lists (not all of them will be visible). The first list is a list of changes that are <i>staged</i>. Staged changes will be included in a commit when you run <code>git commit</code>. The second list is a list of changes that are staged to be included in the next commit. The third and final list is a list of files that are not part of the git repository. These files will not be included in the next commit unless they are staged.
+		</p>
+
+		<h3 class="content-header">Branching</h3>
+		<p class="content">
+			As you have probably heard, git uses a system of <i>branches</i>. A branch is effectively a set of commits in a chronological order with each commit being dependent on the commits before it. Two different branches have a different set of commits. To create a new branch, you can use the command <code>git checkout -b [new branch name]</code>. The <code>-b</code> flag is needed the first time a branch is checked out. After a branch is created, you can use the command <code>git checkout [existing branch name]</code> to switch to it. When you checkout an existing branch, you should <i>pull</i> the latest version from the remote repository (Github). A pull is actually a combination of several steps, but they rarely need to be done separately, so we will defer a discussion of them. You can pull a branch by running <code>git pull</code>.
+		</p>
+
+		<h3 class="content-header">Adding</h3>
+		<p class="content">
+			The command <code>git add</code> is used to stage changes to be committed. The simplest form is with the <code>--all</code> flag. This will stage all the changes you have made (including new files). If you only want to prepare some changes, you can specify a path or set of paths, for example <code>git add file1.html folder1/file2.html</code>. If you only want to add part of a file, you can use the <code>-p</code> flag. This will open an interactive editor that allows you to select parts of a file.
+		</p>
+
+		<h3 class="content-header">Committing</h3>
+		<p class="content">
+			Once all the changes you want staged are staged, run <code>git commit</code> to make the commit. By default, the commit message is entered in interactive mode, so git will open the default text editor. For more information on common editors, see the Editors section of this page. <code>git commit</code> has an option to provide the commit message on the command line using the <code>-m</code> (for message) flag. For example, <code>git commit -m "Initial commit"</code> will make a commit with the message <code>Initial commit</code> without opening an editor.
+		</p>
+
+		<h3 class="content-header">Pushing</h3>
+		<p class="content">
+			Once you have added a commit to a branch, you will want to update the remote repository. This is done by <i>push</i>ing the branch using the command <code>git push</code>. The first time you push a branch, you also need to specify the remote repository and remote branch. This is done with the <code>--set-upstream [remote repository] [remote branch]</code> flag. The remote repository is identified by a short name, nearly always <code>origin</code>. The remote branch should usually be the same as the local branch. The full command is <code>git push --set-upstream [remote repository] [remote branch]</code>. After the first push, you can just use <code>git push</code>; git will remember the remote repository and remote branch.
+		</p>
+
+		<h3 class="content-header">Merging</h3>
+		<p class="content">
+			You will eventually want to combine your branch with <code>dev-stable</code>. We will make changes to <code>dev-stable</code> using Pull Requests in the Github web interface, but in order to make adding code to <code>dev-stable</code> clean, you want to minimize the changes you have relative to <code>dev-stable</code>. You do this by first <i>merging</i> <code>dev-stable</code> into your branch. To do this, we want to latest copy of <code>dev-stable</code>. To get this, run <code>git checkout dev-stable</code>, then <code>git pull</code>. Then, checkout your branch again. Finally, run <code>git merge dev-stable</code>. This will bring the code from the latest version of <code>dev-stable</code> into your branch. If all goes well, a text editor will open will a commit message for the merge already loaded. You can just save and close this to complete the merge. If you have edited a section of a file that has also changed in <code>dev-stable</code>, you may get an error indicating that it was not possible to complete the merge automatically. In this case, contact Carter. After completing the merge, run <code>git push</code> to sync the merged code to the remote repository.
+		</p>
+
+		<h2 class="content-header">Editors</h2>
+
+		<p class="content">
+			Sometimes you want to edit files from the shell. To do this, you can use a text editor. All editors take a file as an argument, for example <code>[editor name] [file]</code> will open a file in an editor. The three most common editors, all available on the OCF computers, are <code>nano</code>, <code>emacs</code>, and <code>vim</code>. <code>nano</code> is the easiest to use; all of <code>nano</code>'s shortcuts are written on the button of the screen when <code>nano</code> is running. <code>emacs</code> and <code>vim</code> are much more powerful (it has been joked that <code>emacs</code> is practically an entire operating system disguised as a text editor, which may be fair, considering that it has the game snake built in), but rely on a variety of keyboard shortcuts that are only apparent after reading their manuals. Reading the shortcuts can be accomplished in a few hours, but memorizing them tends to take a few weeks. A few important shortcuts for these editors are listed below.
+		</p>
+
+		<h3 class="content-header">Emacs</h3>
+		<p class="content">
+			To start entering text in <code>emacs</code>, just start typing. You can move around a file using the arrow keys (though this is not the most efficient method, it is the easiest to remember). To save a file, use the keyboard shortcut <code>Ctrl+x Ctrl+s</code> (that is, hold down <code>Ctrl</code>, then press <code>x</code>, then release <code>x</code>, then press <code>s</code>, then release <code>s</code>, then release <code>Ctrl</code>). To close <code>emacs</code>, use the keyboard shortcut <code>Ctrl+x Ctrl+c</code>. <code>emacs</code> will prompt you if the file is unsaved. <code>emacs</code> is the best text editor, but it does take some time to learn.
+		</p>
+
+		<h3 class="content-header">Vi/Vim</h3>
+		<p class="content">
+			<code>vi</code> and <code>vim</code> (Vi iMproved) are very similar text editors. In many cases, the command <code>vi</code> simply opens <code>vim</code>. I will use <code>vim</code> to refer to both here. <code>vim</code> is a modal text editor, which means that some commands only work at some times. Pressing <code>Esc</code> several times will let you exit to the "root" mode. To start entering text, press <code>i</code> (for "insert" mode). Depending on your keyboard configuration, the arrow keys may not allow you to move around a file while in insert mode. To leave insert mode, press <code>Esc</code>. To save a file, leave insert mode, then enter <code>:w</code> (to write a file). To quit, enter <code>:q</code>. To quit without saving, enter <code>:q!</code>.
+		</p>
+
+		<h2 class="content-header">Keyboard Shortcuts</h2>
+
+		<p class="content">
+			Using a shell may seem tedious due to all of the typing required to make your instructions explicit. Fortunately, there are a variety of keyboard shortcuts that make shell usage much faster (faster than GUI usage in most cases). The keyboard shortcuts here apply to the <code>bash</code> shell; similar shortcuts exist for <code>zsh</code>, but I am less familiar with them.
+		</p>
+		<p class="content">
+			The most important keyboard shortcut is the tab key. If you press tab, <code>bash</code> will attempt to automatically complete your current command or path (sometimes, <code>bash</code> is even able to complete flags. <code>git</code> also has excellent tab compatibility, try pressing tab in the middle of typing a <code>git</code> command to see what happens). This does not work too well with two letter commands, but for anything longer than three letters, it is worth trying to press tab to see if <code>bash</code> can automatically figure it out. If you have two files or folders that begin with the same letters, <code>bash</code> will fill in as many letters as are in common. Once you have cloned our repos, trying typing <code>cd s</code>, then pressing tab. It should automatically fill in <code>cd sps_web_</code>. If you then type <code>2</code> and press tab again, the entire command <code>cd sps_web_2020</code> will be filled in. You only had to press seven keys!
+		</p>
+		<p class="content">
+			If you use mice frequently while typing, you probably find yourself clicking on the middle of phrases to fix a typo. Your mouse does not work in the shell, but there are keyboard shortcuts for rapidly moving around a line. <code>Ctrl+a</code> takes you to the beginning of a line, <code>Ctrl+e</code> takes you to the end of a line. <code>Alt+f</code> jumps forward a "word" (defined as a set of letters and numbers), <code>Alt+b</code> jumps backwards a word. On some systems, <code>Alt+Backspace</code> backspaces an entire word (this depends fairly strongly on your keyboard layout).
+		</p>
+		<p class="content">
+			The shell also has its own built-in cut and paste functionality (usually referred to as "kill" for cut and "yank" for paste). <code>Ctrl+u</code> cuts everything to the left of the cursor. <code>Ctrl+k</code> cuts everything to the right of the cursor. <code>Ctrl+y</code> then pastes that content.
+		</p>
+		<p class="content">
+			<code>bash</code> maintains a history of commands you have run. If you press the up arrow (or <code>Ctrl+p</code>), the previous command will be loaded, ready to run again. You can keep moving up through your history. Use the down arrow (or <code>Ctrl+n</code>) to move forwards in history. You can even search backwards in the history by pressing <code>Ctrl+r</code>, then (with <code>Ctrl</code> and <code>r</code> released) entering a phrase. History is retained between sessions. If you log out and log in again, your history will still be there. If you visit the same directories often, using history may be faster than typing a <code>cd</code> command.
+		</p>
+
+		<h2 class="content-header">Conclusion</h2>
+
+		<p class="content">
+			Hopefully this guide has provided you with enough information on using shells to provide "a landing you can walk away from". This is nowhere near a complete description of what shells are capable of. All shells have complete programming languages built in, with <code>if</code> statements, <code>while</code> and <code>for</code> loops, and variables. Nearly anything (except viewing pictures and watching videos) can be done entirely from the shell, then automated. If you would like to know more, the <a href="https://tldp.org/LDP/abs/html/">Advanced Bash-Scripting Guide</a> is a good resource. Some other very powerful tools are <code>sed</code> and <code>awk</code>; they are installed with most shells.
+		</p>
+
+	</body>
+</html>
