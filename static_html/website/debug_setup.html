@@ -35,7 +35,7 @@
 		</p>
 
 		<p class="content">
-			On Windows, you will need to download an SSH client. If you have <a href="https://git-scm.com/download/win">git bash</a>, you already have an SSH client available in the git bash terminal. Use the same command as Mac OSX/Linux. git bash is the recommended tool, but if you want something more portable, <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a> also provides an SSH client. If you are using PuTTY, set the hostname to <code>ssh.ocf.berkeley.edu</code>, port to <code>22</code>, and then enter your OCF username when prompted for a login (after pressing <code>Open</code>).
+			On Windows, you will need to download an SSH client. If you have <a href="https://git-scm.com/download/win">git bash</a>, you already have an SSH client available in the git bash terminal. Use the same command as Mac OSX/Linux. git bash is the recommended tool.
 		</p>
 
 		<p class="content">
@@ -148,7 +148,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',<br />
 		<h3 class="content-header">Setup Database</h3>
 
 		<p class="content">
-			In order for the backend to run properly, certain tables need to be created in the database. The SQL file needed to create these tables can be downloaded <a href="https://drive.google.com/file/d/1EQ7SzLfFWTxX60396_7Wzo5O3b6exKGT/view?usp=sharing">here</a> (you will need permission from Carter to access this file). You will then need to transfer this file (<code>web2020_schema.sql</code>) to the OCF. If you are using Mac OSX, Linux, or git bash, open a terminal on your computer in the folder where you downloaded the file, then run <code>scp web2020_schema.sql [your ocf username]@ssh.ocf.berkeley.edu:~/</code>. If you are using Windows and do not have git bash, you can transfer the file using <a href="https://winscp.net/eng/download.php">WinSCP</a>.
+			In order for the backend to run properly, certain tables need to be created in the database. The SQL file needed to create these tables can be downloaded <a href="https://drive.google.com/file/d/1EQ7SzLfFWTxX60396_7Wzo5O3b6exKGT/view?usp=sharing">here</a> (you will need permission from Carter to access this file). You will then need to transfer this file (<code>web2020_schema.sql</code>) to the OCF. If you are using Mac OSX, Linux, or git bash, open a terminal on your computer in the folder where you downloaded the file, then run <code>scp web2020_schema.sql [your ocf username]@ssh.ocf.berkeley.edu:~/</code>.
 		</p>
 
 		<p class="content">
