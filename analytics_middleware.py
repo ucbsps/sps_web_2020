@@ -28,7 +28,11 @@ class AnalyticsMiddleware:
         user_agent -- HTTP user agent (provided by browser)
         """
 
-        db_conn = database_pool.connection()
+        try:
+            db_conn = database_pool.connection()
+        except Exception as e:
+            print('DB Connection Error: {}'.format(e))
+            return
 
         if db_conn is None:
             return
@@ -49,7 +53,7 @@ class AnalyticsMiddleware:
                             ' (id, remote_addr_id, user_agent_id, referer_id, page_path_id)' +
                             ' VALUES (0, %s, %s, %s, %s)',
                             (remote_addr_id, user_agent_id, referer_id, path_id,))
-        except pymysql.Error as e:
+        except Exception as e:
             print('DB Error: {}'.format(e))
 
         cur.close()
