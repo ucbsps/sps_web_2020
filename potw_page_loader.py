@@ -14,9 +14,9 @@ from django.template.loader import render_to_string, TemplateDoesNotExist
 
 from datetime import date
 
-import pymysql
+from database_pool import database_pool
+import db_util
 
-from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB, MARIADB_HOST
 from error_handler import error_500
 from file_util import IMAGE_EXTS
 
@@ -24,23 +24,30 @@ def get_potw_dates():
     """Return a list of start date and end date pairs for POTWs in the database."""
 
     try:
-        db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                  database=MARIADB_DB, host=MARIADB_HOST, port=3306)
+        db_conn = database_pool.connection() 
+    except Exception as e:
+        print('DB Connection Error: {}'.format(e))
+
+    try:
+        if db_conn is None:
+            return 
 
         cur = db_conn.cursor()
-
         cur.execute('SELECT start_date, end_date FROM web2020_potw' +
-                    ' WHERE start_date < (SELECT MAX(start_date) FROM web2020_potw)' +
-                    ' ORDER BY start_date DESC')
+                        ' WHERE start_date < (SELECT MAX(start_date) FROM web2020_potw)' +
+                        ' ORDER BY start_date DESC')
 
         results = cur.fetchall()
 
-        return [{'start_date': result[0], 'end_date': result[1]} for result in results]
-
-    except pymysql.Error as e:
+    except Exception as e:
         print('DB Error: {}'.format(e))
 
-    return None
+    cur.close()
+    db_conn.close()
+
+    return [{'start_date': result[0], 'end_date': result[1]} for result in results]
+
+
 
 def get_latest_potw_data():
     """Return information on the latest POTW.
@@ -50,9 +57,11 @@ def get_latest_potw_data():
     """
 
     try:
-        db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                  database=MARIADB_DB, host=MARIADB_HOST, port=3306)
+        db_conn = database_pool.connection()
+    except Exception as e:
+        print('DB Connection Error: {}'.format(e))
 
+    try:
         cur = db_conn.cursor()
 
         cur.execute('SELECT start_date, end_date, problem, linked_problem, solution, linked_solution' +
@@ -66,10 +75,13 @@ def get_latest_potw_data():
                     'problem': result[2], 'linked_problem': result[3],
                     'solution': result[4], 'linked_solution': result[5]}
 
-    except pymysql.Error as e:
+    except Exception as e:
         print('DB Error: {}'.format(e))
 
-    return None
+    cur.close()
+    db_conn.close()
+
+    return 
 
 def get_potw_data(date):
     """Return information on the POTW for given date.
