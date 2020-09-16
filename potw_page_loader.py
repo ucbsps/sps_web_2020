@@ -27,22 +27,21 @@ def get_potw_dates():
         db_conn = database_pool.connection() 
     except Exception as e:
         print('DB Connection Error: {}'.format(e))
+        return 
+
+    if db_conn is None:
+        return 
+    cur = db_conn.cursor()
 
     try:
-        if db_conn is None:
-            return 
-
-        cur = db_conn.cursor()
         cur.execute('SELECT start_date, end_date FROM web2020_potw' +
-                        ' WHERE start_date < (SELECT MAX(start_date) FROM web2020_potw)' +
-                        ' ORDER BY start_date DESC')
-
+                    ' WHERE start_date < (SELECT MAX(start_date) FROM web2020_potw)' +
+                    ' ORDER BY start_date DESC')
         results = cur.fetchall()
-
+        cur.close()
     except Exception as e:
         print('DB Error: {}'.format(e))
-
-    cur.close()
+    
     db_conn.close()
 
     return [{'start_date': result[0], 'end_date': result[1]} for result in results]
@@ -60,25 +59,25 @@ def get_latest_potw_data():
         db_conn = database_pool.connection()
     except Exception as e:
         print('DB Connection Error: {}'.format(e))
+        return 
+
+    if db_conn is None:
+        return
+    cur = db_conn.cursor()
 
     try:
-        cur = db_conn.cursor()
-
         cur.execute('SELECT start_date, end_date, problem, linked_problem, solution, linked_solution' +
                     ' FROM web2020_potw WHERE start_date < current_timestamp()' +
                     ' ORDER BY start_date DESC LIMIT 1')
-
         results = cur.fetchall()
-
         for result in results:
             return {'start_date': result[0], 'end_date': result[1],
                     'problem': result[2], 'linked_problem': result[3],
                     'solution': result[4], 'linked_solution': result[5]}
-
+        cur.close()
     except Exception as e:
         print('DB Error: {}'.format(e))
 
-    cur.close()
     db_conn.close()
 
     return 
@@ -91,26 +90,31 @@ def get_potw_data(date):
     """
 
     try:
-        db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                  database=MARIADB_DB, host=MARIADB_HOST, port=3306)
+        db_conn = database_pool.connection()
+        except Exception as e:
+            print('DB Connection Error: {}'.format(e))
+            return 
 
-        cur = db_conn.cursor()
+    if db_conn is None:
+        return
 
+    cur = db_conn.cursor()
+
+    try:
         cur.execute('SELECT start_date, end_date, problem, linked_problem, solution, linked_solution' +
                     ' FROM web2020_potw WHERE %s BETWEEN start_date AND end_date' +
                     ' AND end_date < (SELECT MAX(end_date) FROM web2020_potw)' +
                     ' ORDER BY start_date DESC', (date,))
-
         results = cur.fetchall()
-
         for result in results:
             return {'start_date': result[0], 'end_date': result[1],
                     'problem': result[2], 'linked_problem': result[3],
                     'solution': result[4], 'linked_solution': result[5]}
-
-    except pymysql.Error as e:
+        cur.close()
+    except Exception as e:
         print('DB Error: {}'.format(e))
 
+    db_conn.close()
     return None
 
 def link_html(file):
