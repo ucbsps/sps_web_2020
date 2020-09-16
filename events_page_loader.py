@@ -70,7 +70,7 @@ def get_events(upcoming=False, tag=None, count=10):
         time_clause = 'end_time > current_timestamp()'
         order_clause = 'ORDER BY start_time ASC LIMIT {}'.format(count)
 
-    try: 
+    try:
         if tag is not None:
             cur.execute('SELECT web2020_events.id, title, description, start_time, end_time,' +
                         ' location, img_path FROM web2020_events LEFT OUTER JOIN web2020_images ON' +

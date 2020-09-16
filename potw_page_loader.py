@@ -31,6 +31,7 @@ def get_potw_dates():
 
     if db_conn is None:
         return 
+
     cur = db_conn.cursor()
 
     try:
@@ -63,6 +64,7 @@ def get_latest_potw_data():
 
     if db_conn is None:
         return
+
     cur = db_conn.cursor()
 
     try:
@@ -91,9 +93,9 @@ def get_potw_data(date):
 
     try:
         db_conn = database_pool.connection()
-        except Exception as e:
-            print('DB Connection Error: {}'.format(e))
-            return 
+    except Exception as e:
+        print('DB Connection Error: {}'.format(e))
+        return 
 
     if db_conn is None:
         return
