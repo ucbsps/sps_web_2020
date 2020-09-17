@@ -111,6 +111,7 @@ def get_events(upcoming=False, tag=None, count=10):
             events.append({'title': event_result[1], 'description': event_result[2],
                            'start_time': event_result[3], 'end_time': event_result[4],
                            'location': event_result[5], 'img_path': img_path})
+
             cur.close()
 
     except Exception as e:
@@ -131,13 +132,10 @@ def load_events_page(request, upcoming=False):
     try:
         content = render_to_string('events.html', {'events': get_events(upcoming), 'title': title})
         return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
-                                         'content': content})
-        #this return statement was moved because it uses "content" defined in this try.
+                      'content': content})
     except TemplateDoesNotExist:
         return error_500(request, page_name)
 
-    #return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
-    #                                     'content': content})
 
 def load_events_upcoming_page(request):
     """Return a render of upcoming events page."""
@@ -162,7 +160,7 @@ def load_events_subpage(request, event_category):
         description_tags = []
         for child in desc_tree.getroot():
             description_tags.append(ET.tostring(child, method='html', encoding='unicode'))
-
+        
         description = ''.join(description_tags)
     except FileNotFoundError:
         description = ''
@@ -177,9 +175,6 @@ def load_events_subpage(request, event_category):
                                     'description': description})
         return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
                                          'content': content})
-        #same as load_events_page
+        
     except TemplateDoesNotExist:
         return error_500(request, page_name)
-                    
-    #return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
-    #                                     'content': content})
