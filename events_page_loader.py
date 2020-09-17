@@ -112,7 +112,7 @@ def get_events(upcoming=False, tag=None, count=10):
                            'start_time': event_result[3], 'end_time': event_result[4],
                            'location': event_result[5], 'img_path': img_path})
 
-            cur.close()
+        cur.close()
 
     except Exception as e:
         print('DB Error: {}'.format(e))
