@@ -4,12 +4,14 @@
 <h2 class="content-sub-header">For {{ start_date }} to {{ end_date }} </h2>
 
 <p class="content-large">
+	{% autoescape off %}
 	{{ problem_description }}
+	{% endautoescape %}
 </p>
 {% if linked_problem %}
-<p class="content-large">
-	See <a href="{{ linked_problem }}">here</a>.
-</p>
+{% autoescape off %}
+{{ linked_problem }}
+{% endautoescape %}
 {% endif %}
 
 <h1 class="content-header">What is Problem of the Week?</h1>

@@ -180,12 +180,14 @@ def load_potw_current(request):
     past_problems = [[problem['start_date'].isoformat(), problem['end_date'].isoformat()]
                      for problem in get_potw_dates()]
 
+    linked_problem = link_html(potw_data['linked_problem'])
+
     try:
         content = render_to_string('potw_current.html',
                                    {'problem_description': potw_data['problem'],
                                     'start_date': potw_data['start_date'],
                                     'end_date': potw_data['end_date'],
-                                    'linked_problem': potw_data['linked_problem'],
+                                    'linked_problem': linked_problem,
                                     'past_problems': past_problems})
     except TemplateDoesNotExist:
         return error_500(request)
