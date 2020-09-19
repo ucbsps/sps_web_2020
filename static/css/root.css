@@ -38,6 +38,35 @@
 	font-style: normal;
 }
 
+p {
+	padding: 0%;
+	margin: 0%;
+	float: left;
+	width: 100%;
+}
+
+a {
+	color: var(--text-dark);
+}
+
+a:hover {
+	text-decoration: none;
+	color: var(--text-dark-alt);
+}
+
+.light {
+	color: var(--text-light);
+}
+
+.light a {
+	color: var(--text-light);
+}
+
+a.light:hover {
+	text-decoration: none;
+	color: var(--text-light-alt);
+}
+
 body {
 	padding: 0;
 	margin: 0;
@@ -99,7 +128,7 @@ div.content-section {
 	clear: both;
 }
 
-div.content-section img {
+img.content-section {
 	width: 46%;
 	height: auto;
 	padding: 1%;
@@ -215,6 +244,18 @@ div.img-gallery img {
 	border-radius: 0.5em;
 }
 
+img.center {
+	width: 65%;
+	padding: 1%;
+	background-color: var(--blue-3);
+	margin: 1%;
+	margin-left: 16.5%;
+	margin-right: 16.5%;
+	border-radius: 0.5em;
+	float: left;
+	display: block;	
+}
+
 .footer {
 	padding: 1%;
 	background-image: linear-gradient(to top right, #4889C1, #85CEED);
@@ -232,35 +273,6 @@ div.footer-text {
 	margin: 0.5em;
 	width: 60%;
 	float: left;
-}
-
-p {
-	padding: 0%;
-	margin: 0%;
-	float: left;
-	width: 100%;
-}
-
-a {
-	color: var(--text-dark);
-}
-
-a:hover {
-	text-decoration: none;
-	color: var(--text-dark-alt);
-}
-
-.light {
-	color: var(--text-light);
-}
-
-.light a {
-	color: var(--text-light);
-}
-
-a.light:hover {
-	text-decoration: none;
-	color: var(--text-light-alt);
 }
 
 .ocf_banner {
