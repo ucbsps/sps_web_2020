@@ -187,6 +187,23 @@ div.gallery-item-small img {
 	padding-right: 12.5%;
 }
 
+div.img-gallery {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+}
+
+div.img-gallery img {
+	width: 29%;
+	height: auto;
+	padding: 1%;
+	background-color: var(--blue-3);
+	margin: 1%;
+	border-radius: 0.5em;
+}
+
 .footer {
 	padding: 1%;
 	background-image: linear-gradient(to top right, #4889C1, #85CEED);
