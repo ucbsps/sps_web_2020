@@ -1,36 +1,54 @@
 <html>
 	<head>
 		<style>
-		 @import "color.css";
+		 div.home-upper {
+			 width: 98%;
+			 margin: 0%;
+			 padding: 0%;
+			 float: left;
+			 clear: both;
+			 display: flex;
+			 align-items: stretch;
+			 align-content: flex-start;
+			 justify-content: space-between;
+			 flex: 1 1;
+		 }
 
 		 div.home-left {
 			 width: 60%;
-			 padding: 1%;
-			 float: left;
+			 padding: 0.5%;
+			 margin: 0%;
 		 }
 
 		 div.home-right {
-			 width: 35%;
-			 float: left;
-			 display: block;
+			 width: 38%;
+			 padding: 0.5%;
+			 margin: 0%;
+			 display: flex;
+			 justify-content: space-between;
+			 flex-direction: column;
 			 color: var(--text-light);
-		 }
-
-		 div.home-right a {
-			 color: var(--text-light);
-		 }
-
-		 div.home-right a:hover {
-			 color: var(--text-light-alt);
 		 }
 
 		 div.home-events {
-			 width: 100%;
+			 width: 94%;
 			 padding: 2%;
-			 margin: 2%;
+			 margin: 1%;
+			 margin-top: 0%;
 			 background-color: var(--blue-3);
 			 border-radius: 0.5em;
-			 float: left;
+		 }
+
+		 div.home-events p {
+			 width: 100%;
+			 padding: 0%;
+			 margin: 0%;
+		 }
+
+		 div.home-events h2 {
+			 width: 100%;
+			 padding: 0%;
+			 margin: 0%;
 		 }
 
 		 div.home-events hr {
@@ -40,35 +58,61 @@
 
 		 div.event-list {
 			 width: 100%;
-			 float: left;
 		 }
 
 		 div.event {
 			 width: 100%;
-			 float: left;
 		 }
 
 		 div.home-potw {
-			 width: 100%;
+			 width: 94%;
 			 padding: 2%;
-			 margin: 2%;
+			 margin: 1%;
+			 flex: 1 1;
 			 background-color: var(--blue-3);
 			 border-radius: 0.5em;
-			 float: left;
+		 }
+
+		 div.home-potw p {
+			 width: 100%;
+			 padding: 0%;
+			 margin: 0%;
+			 background-color: var(--blue-3);
+			 border-radius: 0.5em;
+		 }
+
+		 div.home-potw h2 {
+			 width: 100%;
+			 padding: 0%;
+			 margin: 0%;
+		 }
+
+		 div.home-potw h3 {
+			 width: 100%;
+			 padding: 0%;
+			 margin: 0%;
 		 }
 
 		 div.contact-us {
-			 width: 100%;
+			 width: 94%;
 			 padding: 2%;
-			 margin: 2%;
+			 margin: 1%;
+			 margin-bottom: 0%;
 			 background-color: var(--blue-3);
 			 border-radius: 0.5em;
-			 float: left;
+		 }
+
+		 div.contact-us h2 {
+			 width: 100%;
+			 padding: 0%;
+			 margin: 0%;
 		 }
 
 		 div.contact-us >ul {
 			 width: 50%;
+			 display: block;
 			 float: left;
+			 clear: right;
 		 }
 
 		 div.contact-us a.logo {
@@ -78,18 +122,25 @@
 		 div.contact-us img {
 			 height: 2.5em;
 			 float: left;
+			 display: block;
+			 float: left;
+			 clear: right;
 		 }
 
 		 div.home-lower {
-			 width: 100%;
+			 width: 98%;
+			 margin: 0%;
+			 padding: 0%;
 			 float: left;
+			 clear: both;
 			 display: flex;
+			 gap: 1%;
 		 }
 
 		 div.sps-focus {
-			 width: 31%;
-			 margin: 1%;
-			 padding: 1%;
+			 width: 25%;
+			 margin: 0.5%;
+			 padding: 0.5%;
 			 position: relative;
 			 background-image: linear-gradient(to bottom, var(--blue-half), var(--blue-2));
 			 border-radius: 0.5em;
@@ -158,18 +209,19 @@
 		 }
 
 		 div.slideshow {
-			 width: 100%;
+			 width: 96%;
+			 padding: 2%;
+			 margin: 0%;
+			 background-color: var(--blue-1);
 			 position: relative;
+			 border-radius: 0.5em;
 		 }
 
 		 .slideshow-image {
 			 width: 96%;
-			 padding: 2%;
-			 background-color: var(--blue-1);
 			 display: none;
 			 position: absolute;
 			 z-index: 0;
-			 border-radius: 0.5em;
 		 }
 
 		 img.logo {
@@ -242,60 +294,65 @@
 	<body>
 		<h1 class="content-header">Society of Physics Students @ Berkeley</h1>
 
-		<div class="home-left">
-			<div class="slideshow">
-				{% for home_image in home_images %}
-				<img class="slideshow-image" src="{{ home_image }}" />
-				{% endfor %}
-			</div>
-		</div>
-		<div class="home-right">
-			<div class="home-events">
-				<h2 class="content-main-header">Upcoming Events</h2>
-				<div class="event-list">
-					{% for event in events %}
-					<div class="event">
-						{% if event.title %}
-						<a href="/events">
-							<p class="content">
-								{% autoescape on %} {{ event.title }} {% endautoescape %}
-							</p>
-						</a>
-						{% else %}
-						<hr />
-						{% endif %}
-					</div>
+		<div class="home-upper">
+			<div class="home-left">
+				<div class="slideshow">
+					{% for home_image in home_images %}
+					<img class="slideshow-image" src="{{ home_image }}" />
 					{% endfor %}
 				</div>
 			</div>
+			<div class="home-right light">
+				<div class="home-events">
+					<h2>Upcoming Events</h2>
+					<div class="event-list">
+						{% for event in events %}
+						<div class="event">
+							{% if event.title %}
+							<a href="/events">
+								<p>
+									{% autoescape on %} {{ event.title }} {% endautoescape %}
+								</p>
+							</a>
+							{% else %}
+							<hr />
+							{% endif %}
+						</div>
+						{% endfor %}
+					</div>
+				</div>
 
-			{% if potw %}
-			<div class="home-potw">
-				<h2 class="content-main-header"><a href="/potw">Problem of the Week</a></h2>
-				{% if potw_start %}
-				<h3 class="content-sub-header">For {{ potw_start }} - {{ potw_end }}</h3>
+				{% if potw %}
+				<div class="home-potw">
+					<h2 class="content-main-header"><a href="/potw">Problem of the Week</a></h2>
+					{% if potw_start %}
+					<h3 class="content-sub-header">For {{ potw_start }} - {{ potw_end }}</h3>
+					{% endif %}
+					<p>
+						{% autoescape off %}
+						{{ potw }}
+						{% endautoescape %}
+					</p>
+				</div>
 				{% endif %}
-				<p class="content">
-					{% autoescape off %}
-					{{ potw }}
-					{% endautoescape %}
-				</p>
-			</div>
-			{% endif %}
-			
-			<div class="contact-us">
-				<h2 class="content-main-header">Contact Us</h2>
-				<ul>
-					<li>ucbsps "at" gmail.com</li>
-					<li>Join our
-						<a href="https://mailchi.mp/ca30b4050b69/mailing_list">mailing list</a>!</li>
-				</ul>
-				<a class="logo" href="https://www.facebook.com/groups/474568829304662/">
-					<img class="logo" src="/static/images/facebook_logo.png" />
-				</a>
-				<a class="logo" href="https://www.instagram.com/sps_berkeley/">
-					<img class="logo" src="/static/images/instagram_logo.png" />
-				</a>
+				
+				<div class="contact-us">
+					<h2 class="content-main-header">Contact Us</h2>
+					<ul>
+						<li>ucbsps "at" gmail.com</li>
+						<li>Join our
+							<a href="https://mailchi.mp/ca30b4050b69/mailing_list">
+								mailing list
+							</a>!</li>
+						<li>Visit the <a href="https://sps.berkeley.edu/gather">Gather</a>!</li>
+					</ul>
+					<a class="logo" href="https://www.facebook.com/groups/474568829304662/">
+						<img class="logo" src="/static/images/facebook_logo.png" />
+					</a>
+					<a class="logo" href="https://www.instagram.com/sps_berkeley/">
+						<img class="logo" src="/static/images/instagram_logo.png" />
+					</a>
+				</div>
 			</div>
 		</div>
 

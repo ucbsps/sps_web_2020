@@ -1,13 +1,6 @@
 <html>
 	<head>
 		<title>SPS Website Committee</title>
-		<style>
-		 .screenshot {
-			 width: 50%;
-			 margin-left: auto;
-			 margin-right: auto;
-		 }
-		</style>
 	</head>
 	<body>
 		<h1 class="content-header">Setting up a Debug Website</h1>
@@ -42,7 +35,7 @@
 			After a successful login to the OCF, you should have a Terminal window with text looking similar to:
 		</p>
 
-		<img class="screenshot" src="/static/images/webdev/ocf_login.png" />
+		<img class="center" src="/static/images/webdev/ocf_login.png" />
 
 		<p class="content">
 			After this point, you will have to make some use of Bash shell scripting. There are a variety of tutorials available on the internet, feel free to contact Carter for additional help.
@@ -64,7 +57,7 @@
 			After doing this, you should run <code>ls</code> in your home directory. You should see folders named <code>sps_web_2020</code> and <code>sps_web_sync</code>, similar to the screenshot below (Carter has some additional files in his home directory).
 		</p>
 
-		<img class="screenshot" src="/static/images/webdev/home_directory.png" />
+		<img class="center" src="/static/images/webdev/home_directory.png" />
 
 		<h3 class="content-header">Run Setup Scripts</h3>
 
@@ -94,7 +87,7 @@
 			Each of these will take a few minutes. Once they are complete, the directories <code>~/sps_web_2020/venv</code> and <code>~/sps_web_sync/venv</code> should be created. They will contain the environment. In particular, a Python 3.7 interpreter will be setup at <code>~/sps_web_2020/venv/bin/python</code> and <code>~/sps_web_sync/venv/bin/python</code>. You should use these Python interpreters for running Python scripts in <code>sps_web_2020</code> and <code>sps_web_sync</code>, the Python interpreter you get from running <code>python</code> will not have the necessary dependencies installed. See the screenshot below for how to start the correct Python interpreter for running code from <code>sps_web_2020</code>.
 		</p>
 
-		<img class="screenshot" src="/static/images/webdev/venv_python.png" />
+		<img class="center" src="/static/images/webdev/venv_python.png" />
 
 		<h3 class="content-header">Create Secrets</h3>
 
@@ -143,7 +136,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',<br />
 			Your final <code>secrets.py</code> file should resemble the one shown below (with <code>SECRET_KEY</code> and <code>MARIADB_PASSWORD</code> unredacted of course):
 		</p>
 
-		<img class="screenshot" src="/static/images/webdev/nano_secrets.png" />
+		<img class="center" src="/static/images/webdev/nano_secrets.png" />
 
 		<h3 class="content-header">Setup Database</h3>
 
@@ -173,13 +166,13 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',<br />
 			These files also need to be edited. First, edit <code>.htaccess</code> (using <code>nano ~/public_html/sps/.htaccess</code>). Replace <code>/run.fcgi</code> with <code>/~[your ocf username]/sps/run.fcgi</code> in the fourth line (remember the <code>~</code>). Your final file should resemble the one shown below (with your username replacing <code>carterturn</code>):
 		</p>
 
-		<img class="screenshot" src="/static/images/webdev/nano_htaccess.png" />
+		<img class="center" src="/static/images/webdev/nano_htaccess.png" />
 
 		<p class="content">
 			Next, edit <code>run.fcgi</code>, replacing <code>/p/ph/physics</code> with <code>/[first letter of your ocf username]/[first two letters of your ocf username]/[your ocf username]</code>. Your final file should resemble the one show below:
 		</p>
 
-		<img class="screenshot" src="/static/images/webdev/nano_runfcgi.png" />
+		<img class="center" src="/static/images/webdev/nano_runfcgi.png" />
 
 		<p class="content">
 			Finally, copy the script <code>update_website_debug.sh</code> from <code>sps_web_2020</code> to your home directory by running the command <code>cp ~/sps_web_2020/update_website_debug.sh ~/</code>. This script is used to copy static files from the git repository to where Apache can see them, as well as tell Apache to reload the backend code. Run this script by running <code>~/update_website_debug.sh</code>.
