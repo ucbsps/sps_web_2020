@@ -143,12 +143,14 @@ h3.content-header {
 div.gallery {
 	width: 100%;
 	display: flex;
-	justify-content: center;
+	flex-wrap: wrap;
+	justify-content: space-between;
 	align-content: center;
 	gap: 12%;
 }
 
-div.gallery-item {
+div.gallery-item,
+div.gallery-item-small {
 	width: 40%;
 	padding: 1%;
 	margin: 1%;
@@ -163,13 +165,11 @@ div.gallery-item img {
 	margin: 1%;
 }
 
-div.gallery-item-small {
-	width: 40%;
+div.gallery-item h2 {
+	width: 90%;
 	padding: 1%;
 	margin: 1%;
-	background-color: var(--blue-2);
-	border-radius: 0.5em;
-	color: var(--text-light);
+	text-align: center;
 }
 
 div.gallery-item-small img {
