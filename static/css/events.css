@@ -1,4 +1,14 @@
-@import "color.css";
+:root {
+	--blue-1: #4889C1;
+	--blue-2: #85CEED;
+	--blue-3: #ABC3DB;
+	--blue-half: #64AfD5;
+
+	--text-light: #FFFFFF;
+	--text-dark: #000000;
+	--text-light-alt: #E0E0F0;
+	--text-dark-alt: #606060;
+}
 
 div.event {
 	width: 100%;
