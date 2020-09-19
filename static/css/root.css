@@ -99,6 +99,17 @@ div.content-section {
 	clear: both;
 }
 
+div.content-section img {
+	width: 46%;
+	height: auto;
+	padding: 1%;
+	background-color: var(--blue-3);
+	margin: 1%;
+	border-radius: 0.5em;
+	float: left;
+	display: block;
+}
+
 .content-large {
 	width: 95%;
 	max-width: 1000px;
