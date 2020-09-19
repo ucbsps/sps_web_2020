@@ -80,6 +80,12 @@ img.header {
 	text-align: left;
 }
 
+ul.narrow {
+	width: 60%;
+	max-width: 600px;
+	text-align: left;
+}
+
 .content ol {
 	width: 80%;
 	margin-left: 10%;
