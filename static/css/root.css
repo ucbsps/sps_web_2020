@@ -153,21 +153,11 @@ div.footer-text {
 	float: left;
 }
 
-p.footer-text {
+p {
 	padding: 0%;
 	margin: 0%;
-	color: var(--text-light);
 	float: left;
 	width: 100%;
-}
-
-div.footer-text a {
-	color: var(--text-light);
-}
-
-div.footer-text a:hover {
-	text-decoration: none;
-	color: var(--text-light-alt);
 }
 
 a {
@@ -177,6 +167,19 @@ a {
 a:hover {
 	text-decoration: none;
 	color: var(--text-dark-alt);
+}
+
+.light {
+	color: var(--text-light);
+}
+
+.light a {
+	color: var(--text-light);
+}
+
+a.light:hover {
+	text-decoration: none;
+	color: var(--text-light-alt);
 }
 
 .ocf_banner {
