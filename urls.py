@@ -46,6 +46,8 @@ urlpatterns = [
             name='static_committee_website_shell_intro'),
     re_path(r'^committee/(website/architecture)$', load_static_page,
             name='static_committee_website_architecture'),
+    re_path(r'^committee/(website/cal_guide)$', load_static_page,
+            name='static_committee_website_cal_guide'),
     path('potw', load_potw_current, name='potw_current'),
     path('potw/<isodate:date>', load_potw, name='potw_past'),
 ]
