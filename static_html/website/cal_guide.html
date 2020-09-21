@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<title>SPS Website Committee</title>
+	</head>
+	<body>
+		<h1 class="content-header">SPS Website Google Calendar Usage</h1>
+		<p class="content">
+			In order to allow events to be loaded into the website in a user friendly manner, the SPS website reads data from Google Calendar. This guide will help explain effective use of Google Calendar in order to optimize event display on the SPS Website. Google Calendar is accessed at <a href="calendar.google.com">calendar.google.com</a>. You should be signed into the SPS email account.
+		</p>
+
+		<h2 class="content-header">Creating an Event</h2>
+
+		<p class="content">
+			The atomic Google Calendar entry is the event. Events can be created by clicking a time on the Google Calendar. This will open the panel shown below.
+		</p>
+
+		<img class="center" src="/static/images/webdev/event_creation.png" alt="Image of new event on Google Calendar" />
+
+		<p class="content">
+			The most important entries are the title (set by clicking the text box labelled <code>Add title</code>) and the time (set by clicking the time). Most events will not be repeating. Unless you are using different time zones for the start and end time, do not set the time zone. Pacific Time is the default.
+		</p>
+
+		<img class="center" src="/static/images/webdev/event_creation_add_time.png" alt="Image of adding time to a new event on Google Calendar" />
+
+		<p class="content">
+			If relevant, a location can be added. The location can be any short piece of text. Typically, this would be a building name and room number. Ignore autocomplete suggestions, they are not particularly useful (you can make these go away by clicking outside the box (but inside the event creation pop-up) or by pressing the escape key once). In principle, a URL could be added here, but this should be avoided if there is not authentication. Do not put Zoom links in the location field.
+		</p>
+
+		<img class="center" src="/static/images/webdev/event_creation_location.png" alt="Image of adding a location to a new event on Google Calendar" />
+
+		<p class="content">
+			A description should usually be added. Attachments should generally not be added. To add a description, click on the word <code>description</code>. All of the formatting options for the description box will render appropriately on the main site. The most important of these is links. Links should usually be shortened using the link button (highlighted in the image below).
+		</p>
+
+		<img class="center" src="/static/images/webdev/event_creation_description.png" alt="Image of adding a description to a new event on Google Calendar" />
+
+		<p class="content">
+			Finally, ensure that the calendar is set to <code>SPS at Berkeley</code>. The calendar <code>SPS Officer Events</code> is also available, but should only be used for officer events. Conversely, officer events should never be put on the main calendar. It is safe to put Zoom links in the <code>SPS Officer Events</code> calendar, as this calendar is only shared with SPS officers (not the general public). 
+		</p>
+
+		<img class="center" src="/static/images/webdev/event_creation_calendar.png" alt="Image of setting the calendar of a new event on Google Calendar" />
+
+		<p class="content">
+			Finally, press <code>Save</code> to finish creating an event.
+		</p>
+
+		<h2 class="content-header">Editing an Event</h2>
+
+		<p class="content">
+			Once an event is created, it can be edited. To do this, click on an event to open a pop-up, then click the pencil icon (highlighted in the image below).
+		</p>
+
+		<img class="center" src="/static/images/webdev/event_edit.png" alt="Image of opening the edit page for an event on Google Calendar" />
+
+		<p class="content">
+			The same title, time, location, calendar, and description options are available here, but they have been rearranged somewhat. Edits can be made here, and saved with the <code>Save</code> button.
+		</p>
+
+		<img class="center" src="/static/images/webdev/event_edit_page.png" alt="Image of the edit page for an event on Google Calendar" />
+	</body>
+</html>
