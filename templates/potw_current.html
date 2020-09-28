@@ -37,3 +37,14 @@
 {% endif %}
 
 <p class="content"><a href="/potw">Current Problem of the Week</a></p>
+
+{% if scores %}
+<h1 class="content-header">Problem of the Week Scoreboard</h1>
+
+<table class="content center">
+	<tr><td><b>Name</b></td><td><b>Problems Solved</b></td></tr>
+	{% for name, solved in scores %}
+	<tr><td>{{ name }}</td><td>{{ solved }}</td></tr>
+	{% endfor %}
+</table>
+{% endif %}

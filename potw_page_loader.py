@@ -24,13 +24,13 @@ def get_potw_dates():
     """Return a list of start date and end date pairs for POTWs in the database."""
 
     try:
-        db_conn = database_pool.connection() 
+        db_conn = database_pool.connection()
     except Exception as e:
         print('DB Connection Error: {}'.format(e))
-        return 
+        return
 
     if db_conn is None:
-        return 
+        return
 
     cur = db_conn.cursor()
 
@@ -42,12 +42,10 @@ def get_potw_dates():
         cur.close()
     except Exception as e:
         print('DB Error: {}'.format(e))
-    
+
     db_conn.close()
 
     return [{'start_date': result[0], 'end_date': result[1]} for result in results]
-
-
 
 def get_latest_potw_data():
     """Return information on the latest POTW.
@@ -60,7 +58,7 @@ def get_latest_potw_data():
         db_conn = database_pool.connection()
     except Exception as e:
         print('DB Connection Error: {}'.format(e))
-        return 
+        return
 
     if db_conn is None:
         return
@@ -82,7 +80,7 @@ def get_latest_potw_data():
 
     db_conn.close()
 
-    return 
+    return
 
 def get_potw_data(date):
     """Return information on the POTW for given date.
@@ -95,7 +93,7 @@ def get_potw_data(date):
         db_conn = database_pool.connection()
     except Exception as e:
         print('DB Connection Error: {}'.format(e))
-        return 
+        return
 
     if db_conn is None:
         return
@@ -118,6 +116,32 @@ def get_potw_data(date):
 
     db_conn.close()
     return None
+
+def get_potw_scoreboard():
+    """Return a list of POTW submitters and the number of problems they have solved."""
+
+    try:
+        db_conn = database_pool.connection()
+    except Exception as e:
+        print('DB Connection Error: {}'.format(e))
+        return
+
+    if db_conn is None:
+        return
+
+    cur = db_conn.cursor()
+
+    try:
+        cur.execute('SELECT name, solved FROM web2020_potw_scoreboard' +
+                    ' ORDER BY solved DESC')
+        results = cur.fetchall()
+        cur.close()
+    except Exception as e:
+        print('DB Error: {}'.format(e))
+
+    db_conn.close()
+
+    return [[result[0], result[1]] for result in results]
 
 def link_html(file):
     """Return HTML for embedding an image or PDF or linking other filetypes."""
@@ -182,13 +206,18 @@ def load_potw_current(request):
 
     linked_problem = link_html(potw_data['linked_problem'])
 
+    scores = get_potw_scoreboard()
+    print(scores)
+    print(past_problems)
+
     try:
         content = render_to_string('potw_current.html',
                                    {'problem_description': potw_data['problem'],
                                     'start_date': potw_data['start_date'],
                                     'end_date': potw_data['end_date'],
                                     'linked_problem': linked_problem,
-                                    'past_problems': past_problems})
+                                    'past_problems': past_problems,
+                                    'scores': scores})
     except TemplateDoesNotExist:
         return error_500(request)
 
