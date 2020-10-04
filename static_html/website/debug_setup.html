@@ -127,13 +127,13 @@
 			Note that the password for "Carter's New Entry" in the table above is not my actual password, just an example of what could be a password. Again, never share your OCF mysql password with anyone (not even me). Finally, we need to add a bit more information that tells <code>sps_web_sync</code> what permissions to request from Google. To do this, add the following lines to the end of <code>secrets.py</code>:
 		</p>
 
-		<pre><code>
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',<br />
+		<pre class="content"><code>
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',
           'https://www.googleapis.com/auth/calendar.readonly']
 		</code></pre>
 
 		<p class="content">
-			Your final <code>secrets.py</code> file should resemble the one shown below (with <code>SECRET_KEY</code> and <code>MARIADB_PASSWORD</code> unredacted of course):
+			Your final <code>secrets.py</code> file should resemble the one shown below
 		</p>
 
 		<img class="center" src="/static/images/webdev/nano_secrets.png" />
@@ -157,7 +157,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',<br />
 		<p class="content">
 			First, you need to copy the <code>secrets.py</code> file from <code>sps_web_2020</code> to <code>sps_web_sync</code>. Do this by running the command
 		</p>
-		<code>cp ~/sps_web_2020/secrets.py ~/sps_web_sync/</code>
+		<p class="content"><code>cp ~/sps_web_2020/secrets.py ~/sps_web_sync/</code></p>
 
 		<p class="content">
 			Next, you need to copy a couple of scripts into the folder read by Apache so that the webserver knows to run the backend. First, we need to make a subfolder of your OCF website that the SPS website will be installed to. Do this with the command <code>mkdir ~/public_html/sps</code>. Next, copy the files <code>.htaccess</code> and <code>run.fcgi</code> from <code>sps_web_2020</code> to that folder by running the commands <code>cp ~/sps_web_2020/.htaccess ~/public_html/sps/</code> and <code>cp ~/sps_web_2020/run.fcgi ~/public_html/sps/</code>.
@@ -192,6 +192,50 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',<br />
 
 		<p class="content">
 			Your copy of the website should now be fully operational!
+		</p>
+
+		<h3 class="content-header">Using the Debug Website</h3>
+
+		<p class="content">
+			Once you have the debug website setup, you will still have to interact with it in order to test new code you right. All these commands should be run on the OCF computer.
+		</p>
+
+		<p class="content">
+			First, setup your copy of the website to use the branch you are working on. Run <code>cd ~/sps_web_2020</code> to change to the <code>sps_web_2020</code> folder. Update your copy of the website from Github by running <code>git pull</code>. If you wrote the code elsewhere, checkout the branch with <code>git checkout [branch name]</code>. Then run <code>git pull</code> to download the latest version. If you are writing the code on the OCF computer, first switch to <code>dev-stable</code> by running <code>git checkout dev-stable</code>, then create a new branch from there by running <code>git checkout -b [new branch name]</code>. Remember to use <code>git pull</code> and <code>git push</code> to keep copies of the code in sync between various computers.
+		</p>
+
+		<p class="content">
+			Files are located on the OCF computer will not be immediately transferred to your copy of the website running there. The script <code>update_website_debug.sh</code>, when run from your home directory, will take care of this. You can run if with <code>~/update_website_debug.sh</code>. It will take about a minute for Apache to update, so wait a bit for changes to appear at <code>https://ocf.berkeley.edu/~[your ocf username]/sps</code>. By default, most web browsers will cache (store a copy of) css files. In order to trigger a reload of those, press <code>Ctrl+Shift+R</code> in the web browser (possibly <code>Cmd+Shift+R</code> for Mac OSX).
+		</p>
+
+		<p class="content">
+			There is a good chance you will get an error occasionally. Any errors (or print statements) then get written to /opt/httpd/error.log (which you can view with the command <code>cat /opt/httpd/error.log</code>). Unfortunately, the log file contains all errors from every website running on the OCF, so it can be a bit of a guess as to which one is from your site. The command <code>fgrep "[string] /opt/httpd/error.log"</code> will search the logfile for lines containing <code>[string]</code>. For a more powerful search tool, you can use <code>grep</code>, which supports regular expressions.
+		</p>
+
+		<p class="content">
+			Some website updates will require new Python packages to be installed in the <code>sps_web_2020</code> virtual environment. To do this, run <code>cd ~/sps_web_2020</code> to change to the directory, then run <code>venv/bin/pip3 install [package name]</code>. Most packages should be automatically installed by <code>setup.sh</code>. You can not run <code>setup.sh</code> multiple times; there will be a conflict due to the virtual environment already being created. To see what packages you already have installed, run <code>venv/bin/pip3 list</code>. The packages required for <code>sps_web_2020</code> as of September 19th, 2020 are
+		</p>
+		<ul class="narrow">
+			<li>django</li>
+			<li>flup6</li>
+			<li>pymysql</li>
+			<li>DBUtils</li>
+		</ul>
+		<p class="content">
+			The packages required for <code>sps_web_2020</code> as of September 19th, 2020 are
+		</p>
+		<ul class="narrow">
+			<li>pymysql</li>
+			<li>google-api-python-client</li>
+			<li>google-auth-httplib2</li>
+			<li>google-auth-oauthlib</li>
+		</ul>
+		<p class="content">
+			If <code>venv/bin/pip3</code> prints a message recommending running a command to upgrade it, you should run that command when convenient.
+		</p>
+
+		<p class="content">
+			It will be occasionally necessary to manually run SQL commands to handle new database interactions. These will be discussed on a case by case basis.
 		</p>
 	</body>
 </html>
