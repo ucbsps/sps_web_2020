@@ -349,18 +349,40 @@ div.footer {
 	padding-left: 10%;
 	padding-right: 10%;
 	float: left;
+	font-size: 0.5vw;
 }
 
 div.footer-text {
-	padding: 0.5em;
-	margin: 0.5em;
+	padding: 0.5%;
+	margin: 0.5%;
 	width: 60%;
 	float: left;
 }
 
 .ocf_banner {
-	padding: 0.5em;
-	margin: 0.5em;
-	width: 10%;
+	padding: 0.5%;
+	margin: 0.5%;
+	width: 35%;
 	float: left;
+}
+
+.ocf_banner img {
+	width: 100%;
+	height: auto;
+	padding: 0%;
+	margin: 0%;
+}
+
+@media (max-width: 1000px){
+	div.footer {
+		font-size: 1.5vw;
+	}
+
+	div.footer-text {
+		width: 80%;
+	}
+
+	.ocf_banner {
+		width: 15%;
+	}
 }
