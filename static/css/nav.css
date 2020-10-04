@@ -99,13 +99,13 @@ li.nav-dropdown-item >ul {
 	border: solid;
 	border-color: var(--blue-1);
 	border-width: 0.1em;
-	font-size: 1.7vw;
+	font-size: 0.9vw;
 	font-weight: light;
 }
 
-@media (max-width:100px){
+@media (max-width: 1000px){
 	#nav-second {
-		font-size: 4.8vw;
+		font-size: 2.2vw;
 	}
 }
 
