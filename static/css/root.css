@@ -155,6 +155,16 @@ p.content-section {
 	border-radius: 0.5em;
 }
 
+@media (max-width: 1000px){
+	img.content-section {
+		width: 26%;
+	}
+
+	p.content-section {
+		width: 66%;
+	}
+}
+
 .content-large {
 	width: 95%;
 	max-width: 1000px;
