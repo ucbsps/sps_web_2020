@@ -298,6 +298,28 @@ img.center {
 	display: block;	
 }
 
+div.youtube-embed {
+	width: 65%;
+	margin-left: 17.5%;
+	margin-right: 17.5%;
+}
+
+div.youtube-embed-inner {
+	width: 100%;
+	padding-top: 56.25%;
+	position: relative;
+	float: left;
+	clear: both;
+}
+
+div.youtube-embed-inner iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
 .footer {
 	padding: 1%;
 	background-image: linear-gradient(to top right, #4889C1, #85CEED);
