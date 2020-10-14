@@ -1,50 +1,76 @@
-<meta name="sps:title" content="Current POTW" />
+<html>
+	<head>
+		<title>Current POTW</title>
 
-<h1 class="content-main-header">Current Problem of the Week</h1>
-<h2 class="content-sub-header">For {{ start_date }} to {{ end_date }} </h2>
+		<script>
+		 $(function(){
+			 $("#like-button").on("click", function(){
+				 $.post("/api/potw_like_dislike",
+						{csrfmiddlewaretoken: "{{ csrf_token }}", vote: "like"},
+						function() {alert("Your feedback is appreciated!");});
+			 });
+			 $("#dislike-button").on("click", function(){
+				 $.post("/api/potw_like_dislike",
+						{csrfmiddlewaretoken: "{{ csrf_token }}", vote: "dislike"},
+						function() {alert("Your feedback is appreciated.");});
+			 });
+		 });
+		</script>
+	</head>
+	<body>
+		<h1 class="content-main-header">Current Problem of the Week</h1>
+		<h2 class="content-sub-header">For {{ start_date }} to {{ end_date }} </h2>
 
-<p class="content-large">
-	{% autoescape off %}
-	{{ problem_description }}
-	{% endautoescape %}
-</p>
-{% if linked_problem %}
-{% autoescape off %}
-{{ linked_problem }}
-{% endautoescape %}
-{% endif %}
+		<p class="content-large">
+			{% autoescape off %}
+			{{ problem_description }}
+			{% endautoescape %}
+		</p>
+		{% if linked_problem %}
+		{% autoescape off %}
+		{{ linked_problem }}
+		{% endautoescape %}
+		{% endif %}
 
-<h1 class="content-header">What is Problem of the Week?</h1>
+		<div class="center">
+			Please rate this problem of the week: 
+			<button id="like-button">Like</button>
+			<button id="dislike-button">Dislike</button>
+		</div>
 
-<p class="content-large">
-	<b>Problem of the weeks</b> are problems that will be shown on the SPS website from Saturday morning to Friday night. It is meant to be done at your leisure time and done out of curiosity and not out of obligation. The winner will have a chance for their image and bio to be shown on this website.
-</p>
-<p class="content-large">
-	If you think you solved the problem, please email ucbsps “at” gmail “dot” com with the subject line “Problem of The Week. Show some work!
-</p>
-<p class="content-large">
-	You can also contact us if you have problem suggestions. Fill out <a href="https://docs.google.com/forms/d/e/1FAIpQLSfcLklKmNySO3-I7ikC2qA0DKNU_QYSz3PSkyf7jkOZV8nfEw/viewform">this form</a> with the problem, steps, and the solution. It must be original, unique, and not easily searchable on the internet.
-</p>
+		<h1 class="content-header">What is Problem of the Week?</h1>
 
-<h1 class="content-header">Past Problem of the Weeks</h1>
+		<p class="content-large">
+			<b>Problem of the weeks</b> are problems that will be shown on the SPS website from Saturday morning to Friday night. It is meant to be done at your leisure time and done out of curiosity and not out of obligation. The winner will have a chance for their image and bio to be shown on this website.
+		</p>
+		<p class="content-large">
+			If you think you solved the problem, please email ucbsps “at” gmail “dot” com with the subject line “Problem of The Week. Show some work!
+		</p>
+		<p class="content-large">
+			You can also contact us if you have problem suggestions. Fill out <a href="https://docs.google.com/forms/d/e/1FAIpQLSfcLklKmNySO3-I7ikC2qA0DKNU_QYSz3PSkyf7jkOZV8nfEw/viewform">this form</a> with the problem, steps, and the solution. It must be original, unique, and not easily searchable on the internet.
+		</p>
 
-{% if past_problems %}
-<ul class="content">
-	{% for start_date, end_date in past_problems %}
-	<li><a href="/potw/{{ start_date }}">{{ start_date }} to {{ end_date }}</a></li>
-	{% endfor %}
-</ul>
-{% endif %}
+		<h1 class="content-header">Past Problem of the Weeks</h1>
 
-<p class="content"><a href="/potw">Current Problem of the Week</a></p>
+		{% if past_problems %}
+		<ul class="content">
+			{% for start_date, end_date in past_problems %}
+			<li><a href="/potw/{{ start_date }}">{{ start_date }} to {{ end_date }}</a></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
 
-{% if scores %}
-<h1 class="content-header">Problem of the Week Scoreboard</h1>
+		<p class="content"><a href="/potw">Current Problem of the Week</a></p>
 
-<table class="content center">
-	<tr><td><b>Name</b></td><td><b>Problems Solved</b></td></tr>
-	{% for name, solved in scores %}
-	<tr><td>{{ name }}</td><td>{{ solved }}</td></tr>
-	{% endfor %}
-</table>
-{% endif %}
+		{% if scores %}
+		<h1 class="content-header">Problem of the Week Scoreboard</h1>
+
+		<table class="content center">
+			<tr><td><b>Name</b></td><td><b>Problems Solved</b></td></tr>
+			{% for name, solved in scores %}
+			<tr><td>{{ name }}</td><td>{{ solved }}</td></tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+	</body>
+</html>
