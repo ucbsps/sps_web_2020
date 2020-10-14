@@ -13,6 +13,7 @@ from django.shortcuts import render
 from django.template.loader import render_to_string, TemplateDoesNotExist
 
 from datetime import date
+import xml.etree.ElementTree as ET
 
 from database_pool import database_pool
 import db_util
@@ -187,11 +188,43 @@ def load_potw(request, date):
                                     'linked_problem': linked_problem,
                                     'solution_description': potw_data['solution'],
                                     'linked_solution': linked_solution,
-                                    'past_problems': past_problems})
+                                    'past_problems': past_problems},
+                                   request=request)
     except TemplateDoesNotExist:
         return error_500(request)
 
-    return render(request, 'root.html', {'title': 'POTW for {}'.format(date), 'content': content})
+    try:
+        page_tree = ET.ElementTree(ET.fromstring(content))
+    except FileNotFoundError as e:
+        print(e)
+        return error_500(request)
+    except ET.ParseError as e:
+        print(e)
+        return error_500(request)
+
+    page_tree_root = page_tree.getroot()
+
+    header_tags = []
+    content = ''
+
+    for child in page_tree_root:
+        if child.tag == 'head':
+            for head_child in child:
+                if not head_child.tag == 'title':
+                    header_tags.append(ET.tostring(head_child, method='html', encoding='unicode'))
+        if child.tag == 'body':
+            content = ET.tostring(child, method='html', encoding='unicode')
+
+    header = ''.join(header_tags)
+
+    # remove body tag from content
+    content = content.replace('<body>', '').replace('</body>', '')
+    # remove whitespace in order to compress content
+#    content = content.replace('\n', '').replace('\t', '')
+#    header = header.replace('\n', '').replace('\t', '')
+
+    return render(request, 'root.html', {'title': 'POTW for {}'.format(date),
+                                         'header': header, 'content': content})
 
 def load_potw_current(request):
     """Return the latest rendered POTW (does not include solution)."""
@@ -207,8 +240,6 @@ def load_potw_current(request):
     linked_problem = link_html(potw_data['linked_problem'])
 
     scores = get_potw_scoreboard()
-    print(scores)
-    print(past_problems)
 
     try:
         content = render_to_string('potw_current.html',
@@ -217,8 +248,40 @@ def load_potw_current(request):
                                     'end_date': potw_data['end_date'],
                                     'linked_problem': linked_problem,
                                     'past_problems': past_problems,
-                                    'scores': scores})
-    except TemplateDoesNotExist:
+                                    'scores': scores},
+                                   request=request)
+    except TemplateDoesNotExist as e:
         return error_500(request)
 
-    return render(request, 'root.html', {'title': 'SPS POTW', 'content': content})
+    try:
+        page_tree = ET.ElementTree(ET.fromstring(content))
+    except FileNotFoundError as e:
+        print(e)
+        return error_500(request)
+    except ET.ParseError as e:
+        print('ET.ParseError {}'.format(e))
+        return error_500(request)
+
+    page_tree_root = page_tree.getroot()
+
+    header_tags = []
+    content = ''
+
+    for child in page_tree_root:
+        if child.tag == 'head':
+            for head_child in child:
+                if not head_child.tag == 'title':
+                    header_tags.append(ET.tostring(head_child, method='html', encoding='unicode'))
+        if child.tag == 'body':
+            content = ET.tostring(child, method='html', encoding='unicode')
+
+    header = ''.join(header_tags)
+
+    # remove body tag from content
+    content = content.replace('<body>', '').replace('</body>', '')
+    # remove whitespace in order to compress content
+#    content = content.replace('\n', '').replace('\t', '')
+#    header = header.replace('\n', '').replace('\t', '')
+
+    return render(request, 'root.html', {'title': 'SPS POTW',
+                                         'header': header, 'content': content})
