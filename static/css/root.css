@@ -1,4 +1,14 @@
-@import "color.css";
+:root {
+	--blue-1: #4889C1;
+	--blue-2: #85CEED;
+	--blue-3: #ABC3DB;
+	--blue-half: #64AfD5;
+
+	--text-light: #FFFFFF;
+	--text-dark: #000000;
+	--text-light-alt: #E0E0F0;
+	--text-dark-alt: #606060;
+}
 
 @font-face {
 	font-family: "Open Sans";
@@ -26,6 +36,35 @@
 	src: URL('/static/fonts/OpenSans-Light.ttf') format('truetype');
 	font-weight: light;
 	font-style: normal;
+}
+
+p {
+	padding: 0%;
+	margin: 0%;
+	float: left;
+	width: 100%;
+}
+
+a {
+	color: var(--text-dark);
+}
+
+a:hover {
+	text-decoration: none;
+	color: var(--text-dark-alt);
+}
+
+.light {
+	color: var(--text-light);
+}
+
+.light a {
+	color: var(--text-light);
+}
+
+a.light:hover {
+	text-decoration: none;
+	color: var(--text-light-alt);
 }
 
 body {
@@ -60,13 +99,53 @@ img.header {
 	margin: 0.5%;
 	margin-left: auto;
 	margin-right: auto;
+	clear: both;
 }
 
 .content ul {
-	width: auto;
-	margin-left: auto;
-	margin-right: auto;
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
 	text-align: left;
+}
+
+ul.narrow {
+	width: 60%;
+	max-width: 600px;
+	text-align: left;
+}
+
+.content ol {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	text-align: left;
+}
+
+div.content-section {
+	width: 100%;
+	float: left;
+	clear: both;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+}
+
+img.content-section {
+	width: 46%;
+	padding: 1%;
+	background-color: var(--blue-3);
+	margin: 1%;
+	border-radius: 0.5em;
+}
+
+p.content-section {
+	width: 46%;
+	padding: 1%;
+	background-color: var(--blue-1);
+	margin: 1%;
+	border-radius: 0.5em;
 }
 
 .content-large {
@@ -87,14 +166,17 @@ img.header {
 }
 
 h1.content-header {
+	text-align: center;
 	font-size: 2.2vw;
 }
 
 h2.content-header {
+	text-align: center;
 	font-size: 1.8vw;
 }
 
 h3.content-header {
+	text-align: center;
 	font-size: 1.2vw;
 }
 
@@ -116,6 +198,73 @@ h3.content-header {
 	font-weight: light;
 }
 
+div.gallery {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+	gap: 12%;
+}
+
+div.gallery-item,
+div.gallery-item-small {
+	width: 40%;
+	padding: 1%;
+	margin: 1%;
+	background-color: var(--blue-2);
+	border-radius: 0.5em;
+	color: var(--text-light);
+}
+
+div.gallery-item img {
+	width: 96%;
+	padding: 1%;
+	margin: 1%;
+}
+
+div.gallery-item h2 {
+	width: 90%;
+	padding: 1%;
+	margin: 1%;
+	text-align: center;
+}
+
+div.gallery-item-small img {
+	width: 75%;
+	padding-left: 12.5%;
+	padding-right: 12.5%;
+}
+
+div.img-gallery {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+}
+
+div.img-gallery img {
+	width: 29%;
+	height: auto;
+	padding: 1%;
+	background-color: var(--blue-3);
+	margin: 1%;
+	border-radius: 0.5em;
+}
+
+img.center {
+	width: 65%;
+	padding: 1%;
+	background-color: var(--blue-3);
+	margin: 1%;
+	margin-left: 16.5%;
+	margin-right: 16.5%;
+	border-radius: 0.5em;
+	float: left;
+	display: block;	
+}
+
 .footer {
 	padding: 1%;
 	background-image: linear-gradient(to top right, #4889C1, #85CEED);
@@ -133,32 +282,6 @@ div.footer-text {
 	margin: 0.5em;
 	width: 60%;
 	float: left;
-}
-
-p.footer-text {
-	padding: 0%;
-	margin: 0%;
-	color: var(--text-light);
-	float: left;
-	width: 100%;
-}
-
-div.footer-text a {
-	color: var(--text-light);
-}
-
-div.footer-text a:hover {
-	text-decoration: none;
-	color: var(--text-light-alt);
-}
-
-a {
-	color: var(--text-dark);
-}
-
-a:hover {
-	text-decoration: none;
-	color: var(--text-dark-alt);
 }
 
 .ocf_banner {

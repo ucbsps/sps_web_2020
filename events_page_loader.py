@@ -12,12 +12,13 @@ load_events_subpage -- renders page for events with a specific tag
 from django.shortcuts import render
 from django.template.loader import render_to_string, TemplateDoesNotExist
 
-import pymysql
+from database_pool import database_pool
 from os import path
 import xml.etree.ElementTree as ET
 
 from settings import BASE_DIR
-from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB, MARIADB_HOST
+
+import db_util
 
 from error_handler import error_500
 
@@ -55,17 +56,23 @@ def get_events(upcoming=False, tag=None, count=10):
                 tag = '#' + tag
 
     try:
-        db_conn = pymysql.connect(user=MARIADB_USER, password=MARIADB_PASSWORD,
-                                  database=MARIADB_DB, host=MARIADB_HOST, port=3306)
+        db_conn = database_pool.connection()
+    except Exception as e:
+        print('DB Connection Error: {}'.format(e))
+        return
 
-        cur = db_conn.cursor()
+    if db_conn is None:
+        return
 
-        time_clause = 'end_time < current_timestamp()'
-        order_clause = 'ORDER BY start_time DESC LIMIT {}'.format(count)
-        if upcoming:
-            time_clause = 'end_time > current_timestamp()'
-            order_clause = 'ORDER BY start_time ASC LIMIT {}'.format(count)
+    cur = db_conn.cursor()
 
+    time_clause = 'end_time < current_timestamp()'
+    order_clause = 'ORDER BY start_time DESC LIMIT {}'.format(count)
+    if upcoming:
+        time_clause = 'end_time > current_timestamp()'
+        order_clause = 'ORDER BY start_time ASC LIMIT {}'.format(count)
+
+    try:
         if tag is not None:
             cur.execute('SELECT web2020_events.id, title, description, start_time, end_time,' +
                         ' location, img_path FROM web2020_events LEFT OUTER JOIN web2020_images ON' +
@@ -106,11 +113,14 @@ def get_events(upcoming=False, tag=None, count=10):
             events.append({'title': event_result[1], 'description': event_result[2],
                            'start_time': event_result[3], 'end_time': event_result[4],
                            'location': event_result[5], 'img_path': img_path})
-    except pymysql.Error as e:
-        print('DB Error: {}'.format(e))
 
+        cur.close()
+
+    except Exception as e:
+        print('DB Error: {}'.format(e))
         events = []
 
+    db_conn.close()
     return events
 
 def load_events_page(request, upcoming=False):
@@ -123,11 +133,11 @@ def load_events_page(request, upcoming=False):
 
     try:
         content = render_to_string('events.html', {'events': get_events(upcoming), 'title': title})
+        return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
+                      'content': content})
     except TemplateDoesNotExist:
         return error_500(request, page_name)
 
-    return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
-                                         'content': content})
 
 def load_events_upcoming_page(request):
     """Return a render of upcoming events page."""
@@ -152,7 +162,7 @@ def load_events_subpage(request, event_category):
         description_tags = []
         for child in desc_tree.getroot():
             description_tags.append(ET.tostring(child, method='html', encoding='unicode'))
-
+        
         description = ''.join(description_tags)
     except FileNotFoundError:
         description = ''
@@ -165,8 +175,8 @@ def load_events_subpage(request, event_category):
                                     'past_events': get_events(False, event_category),
                                     'category': get_tag_title(event_category),
                                     'description': description})
+        return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
+                                         'content': content})
+        
     except TemplateDoesNotExist:
         return error_500(request, page_name)
-                    
-    return render(request, 'root.html', {'title': title, 'header': EVENTS_STYLESHEET,
-                                         'content': content})
