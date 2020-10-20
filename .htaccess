@@ -1,7 +1,7 @@
 RewriteEngine on
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ /~chocoli/sps/run.fcgi/$1 [QSA,L]
+RewriteRule ^(.*)$ /run.fcgi/$1 [QSA,L]
 
 Redirect /about.html /about_us
 Redirect /bbq.html /events/bbq
