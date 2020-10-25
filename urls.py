@@ -9,6 +9,7 @@ from django.urls import path, re_path, register_converter
 
 from url_date_converter import url_date_converter
 
+from api import potw_like
 from static_page_loader import load_static_page
 from events_page_loader import load_events_upcoming_page, load_events_archive_page, load_events_subpage
 from potw_page_loader import load_potw, load_potw_current
@@ -50,6 +51,7 @@ urlpatterns = [
             name='static_committee_website_cal_guide'),
     path('potw', load_potw_current, name='potw_current'),
     path('potw/<isodate:date>', load_potw, name='potw_past'),
+    path('api/potw_like', potw_like, name='api_potw_like'),
 ]
 
 handler404 = 'error_handler.error_404'

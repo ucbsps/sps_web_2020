@@ -1,40 +1,64 @@
-<meta name="sps:title" content="Current POTW" />
+<html>
+	<head>
+		<script>
+		 liked = false;
+		 $(function(){
+			 $("#like-button").on("click", function(){
+				 if(!liked){
+				 $.post("/api/potw_like",
+						{csrfmiddlewaretoken: "{{ csrf_token }}", vote: "like"},
+						function() {
+							alert("Your feedback is appreciated!");
+							$("#like-count")[0].value = {{ likes }} + 1;
+						});
+					 liked = true;
+				 }
+			 });
+		 });
+		</script>
+	</head>
+	<body>
+		<h1 class="content-main-header">Problem of the Week</h1>
+		<h2 class="content-sub-header">For {{ start_date }} to {{ end_date }} </h2>
 
-<h1 class="content-main-header">Problem of the Week</h1>
-<h2 class="content-sub-header">For {{ start_date }} to {{ end_date }} </h2>
+		<p class="content-large">
+			{% autoescape off %}
+			{{ problem_description }}
+			{% endautoescape %}
+		</p>
+		{% if linked_problem %}
+		{% autoescape off %}
+		{{ linked_problem }}
+		{% endautoescape %}
+		{% endif %}
 
-<p class="content-large">
-	{% autoescape off %}
-	{{ problem_description }}
-	{% endautoescape %}
-</p>
-{% if linked_problem %}
-{% autoescape off %}
-{{ linked_problem }}
-{% endautoescape %}
-{% endif %}
+		<div class="content">
+			I enjoyed this problem: <button id="like-button" style="padding: 0%; margin: 0%"><img src="/static/images/thumbs_up.svg" alt="like" style="width: 1vw" /></button> <input id="like-count" type="text" value="{{ likes }}" size="2" />
+		</div>
 
-<h1 class="content-header">Solution</h1>
+		<h1 class="content-header">Solution</h1>
 
-<p class="content-large">
-	{% autoescape off %}
-	{{ solution_description }}
-	{% endautoescape %}
-</p>
-{% if linked_solution %}
-{% autoescape off %}
-{{ linked_solution }}
-{% endautoescape %}
-{% endif %}
+		<p class="content-large">
+			{% autoescape off %}
+			{{ solution_description }}
+			{% endautoescape %}
+		</p>
+		{% if linked_solution %}
+		{% autoescape off %}
+		{{ linked_solution }}
+		{% endautoescape %}
+		{% endif %}
 
-<h1 class="content-header">Past Problem of the Weeks</h1>
+		<h1 class="content-header">Past Problem of the Weeks</h1>
 
-{% if past_problems %}
-<ul class="content">
-	{% for start_date, end_date in past_problems %}
-	<li><a href="/potw/{{ start_date }}">{{ start_date }} to {{ end_date }}</a></li>
-	{% endfor %}
-</ul>
-{% endif %}
+		{% if past_problems %}
+		<ul class="content">
+			{% for start_date, end_date in past_problems %}
+			<li><a href="/potw/{{ start_date }}">{{ start_date }} to {{ end_date }}</a></li>
+			{% endfor %}
+		</ul>
+		{% endif %}
 
-<p class="content"><a href="/potw">Current Problem of the Week</a></p>
+		<p class="content"><a href="/potw">Current Problem of the Week</a></p>
+	</body>
+</html>

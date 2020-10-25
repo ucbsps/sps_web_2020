@@ -5,7 +5,7 @@ Script to load all images in the static folder into the images table of the data
 import pymysql
 import os
 
-from secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB, MARIADB_HOST
+from sps_secrets import MARIADB_USER, MARIADB_PASSWORD, MARIADB_DB, MARIADB_HOST
 from db_util import load_set_id
 from file_util import IMAGE_EXTS
 
