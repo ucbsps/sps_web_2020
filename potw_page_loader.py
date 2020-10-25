@@ -52,7 +52,8 @@ def get_latest_potw_data():
     """Return information on the latest POTW.
 
     Return value is a dictionary with parameters 'start_date', 'end_date', 'problem',
-    'linked_problem', 'solution', and 'linked_solution', with datatypes from the Pymysql connector.
+    'linked_problem', 'solution', 'linked_solution', and 'likes'
+    with datatypes from the Pymysql connector.
     """
 
     try:
@@ -67,14 +68,16 @@ def get_latest_potw_data():
     cur = db_conn.cursor()
 
     try:
-        cur.execute('SELECT start_date, end_date, problem, linked_problem, solution, linked_solution' +
+        cur.execute('SELECT start_date, end_date, problem, linked_problem,' +
+                    ' solution, linked_solution, likes' +
                     ' FROM web2020_potw WHERE start_date < current_timestamp()' +
                     ' ORDER BY start_date DESC LIMIT 1')
         results = cur.fetchall()
         for result in results:
             return {'start_date': result[0], 'end_date': result[1],
                     'problem': result[2], 'linked_problem': result[3],
-                    'solution': result[4], 'linked_solution': result[5]}
+                    'solution': result[4], 'linked_solution': result[5],
+                    'likes': result[6]}
         cur.close()
     except Exception as e:
         print('DB Error: {}'.format(e))
@@ -87,7 +90,8 @@ def get_potw_data(date):
     """Return information on the POTW for given date.
 
     Return value is a dictionary with parameters 'start_date', 'end_date', 'problem',
-    'linked_problem', 'solution', and 'linked_solution', with datatypes from the Pymysql connector.
+    'linked_problem', 'solution', 'linked_solution', and 'likes'
+    with datatypes from the Pymysql connector.
     """
 
     try:
@@ -102,7 +106,8 @@ def get_potw_data(date):
     cur = db_conn.cursor()
 
     try:
-        cur.execute('SELECT start_date, end_date, problem, linked_problem, solution, linked_solution' +
+        cur.execute('SELECT start_date, end_date, problem, linked_problem,' +
+                    ' solution, linked_solution, likes' +
                     ' FROM web2020_potw WHERE %s BETWEEN start_date AND end_date' +
                     ' AND end_date < (SELECT MAX(end_date) FROM web2020_potw)' +
                     ' ORDER BY start_date DESC', (date,))
@@ -110,7 +115,8 @@ def get_potw_data(date):
         for result in results:
             return {'start_date': result[0], 'end_date': result[1],
                     'problem': result[2], 'linked_problem': result[3],
-                    'solution': result[4], 'linked_solution': result[5]}
+                    'solution': result[4], 'linked_solution': result[5],
+                    'likes': result[6]}
         cur.close()
     except Exception as e:
         print('DB Error: {}'.format(e))
@@ -188,6 +194,7 @@ def load_potw(request, date):
                                     'linked_problem': linked_problem,
                                     'solution_description': potw_data['solution'],
                                     'linked_solution': linked_solution,
+                                    'likes': potw_data['likes'],
                                     'past_problems': past_problems},
                                    request=request)
     except TemplateDoesNotExist:
@@ -247,6 +254,7 @@ def load_potw_current(request):
                                     'start_date': potw_data['start_date'],
                                     'end_date': potw_data['end_date'],
                                     'linked_problem': linked_problem,
+                                    'likes': potw_data['likes'],
                                     'past_problems': past_problems,
                                     'scores': scores},
                                    request=request)

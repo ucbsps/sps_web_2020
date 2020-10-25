@@ -3,16 +3,18 @@
 		<title>Current POTW</title>
 
 		<script>
+		 liked = false;
 		 $(function(){
 			 $("#like-button").on("click", function(){
-				 $.post("/api/potw_like_dislike",
+				 if(!liked){
+				 $.post("/api/potw_like",
 						{csrfmiddlewaretoken: "{{ csrf_token }}", vote: "like"},
-						function() {alert("Your feedback is appreciated!");});
-			 });
-			 $("#dislike-button").on("click", function(){
-				 $.post("/api/potw_like_dislike",
-						{csrfmiddlewaretoken: "{{ csrf_token }}", vote: "dislike"},
-						function() {alert("Your feedback is appreciated.");});
+						function() {
+							alert("Your feedback is appreciated!");
+							$("#like-count")[0].value = {{ likes }} + 1;
+						});
+					 liked = true;
+				 }
 			 });
 		 });
 		</script>
@@ -32,10 +34,8 @@
 		{% endautoescape %}
 		{% endif %}
 
-		<div class="center">
-			Please rate this problem of the week: 
-			<button id="like-button">Like</button>
-			<button id="dislike-button">Dislike</button>
+		<div class="content">
+			I enjoyed this problem: <button id="like-button" style="padding: 0%; margin: 0%"><img src="/static/images/thumbs_up.svg" alt="like" style="width: 1vw" /></button> <input id="like-count" type="text" value="{{ likes }}" size="2" />
 		</div>
 
 		<h1 class="content-header">What is Problem of the Week?</h1>
