@@ -1,4 +1,5 @@
 venv
 secrets.py
+sps_secrets.py
 __pycache__
 static/potw*
