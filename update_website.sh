@@ -8,6 +8,9 @@ git pull
 # Copy static files to website
 rsync -rc ~/sps_web_2020/static ~/public_html/
 
+# Copy .htaccess
+cp ~/sps_web_2020/.htaccess ~/public_html/.htaccess
+
 # Trigger update of website code
 touch ~/public_html/run.fcgi
 

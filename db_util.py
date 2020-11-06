@@ -3,8 +3,6 @@
 load_set_id -- tries to find the id corresponding to a value in a table, otherwise adds it.
 """
 
-import pymysql
-
 def load_set_id(cur, table, column, value):
     """Returns find the id corresponding to a value in a table, adding the value if it does not exist.
 
@@ -19,7 +17,7 @@ def load_set_id(cur, table, column, value):
 
     try:
         cur.execute('SELECT id FROM {} WHERE {}=%s'.format(table, column), (value,))
-    except pymysql.Error as e:
+    except Exception as e:
         print('DB Error: {}'.format(e))
 
         return None
@@ -28,12 +26,12 @@ def load_set_id(cur, table, column, value):
     if len(ids) == 0:
         try:
             cur.execute('INSERT INTO {} (id, {}) VALUES(0, %s)'.format(table, column), (value,))
-        except pymysql.Error as e:
+        except Exception as e:
             print('DB Error: {}'.format(e))
 
     try:
         cur.execute('SELECT id FROM {} WHERE {}=%s'.format(table, column), (value,))
-    except pymysql.Error as e:
+    except Exception as e:
         print('DB Error: {}'.format(e))
 
         return None
@@ -58,7 +56,7 @@ def get_value_by_id(cur, table, column, id):
 
     try:
         cur.execute('SELECT {} FROM {} WHERE id=%s'.format(column, table), (id,))
-    except pymysql.Error as e:
+    except Exception as e:
         print('DB Error: {}'.format(e))
 
         return None

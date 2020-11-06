@@ -1,0 +1,24 @@
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ /run.fcgi/$1 [QSA,L]
+
+Redirect /about.html /about_us
+Redirect /bbq.html /events/bbq
+Redirect /calendar.html /events
+Redirect /climate.html /wiki/index.php?title=The_Physics_Community
+Redirect /courses.html /wiki/index.php?title=Physics_Curriculum
+Redirect /faq.html /faq
+Redirect /fsl.html /events/fsl
+Redirect /gendered_violence.html /svsh
+Redirect /index.html /
+Redirect /integration_bee.html /events/int_bee
+Redirect /officers.html /officers
+Redirect /outreach.html /committees/outreach
+Redirect /partners.html /partners
+Redirect /potw.html /potw
+Redirect /projects.html /committees/projects
+Redirect /snackshack.html /snack_shack
+Redirect /ugseminar.html /events/ugs
+Redirect /gather https://gather.town/UUQuJikAXfPRHn3M/berkeley-physics
+Redirect /committee/website/join https://docs.google.com/forms/d/e/1FAIpQLScBrgXRNtQbhC0BMYVE-YcmZD59IyphLZQAN34vHIzQ1qKULQ/viewform?usp=sf_link

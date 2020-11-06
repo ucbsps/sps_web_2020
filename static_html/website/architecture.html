@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>SPS Website Committee</title>
+	</head>
+	<body>
+		<h1 class="content-header">SPS Website Architecture Overview</h1>
+		<p class="content">
+			This page will attempt to provide a high level overview of how the SPS website works.
+		</p>
+
+		<h2 class="content-header">HTTP Serving</h2>
+		<p class="content">
+			Much of the HTTP serving for the SPS website is handled by OCF infrastructure. For our purposes, we can treat requests as arriving to an Apache service and responses leaving from the Apache service, but in reality there is another layer of routing between the Apache service and the client.
+		</p>
+		<p class="content">
+			Requests to <code>/static</code> or <code>/wiki</code> will match the names of folders stored in <code>public_html</code>, so when Apache receives such a request, it loads the relevant file and sends it. The wiki contains some php scripts. Apache executes these when loading them, but we do not need to concern ourselves with this. For other requests, Apache consults the <code>.htaccess</code> file stored in  <code>public_html</code>.
+		</p>
+		<p class="content">
+			The first section of <code>.htaccess</code> contains instructions for redirecting links to <code>run.fcgi</code>. The second part, containing lines beginning with <code>Redirect</code>, instructs Apache to redirect certain urls. This is done for compatbility with old versions of the website and for link shortening. <code>run.fcgi</code> is a Python script (though not named as such) that sends requests to the Django application installed at <code>~/sps_web_2020</code>.
+		</p>
+
+		<h2 class="content-header">Response Generation With Django</h2>
+		<p class="content">
+			Our Django application is responsible for generating responses to HTTP requests for anything that is not a static file in <code>/static</code> or part of the Wiki. Django does a lot of things behind the scenes, but we only need to worry about which of our functions it calls when receiving a request.
+		</p>
+		<p class="content">
+			When Django receives a response, it consults the list <code>urlpatterns</code> stored in <code>urls.py</code> to decide which function to call to process the request. The function <code>path</code> or <code>re_path</code> takes a path (or a regular expression) as its first argument, the function to call as its second argument, and optionally a name (useful for debugging). For a <code>path</code>, the function to call should take only a single argument, the HTTP request. For a <code>re_path</code>, the function can also take a captured string (the part of the HTTP path in parantheses). In principle, this could also be a regular expression, but this would require more sanitization in functions, so we try to avoid this. If one of the <code>path</code>s or <code>re_path</code>s match, the corresponding function will be called. If there are no matches, <code>handler404</code> (defined at the bottom of the file) will be called to generate the <code>404</code> error page.
+		</p>
+		<p class="content">
+			Functions that take in HTTP requests and return HTTP responses are referred to in Django terminology as "views". <code>load_static_page</code> is our most commonly used example of one of these functions. These functions combine templates stored in <code>sps_web_2020/templates</code>, static HTML from <code>sps_web_2020/static_html</code>, and data in the database to generate complete HTML pages, which are then returned as the response. The <code>render</code> function is frequently used. This is a Django function that renders a template using a dictionary of information.
+		</p>
+
+		<h2 class="content-header">Data Loading</h2>
+		<p class="content">
+			Most of the information on the website is added by the committee to the static HTML files, but some frequently updated pages automatically pull data from other sources. For ease of use, data is loaded from various Google services. This also provides authentication and authorization (which are unpleasant to deal with). The <code>sps_web_sync</code> repository is responsible for loading data from Google into the database.
+		</p>
+		<p class="content">
+			<code>/events</code> is automatically loaded from the <code>ucbsps@gmail.com</code> Google calendar using the <code>download_calendar.py</code> script.
+		</p>
+		<p class="content">
+			<code>/potw</code> is automatically loaded from the POTW spreadsheet (linked to a Google form) using the <code>download_potw.py</code> script.
+		</p>
+	</body>
+</html>
