@@ -68,16 +68,24 @@ def get_latest_potw_data():
     cur = db_conn.cursor()
 
     try:
+<<<<<<< HEAD
         cur.execute('SELECT start_date, end_date, problem, linked_problem,' +
                     ' solution, linked_solution, likes' +
+=======
+        cur.execute('SELECT start_date, end_date, problem, linked_problem, solution, linked_solution' +
+>>>>>>> db-pooling
                     ' FROM web2020_potw WHERE start_date < current_timestamp()' +
                     ' ORDER BY start_date DESC LIMIT 1')
         results = cur.fetchall()
         for result in results:
             return {'start_date': result[0], 'end_date': result[1],
                     'problem': result[2], 'linked_problem': result[3],
+<<<<<<< HEAD
                     'solution': result[4], 'linked_solution': result[5],
                     'likes': result[6]}
+=======
+                    'solution': result[4], 'linked_solution': result[5]}
+>>>>>>> db-pooling
         cur.close()
     except Exception as e:
         print('DB Error: {}'.format(e))
@@ -106,8 +114,12 @@ def get_potw_data(date):
     cur = db_conn.cursor()
 
     try:
+<<<<<<< HEAD
         cur.execute('SELECT start_date, end_date, problem, linked_problem,' +
                     ' solution, linked_solution, likes' +
+=======
+        cur.execute('SELECT start_date, end_date, problem, linked_problem, solution, linked_solution' +
+>>>>>>> db-pooling
                     ' FROM web2020_potw WHERE %s BETWEEN start_date AND end_date' +
                     ' AND end_date < (SELECT MAX(end_date) FROM web2020_potw)' +
                     ' ORDER BY start_date DESC', (date,))
@@ -115,8 +127,12 @@ def get_potw_data(date):
         for result in results:
             return {'start_date': result[0], 'end_date': result[1],
                     'problem': result[2], 'linked_problem': result[3],
+<<<<<<< HEAD
                     'solution': result[4], 'linked_solution': result[5],
                     'likes': result[6]}
+=======
+                    'solution': result[4], 'linked_solution': result[5]}
+>>>>>>> db-pooling
         cur.close()
     except Exception as e:
         print('DB Error: {}'.format(e))
@@ -247,6 +263,11 @@ def load_potw_current(request):
     linked_problem = link_html(potw_data['linked_problem'])
 
     scores = get_potw_scoreboard()
+<<<<<<< HEAD
+=======
+    print(scores)
+    print(past_problems)
+>>>>>>> db-pooling
 
     try:
         content = render_to_string('potw_current.html',
@@ -254,6 +275,7 @@ def load_potw_current(request):
                                     'start_date': potw_data['start_date'],
                                     'end_date': potw_data['end_date'],
                                     'linked_problem': linked_problem,
+<<<<<<< HEAD
                                     'likes': potw_data['likes'],
                                     'past_problems': past_problems,
                                     'scores': scores},
@@ -265,6 +287,11 @@ def load_potw_current(request):
         page_tree = ET.ElementTree(ET.fromstring(content))
     except FileNotFoundError as e:
         print(e)
+=======
+                                    'past_problems': past_problems,
+                                    'scores': scores})
+    except TemplateDoesNotExist:
+>>>>>>> db-pooling
         return error_500(request)
     except ET.ParseError as e:
         print('ET.ParseError {}'.format(e))
