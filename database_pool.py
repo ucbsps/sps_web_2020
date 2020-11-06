@@ -8,11 +8,7 @@ pool -- A PooledDB
 import pymysql
 from DBUtils.PooledDB import PooledDB
 
-<<<<<<< HEAD
 from sps_secrets import MARIADB_USER, MARIADB_DB, MARIADB_PASSWORD, MARIADB_HOST
-=======
-from secrets import MARIADB_USER, MARIADB_DB, MARIADB_PASSWORD, MARIADB_HOST
->>>>>>> db-pooling
 
 database_pool = PooledDB(creator=pymysql, host=MARIADB_HOST, user=MARIADB_USER,
                          password=MARIADB_PASSWORD, database=MARIADB_DB,

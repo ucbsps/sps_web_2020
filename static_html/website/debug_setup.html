@@ -92,19 +92,11 @@
 		<h3 class="content-header">Create Secrets</h3>
 
 		<p class="content">
-<<<<<<< HEAD
 			The backend requries a secret key in order to operate securely. This key can be randomly generated. The <code>fake_secrets.py</code> script does this. Run <code>cd ~/sps_web_2020</code> to change to the backend directory, then run <code>venv/bin/python fake_secrets.py</code> to generate the <code>sps_secrets.py</code> file.
 		</p>
 
 		<p class="content">
 			The automatically generated <code>sps_secrets.py</code> file does not contain the correct credentials for accessing your mysql database running on the OCF (and it should not, as that would require knowing a password that only you should know). The password for your mysql database is not initially set. You can both set and read the password at the same time by running <code>makemysql</code>. Note that this command only works on the OCF computers. Remember this password, and do not share it with anyone. Once you have the password, you will have to manually edit the file. If you do not have a preferred command line text editor, <code>nano</code> should work well. Run the command <code>nano sps_secrets.py</code> to open the editor. Then change the lines as shown in the table below. <code>[your ocf username]</code> represents your OCF username, for example, I would write <code>carterturn</code>.
-=======
-			The backend requries a secret key in order to operate securely. This key can be randomly generated. The <code>fake_secrets.py</code> script does this. Run <code>cd ~/sps_web_2020</code> to change to the backend directory, then run <code>venv/bin/python fake_secrets.py</code> to generate the <code>secrets.py</code> file.
-		</p>
-
-		<p class="content">
-			The automatically generated <code>secrets.py</code> file does not contain the correct credentials for accessing your mysql database running on the OCF (and it should not, as that would require knowing a password that only you should know). The password for your mysql database is not initially set. You can both set and read the password at the same time by running <code>makemysql</code>. Note that this command only works on the OCF computers. Remember this password, and do not share it with anyone. Once you have the password, you will have to manually edit the file. If you do not have a preferred command line text editor, <code>nano</code> should work well. Run the command <code>nano secrets.py</code> to open the editor. Then change the lines as shown in the table below. <code>[your ocf username]</code> represents your OCF username, for example, I would write <code>carterturn</code>.
->>>>>>> db-pooling
 		</p>
 
 		<table class="content">
@@ -132,11 +124,7 @@
 		</table>
 
 		<p class="content">
-<<<<<<< HEAD
 			Note that the password for "Carter's New Entry" in the table above is not my actual password, just an example of what could be a password. Again, never share your OCF mysql password with anyone (not even me). Finally, we need to add a bit more information that tells <code>sps_web_sync</code> what permissions to request from Google. To do this, add the following lines to the end of <code>sps_secrets.py</code>:
-=======
-			Note that the password for "Carter's New Entry" in the table above is not my actual password, just an example of what could be a password. Again, never share your OCF mysql password with anyone (not even me). Finally, we need to add a bit more information that tells <code>sps_web_sync</code> what permissions to request from Google. To do this, add the following lines to the end of <code>secrets.py</code>:
->>>>>>> db-pooling
 		</p>
 
 		<pre class="content"><code>
@@ -145,11 +133,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',
 		</code></pre>
 
 		<p class="content">
-<<<<<<< HEAD
 			Your final <code>sps_secrets.py</code> file should resemble the one shown below
-=======
-			Your final <code>secrets.py</code> file should resemble the one shown below
->>>>>>> db-pooling
 		</p>
 
 		<img class="center" src="/static/images/webdev/nano_secrets.png" />
@@ -171,15 +155,9 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly',
 		</p>
 
 		<p class="content">
-<<<<<<< HEAD
 			First, you need to copy the <code>sps_secrets.py</code> file from <code>sps_web_2020</code> to <code>sps_web_sync</code>. Do this by running the command
 		</p>
 		<p class="content"><code>cp ~/sps_web_2020/sps_secrets.py ~/sps_web_sync/</code></p>
-=======
-			First, you need to copy the <code>secrets.py</code> file from <code>sps_web_2020</code> to <code>sps_web_sync</code>. Do this by running the command
-		</p>
-		<p class="content"><code>cp ~/sps_web_2020/secrets.py ~/sps_web_sync/</code></p>
->>>>>>> db-pooling
 
 		<p class="content">
 			Next, you need to copy a couple of scripts into the folder read by Apache so that the webserver knows to run the backend. First, we need to make a subfolder of your OCF website that the SPS website will be installed to. Do this with the command <code>mkdir ~/public_html/sps</code>. Next, copy the files <code>.htaccess</code> and <code>run.fcgi</code> from <code>sps_web_2020</code> to that folder by running the commands <code>cp ~/sps_web_2020/.htaccess ~/public_html/sps/</code> and <code>cp ~/sps_web_2020/run.fcgi ~/public_html/sps/</code>.
