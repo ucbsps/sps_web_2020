@@ -34,6 +34,7 @@ urlpatterns = [
     re_path(r'^events/(fsl)$', load_events_subpage, name='events_fsl'),
     re_path(r'^events/(ugs)$', load_events_subpage, name='events_ugs'),
     re_path(r'^events/(bbq)$', load_events_subpage, name='events_bbq'),
+    re_path(r'^events/(mentorship)$', load_events_subpage, name='events_mentorship'),
     re_path(r'^events/(uspt)$', load_static_page, name='static_uspt'),
     re_path(r'^events/(bpt)$', load_static_page, name='static_bpt'),
     re_path(r'^events/(int_bee)$', load_static_page, name='static_int_bee'),
