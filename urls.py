@@ -9,6 +9,7 @@ from django.urls import path, re_path, register_converter
 
 from url_date_converter import url_date_converter
 
+from api import potw_like
 from static_page_loader import load_static_page
 from events_page_loader import load_events_upcoming_page, load_events_archive_page, load_events_subpage
 from potw_page_loader import load_potw, load_potw_current
@@ -33,6 +34,7 @@ urlpatterns = [
     re_path(r'^events/(fsl)$', load_events_subpage, name='events_fsl'),
     re_path(r'^events/(ugs)$', load_events_subpage, name='events_ugs'),
     re_path(r'^events/(bbq)$', load_events_subpage, name='events_bbq'),
+    re_path(r'^events/(mentorship)$', load_events_subpage, name='events_mentorship'),
     re_path(r'^events/(uspt)$', load_static_page, name='static_uspt'),
     re_path(r'^events/(bpt)$', load_static_page, name='static_bpt'),
     re_path(r'^events/(int_bee)$', load_static_page, name='static_int_bee'),
@@ -50,6 +52,7 @@ urlpatterns = [
             name='static_committee_website_cal_guide'),
     path('potw', load_potw_current, name='potw_current'),
     path('potw/<isodate:date>', load_potw, name='potw_past'),
+    path('api/potw_like', potw_like, name='api_potw_like'),
 ]
 
 handler404 = 'error_handler.error_404'
