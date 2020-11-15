@@ -348,20 +348,20 @@ div.footer {
 	padding-left: 10%;
 	padding-right: 10%;
 	float: left;
-	font-size: 0.5vw;
+	font-size: 0.8vw;
 }
 
 div.footer-text {
 	padding: 0.5%;
 	margin: 0.5%;
-	width: 60%;
+	width: 70%;
 	float: left;
 }
 
 .ocf_banner {
 	padding: 0.5%;
 	margin: 0.5%;
-	width: 35%;
+	width: 10%;
 	float: left;
 }
 
