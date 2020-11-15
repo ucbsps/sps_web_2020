@@ -266,6 +266,13 @@
 			 $('.slideshow-image')[index_next].style.display = "block";			 
 			 $('.slideshow-image')[index_next].style.opacity = 0.0;
 
+			 // Force slideshow div to be large enough
+			 var current_div_height = $('div.slideshow').height();
+			 var img_height = $('.slideshow-image')[index].height
+			 if(img_height > current_div_height){
+				 $('div.slideshow').css("height", img_height);
+			 }
+
 			 fade_slideshow();
 		 }
 
@@ -308,6 +315,14 @@
 			 $('div.slideshow').css("height", slideshow_height);
 
 			 $('.slideshow-image')[index].style.display = "block";
+
+			 // Force slideshow div to be large enough
+			 var current_div_height = $('div.slideshow').height();
+			 var img_height = $('.slideshow-image')[index].height
+			 if(img_height > current_div_height){
+				 $('div.slideshow').css("height", img_height);
+			 }
+
 			 setInterval(start_slideshow_update, 5000);
 		 }
 
