@@ -99,6 +99,14 @@ li.nav-dropdown-item >ul {
 	border: solid;
 	border-color: var(--blue-1);
 	border-width: 0.1em;
+	font-size: 0.9vw;
+	font-weight: light;
+}
+
+@media (max-width: 1000px){
+	#nav-second {
+		font-size: 2.2vw;
+	}
 }
 
 div.nav-second-p {
@@ -120,6 +128,10 @@ div.nav-second-ul {
 }
 
 @media (max-width: 1000px) {
+	div.nav-second-p {
+		width: 0%;
+	}
+
 	div.nav-second-ul {
 		width: 50%;
 		border-left: none;
