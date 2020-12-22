@@ -234,12 +234,12 @@ div.gallery {
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
-	gap: 12%;
+	gap: 0%;
 }
 
 div.gallery-item,
 div.gallery-item-small {
-	width: 40%;
+	width: 46%;
 	padding: 1%;
 	margin: 1%;
 	background-color: var(--blue-2);
@@ -283,7 +283,10 @@ div.gallery-item-small img {
 
 div.img-gallery {
 	width: 100%;
+	height: auto;
+	object-fit: contain;
 	display: flex;
+	flex: 0 0 auto;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
@@ -292,6 +295,7 @@ div.img-gallery {
 div.img-gallery img {
 	width: 29%;
 	height: auto;
+	object-fit: contain;
 	padding: 1%;
 	background-color: var(--blue-3);
 	margin: 1%;
@@ -336,6 +340,14 @@ div.youtube-embed-inner iframe {
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+table.content {
+	border-collapse: collapse;
+}
+
+table.content tr, td {
+	border: 1px solid var(--text-dark);
 }
 
 .footer {
