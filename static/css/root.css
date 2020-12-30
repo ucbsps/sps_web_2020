@@ -283,27 +283,32 @@ div.gallery-item-small img {
 
 div.img-gallery {
 	width: 100%;
-	height: auto;
-	object-fit: contain;
 	display: flex;
-	flex: 0 0 auto;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
+	gap: 0%;
 }
 
-div.img-gallery img {
+div.img-gallery-item {
 	width: 29%;
 	height: auto;
 	object-fit: contain;
 	padding: 1%;
-	background-color: var(--blue-3);
 	margin: 1%;
+	background-color: var(--blue-3);
 	border-radius: 0.5em;
 }
 
+div.img-gallery-item img {
+	display: block;
+	width: 100%;
+	padding: 0%;
+	margin: 0%;
+}
+
 @media (max-width: 1000px){
-	div.img-gallery img {
+	div.img-gallery-item {
 		width: 45%;
 	}
 }
