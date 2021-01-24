@@ -54,8 +54,11 @@
 
 		{% if past_problems %}
 		<ul class="content">
-			{% for start_date, end_date in past_problems %}
-			<li><a href="/potw/{{ start_date }}">{{ start_date }} to {{ end_date }}</a></li>
+			{% for start_date, end_date, name in past_problems %}
+			<li>
+				{% if name %}{{ name }}: {% endif %}
+				<a href="/potw/{{ start_date }}">{{ start_date }} to {{ end_date }}</a>
+			</li>
 			{% endfor %}
 		</ul>
 		{% endif %}

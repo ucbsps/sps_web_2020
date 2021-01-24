@@ -36,7 +36,7 @@ def get_potw_dates():
     cur = db_conn.cursor()
 
     try:
-        cur.execute('SELECT start_date, end_date FROM web2020_potw' +
+        cur.execute('SELECT start_date, end_date, name FROM web2020_potw' +
                     ' WHERE start_date < (SELECT MAX(start_date) FROM web2020_potw)' +
                     ' ORDER BY start_date DESC')
         results = cur.fetchall()
@@ -46,7 +46,7 @@ def get_potw_dates():
 
     db_conn.close()
 
-    return [{'start_date': result[0], 'end_date': result[1]} for result in results]
+    return [{'start_date': result[0], 'end_date': result[1], 'name': result[2]} for result in results]
 
 def get_latest_potw_data():
     """Return information on the latest POTW.
@@ -180,7 +180,8 @@ def load_potw(request, date):
     if potw_data is None:
         return load_potw_current(request)
 
-    past_problems = [[problem['start_date'].isoformat(), problem['end_date'].isoformat()]
+    past_problems = [[problem['start_date'].isoformat(), problem['end_date'].isoformat(),
+                      problem['name']]
                      for problem in get_potw_dates()]
 
     linked_problem = link_html(potw_data['linked_problem'])
@@ -241,7 +242,8 @@ def load_potw_current(request):
     if potw_data is None:
         return error_500(request)
 
-    past_problems = [[problem['start_date'].isoformat(), problem['end_date'].isoformat()]
+    past_problems = [[problem['start_date'].isoformat(), problem['end_date'].isoformat(),
+                      problem['name']]
                      for problem in get_potw_dates()]
 
     linked_problem = link_html(potw_data['linked_problem'])
