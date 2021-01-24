@@ -19,7 +19,10 @@
 	</head>
 	<body>
 		<h1 class="content-main-header">Problem of the Week</h1>
-		<h2 class="content-sub-header">For {{ start_date }} to {{ end_date }} </h2>
+		<h2 class="content-sub-header">
+			{% if name %}{{ name }}: {% endif %}
+			{{ start_date }} to {{ end_date }}
+		</h2>
 
 		<p class="content-large">
 			{% autoescape off %}
