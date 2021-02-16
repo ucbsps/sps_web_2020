@@ -40,6 +40,7 @@ urlpatterns = [
     re_path(r'^events/(uspt_2020)$', load_static_page, name='static_uspt_2020'),
     re_path(r'^events/(uspt_2019)$', load_static_page, name='static_uspt_2019'),
     re_path(r'^events/(uspt_2018)$', load_static_page, name='static_uspt_2018'),
+    re_path(r'^events/(uc_hackathon)$', load_static_page, name='static_uc_hackathon'),
     re_path(r'^events/(bpt)$', load_static_page, name='static_bpt'),
     re_path(r'^events/(int_bee)$', load_static_page, name='static_int_bee'),
     re_path(r'^events/(town_halls)$', load_static_page, name='static_town_halls'),
