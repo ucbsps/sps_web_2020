@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Springs</title>
+
+		<script type="text/javascript" src="/static/simulation_scripts/jsplot.js" />
+		 
+		<script type="text/javascript">
+		 var time_data = [];
+		 var position_data = [];
+		 var velocity_data = [];
+
+		 var update_interval = null;
+		 var update_delay = 100; // ms
+		 var plot_step = 10;
+
+		 var plot_time_length = 10;
+
+		 var equilibrium_position = 5.0;
+
+		 var position = 0.0;
+		 var velocity = 0.0;
+		 var time = 0.0;
+
+		 var block_width = 60;
+		 var block_height = 40;
+
+		 var wall_width = 10;
+		 var wall_height = 120;
+
+		 function draw_sim(){
+			 var display_div = document.getElementById("sim_display_div");
+			 var canvas = document.getElementById("sim_display");
+			 canvas.width = display_div.offsetWidth;
+			 canvas.height = display_div.offsetHeight;
+
+			 var width = canvas.width;
+			 var height = canvas.height;
+			 var ctx = canvas.getContext("2d");
+			 ctx.clearRect(0, 0, width, height);
+
+			 ctx.translate(0, height / 2);
+
+			 // Draw the wall
+			 ctx.fillStyle = "rgb(0,0,0)";
+			 ctx.fillRect(0, -wall_height/2, wall_width, wall_height);
+
+			 // Draw the block
+			 ctx.fillStyle = "rgb(128,128,128)";
+			 var canvas_position = position * block_width;
+			 ctx.fillRect(canvas_position - block_width / 2, -block_height/2,
+						  block_width, block_height);
+
+			 // Draw the spring
+		 }
+
+		 function start_sim(){
+			 var display_div = document.getElementById("sim_display_div");
+			 var canvas = document.getElementById("sim_display");
+			 canvas.width = display_div.offsetWidth;
+			 canvas.height = display_div.offsetHeight;
+
+			 var width = canvas.width;
+			 var height = canvas.height;
+			 canvas.style.width = width + "px";
+			 canvas.style.height = height + "px";
+
+			 if(update_interval){
+				 stop_sim();
+			 }
+
+			 time_data = [];
+			 position_data = [];
+			 velocity_data = [];
+
+			 position = equilibrium_position + parseFloat(document.getElementById("position_value").value);
+			 velocity = parseFloat(document.getElementById("position_value").value);
+			 time = 0;
+
+			 append_data();
+			 plot_sim();
+
+			 update_interval = setInterval(update_sim, update_delay);
+		 }
+
+		 function stop_sim(){
+			 if(update_interval){
+				 clearInterval(update_interval);
+			 }
+		 }
+
+		 function append_data(){
+			 time_data.push(time / plot_step);
+			 while(time_data[time_data.length - 1] - time_data[0] > plot_time_length){
+				 time_data.shift();
+			 }
+			 position_data.push(position);
+			 position_data = position_data.slice(-time_data.length);
+
+			 velocity_data.push(velocity);
+			 velocity_data = velocity_data.slice(-time_data.length);
+		 }
+
+		 function plot_sim(){
+			 var plots_div = document.getElementById("sim_plots_div");
+			 var position_plot_canvas = document.getElementById("position_plot");
+			 position_plot_canvas.width = plots_div.offsetWidth;
+			 position_plot_canvas.height = plots_div.offsetHeight / 2;
+			 jsplot_plot(position_plot_canvas, time_data, [position_data], "Position");
+
+			 var velocity_plot_canvas = document.getElementById("velocity_plot");
+			 velocity_plot_canvas.width = plots_div.offsetWidth;
+			 velocity_plot_canvas.height = plots_div.offsetHeight / 2;
+			 jsplot_plot(velocity_plot_canvas, time_data, [velocity_data], "Velocity");
+		 }
+
+		 function update_sim(){
+			 var k = parseFloat(document.getElementById("spring_constant").value);
+			 var gamma = parseFloat(document.getElementById("spring_damping").value);
+			 var mass = parseFloat(document.getElementById("block_mass").value);
+
+			 for(var i = 0; i < plot_step; i++){
+				 time += 0.1;
+				 velocity += - 0.1 * (k * (position - equilibrium_position) + gamma * velocity) / mass;
+				 position += 0.1 * velocity;
+
+				 append_data();
+			 }
+
+			 plot_sim();
+			 draw_sim();
+		 }
+		</script>
+		<style type="text/css">
+		 form.sim_settings_form {
+			 display: table;
+			 width: 15%;
+			 float: left;
+		 }
+		 div#sim_display_div {
+			 width: 80%;
+			 float: right;
+		 }
+		 p.sim_settings_form {
+			 display: table-row;
+		 }
+		 label.sim_settings_form {
+			 display: table-cell;
+		 }
+		 input.sim_settings_form {
+			 display: table-cell;
+		 }
+		 input.sim_settings_form_button {
+			 display: table-cell;
+		 }
+		 canvas.sim_plot {
+			 float: left;
+		 }
+		</style>
+	</head>
+	<body>
+		<div style="width: 100%;">
+			<form class="sim_settings_form" action="" style="width: 100%;">
+				<label class="sim_settings_form">Initial Position:</label>
+				<input class="sim_settings_form" type="text" id="position_value" value="0.5" size="5" />
+				<label class="sim_settings_form">Initial Velocity:</label>
+				<input class="sim_settings_form" type="text" id="velocity_value" value="0" size="5" />
+				<label class="sim_settings_form">Spring Constant:</label>
+				<input class="sim_settings_form" type="text" id="spring_constant" value="1" size="5" />
+				<label class="sim_settings_form">Spring Damping:</label>
+				<input class="sim_settings_form" type="text" id="spring_damping" value="1" size="5" />
+				<label class="sim_settings_form">Block Mass:</label>
+				<input class="sim_settings_form" type="text" id="block_mass" value="10" size="5" />
+				<input class="sim_settings_form_button" type="button" onclick="start_sim()" value="Start Sim" />
+				<input class="sim_settings_form_button" type="button" onclick="stop_sim()" value="Stop Sim" />
+			</form>
+		</div>
+		<div id="sim_display_div" style="width: 60%; float: left">
+			<canvas id="sim_display"></canvas>
+		</div>
+		<div id="sim_plots_div" style="width: 35%; float: left">
+			<canvas id="position_plot" class="sim_plot"></canvas>
+			<canvas id="velocity_plot" class="sim_plot"></canvas>
+		</div>
+	</body>
+</html>
