@@ -47,9 +47,9 @@ HOME_IMAGES = [
     '/static/images/projects/destress/destress1.jpg',
     '/static/images/projects/destress/destress3.jpg',
     '/static/images/projects/destress/destress4.jpg',
-    '/static/images/mentorship/mentorship3.jpg',
-    '/static/images/mentorship/mentorship7.jpg',
-    '/static/images/mentorship/mentorship8.jpg',
+    '/static/images/mentorship/2019_2020/mentorship3.jpg',
+    '/static/images/mentorship/2019_2020/mentorship7.jpg',
+    '/static/images/mentorship/2019_2020/mentorship8.jpg',
 ]
 
 def load_home(request):
