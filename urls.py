@@ -47,6 +47,7 @@ urlpatterns = [
     re_path(r'^events/(int_bee_2020)$', load_static_page, name='static_int_bee_2020'),
     re_path(r'^events/(int_bee_2021)$', load_static_page, name='static_int_bee_2021'),
     re_path(r'^events/(town_halls)$', load_static_page, name='static_town_halls'),
+    re_path(r'^events/(zone_meeting)$', load_static_page, name='static_zone_meeting'),
     re_path(r'^committee/(projects)$', load_static_page, name='static_committee_projects'),
     re_path(r'^committee/(outreach)$', load_static_page, name='static_committee_outreach'),
     re_path(r'^committee/(website)$', load_static_page, name='static_committee_website'),
