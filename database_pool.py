@@ -6,8 +6,8 @@ pool -- A PooledDB
     Remember to call close on the cursor and connection after use
 """
 import pymysql
-from dbutils.pooled_db import PooledDB
 
+from dbutils.pooled_db import PooledDB
 from sps_secrets import MARIADB_USER, MARIADB_DB, MARIADB_PASSWORD, MARIADB_HOST
 
 database_pool = PooledDB(creator=pymysql, host=MARIADB_HOST, user=MARIADB_USER,
