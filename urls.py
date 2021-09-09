@@ -24,6 +24,7 @@ urlpatterns = [
     re_path(r'^(faq)$', load_static_page, name='static_faq'),
     re_path(r'^(partners)$', load_static_page, name='static_partners'),
     re_path(r'(officers)', load_static_page, name='static_officers'),
+    re_path(r'(berkeley_discover_initiatives)', load_static_page, name='static_berkeley_discover_initiatives'),
     re_path(r'^(snack_shack)$', load_static_page, name='static_snack_shack'),
     re_path(r'^(study_halls)$', load_static_page, name='static_study_halls'),
     re_path(r'^(mentorship)$', load_static_page, name='static_mentorship'),
