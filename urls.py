@@ -37,6 +37,7 @@ urlpatterns = [
     re_path(r'^events/(ugs)$', load_events_subpage, name='events_ugs'),
     re_path(r'^events/(bbq)$', load_events_subpage, name='events_bbq'),
     re_path(r'^events/(mentorship)$', load_events_subpage, name='events_mentorship'),
+    re_path(r'^events/(general)$', load_events_subpage, name='events_general'),
     re_path(r'^events/(uspt)$', load_static_page, name='static_uspt'),
     re_path(r'^events/(uspt_solutions)$', load_static_page, name='static_uspt_solutions'),
     re_path(r'^events/(uspt_2020)$', load_static_page, name='static_uspt_2020'),

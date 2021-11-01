@@ -37,6 +37,8 @@ def get_tag_title(tag):
         return 'BBQ'
     elif tag == "mentorship":
         return 'Mentorship'
+    elif tag == "general":
+        return "General Meeting"
     else:
         return tag
 
