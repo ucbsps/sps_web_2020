@@ -29,6 +29,7 @@ urlpatterns = [
     re_path(r'^(study_halls)$', load_static_page, name='static_study_halls'),
     re_path(r'^(mentorship)$', load_static_page, name='static_mentorship'),
     re_path(r'^(svsh)$', load_static_page, name='static_svsh'),
+    re_path(r'^(EnI)$', load_static_page, name='static_EnI'),
     path('events', load_events_upcoming_page, name='events'),
     path('events/archive', load_events_archive_page, name='events_archive'),
     re_path(r'^events/(outreach)$', load_events_subpage, name='events_outreach'),
