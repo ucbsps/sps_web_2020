@@ -1,8 +1,8 @@
 #!/bin/bash
 
-python -m pip install virtualenv
+python3 -m pip install virtualenv
 
-virtualenv -p python3.7 venv
+python3 -m venv venv
 
 venv/bin/pip install django
 venv/bin/pip install flup6
